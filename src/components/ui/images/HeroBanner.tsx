@@ -21,14 +21,13 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
   title, 
   subtitle, 
   height = 500,
-  textPosition = 'center', // 'left', 'center', 'right'
+  textPosition = 'center',
   textColor = 'white',
   overlayColor = 'rgba(0, 0, 0, 0.4)',
   titleSize = 'text-4xl',
   subtitleSize = 'text-xl'
 }) => {
   
-  // Text alignment based on position prop
   const alignmentClasses: Record<TextPosition, string> = {
     left: 'items-start text-left pl-10',
     center: 'items-center text-center',
@@ -37,7 +36,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
   
   return (
     <div className="relative w-full" style={{ height: `${height}px` }}>
-      {/* Image container */}
+
       <div className="absolute inset-0">
         <Image
           src={imageUrl}
@@ -46,14 +45,13 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
           style={{ objectFit: 'cover' }}
           priority
         />
-        {/* Dark overlay for better text visibility */}
+
         <div 
           className="absolute inset-0" 
           style={{ backgroundColor: overlayColor }}
         />
       </div>
       
-      {/* Text container */}
       <div className={`relative flex flex-col justify-center h-full w-full z-10 ${alignmentClasses[textPosition]}`}>
         {title && (
           <h1 
