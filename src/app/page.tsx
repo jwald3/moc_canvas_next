@@ -11,7 +11,7 @@ export default function Home() {
                 imageUrl="/images/app-image-demo.jpg"
                 title="Welcome to Our Website"
                 subtitle="Discover amazing products and services tailored just for you"
-                height={600}
+                height={300}
                 textPosition="center"
                 overlayColor="rgba(0, 0, 0, 0.5)"
             />
