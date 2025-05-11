@@ -11,6 +11,8 @@ export default function AvatarImage({ ...props }: AvatarImageProps) {
                 width={64}
                 height={64}
                 rounded="full"
+                style={{ objectFit: 'cover' }}
+                className="rounded-full"
             />
         </div>
     );
