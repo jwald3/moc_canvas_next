@@ -2,7 +2,7 @@
     // it's going to be a card component that includes a thumbnail, a title and tag(s), and an "updated _ ago" timestamp.
 */
 
-import ThumbnailImage from "./images/ThumbnailImage";
+import ThumbnailImage from "../images/ThumbnailImage";
 import { Clock } from "lucide-react";
 import React from "react";
 
