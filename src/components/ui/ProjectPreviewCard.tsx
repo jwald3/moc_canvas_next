@@ -18,9 +18,9 @@ export default function ProjectPreviewCard({
     const tagString = tags.length > 3 ? `${tags.slice(0, 3).join(", ")} and ${tags.length - 3} more` : tags.join(", ");
 
     return (
-        <div className="w-[400px] flex-shrink-0 rounded-xl overflow-hidden shadow-lg bg-white">
+        <div className="w-[424px] flex-shrink-0 rounded-2xl overflow-hidden shadow-md bg-white border border-gray-100">
             {/* Thumbnail container */}
-            <div className="relative h-[225px]">
+            <div className="relative h-[238px]">
                 {/* Image portion with gradient overlay */}
                 <ThumbnailImage 
                     src={imageSrc} 
@@ -32,15 +32,16 @@ export default function ProjectPreviewCard({
                 />
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                {/* A MUCH lighter gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent"></div>
 
                 {/* Text portion - positioned at bottom of image */}
                 <div className="absolute bottom-0 left-0 p-6 text-white">
-                    <h2 className="text-1xl font-bold mb-2">{title}</h2>
+                    <h2 className="text-xl font-semibold mb-2 drop-shadow-sm">{title}</h2>
                     {/* Tags */}
-                    <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-2">
                         <svg
-                            className="w-4 h-4"
+                            className="w-3.5 h-3.5 opacity-80"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -49,8 +50,7 @@ export default function ProjectPreviewCard({
                             <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
                             <line x1="7" y1="7" x2="7.01" y2="7" />
                         </svg>
-                        {/* make the tag string a smaller font size */}
-                        <span className="opacity-90 text-xs">
+                        <span className="text-xs tracking-wide opacity-90 drop-shadow-sm">
                             {tagString}
                         </span>
                     </div>
@@ -58,15 +58,15 @@ export default function ProjectPreviewCard({
             </div>
 
             {/* Bottom section with timestamp and button */}
-            <div className="px-6 py-5 flex items-center justify-between">
+            <div className="px-6 py-5 flex items-center justify-between border-t border-gray-50">
                 {/* Timestamp */}
-                <div className="flex items-center text-gray-600 text-sm gap-1.5">
-                    <Clock size={16} />
+                <div className="flex items-center text-gray-500 text-sm gap-1.5">
+                    <Clock size={15} className="opacity-70" />
                     <span>Updated {updatedTime}</span>
                 </div>
 
                 {/* Button */}
-                <button className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium transition-colors">
+                <button className="px-4 py-2 bg-amber-600 text-white hover:bg-amber-700 rounded-lg text-sm font-medium transition-colors">
                     View Project
                 </button>
             </div>
