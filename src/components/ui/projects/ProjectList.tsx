@@ -21,7 +21,7 @@ export default function ProjectList() {
         <div className="relative group">
             <div 
                 ref={scrollContainerRef}
-                className="grid sm:grid-cols-2 md:grid-cols-none md:flex md:flex-row overflow-x-auto gap-6 hide-scrollbar scroll-smooth"
+                className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-row overflow-x-auto gap-6 hide-scrollbar scroll-smooth"
             >
                 <ProjectPreviewCard />
                 <ProjectPreviewCard />
