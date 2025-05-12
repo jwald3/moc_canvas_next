@@ -3,31 +3,24 @@ import AvatarImage from "@/components/ui/images/AvatarImage";
 import BannerImage from "@/components/ui/images/BannerImage";
 import HeroBanner from "@/components/ui/images/HeroBanner";
 import ThumbnailImage from "@/components/ui/images/ThumbnailImage";
+import ProjectPreviewCard from "@/components/ui/ProjectPreviewCard";
 
 export default function Home() {
     return (
-        <div className="flex flex-col gap-4">
-            <HeroBanner
-                imageUrl="/images/app-image-demo.jpg"
-                title="Welcome to Our Website"
-                subtitle="Discover amazing products and services tailored just for you"
-                height={300}
-                textPosition="center"
-                overlayColor="rgba(0, 0, 0, 0.5)"
-            />
-            <ThumbnailImage
-                src="/images/app-image-demo.jpg"
-                alt="App Image Demo"
-                variant="thumbnail"
-                aspectRatio="auto"
-                rounded={true}
-            />
-            <AvatarImage
-                src="/images/app-image-demo.jpg"
-                alt="App Image Demo"
-                variant="avatar"
-                aspectRatio="auto"
-            />
+        <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
+            <div className="flex flex-col gap-8 py-10">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-3xl font-bold">My Projects</h1>
+                    <button className="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-md">
+                        Add New Project
+                    </button>
+                </div>
+                <div className="flex overflow-x-auto gap-8 pb-6 -mx-6 px-6">
+                    <ProjectPreviewCard />
+                    <ProjectPreviewCard />
+                    <ProjectPreviewCard />
+                </div>
+            </div>
         </div>
     );
 }
