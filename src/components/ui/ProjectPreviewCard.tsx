@@ -18,10 +18,9 @@ export default function ProjectPreviewCard({
     const tagString = tags.length > 3 ? `${tags.slice(0, 3).join(", ")} and ${tags.length - 3} more` : tags.join(", ");
 
     return (
-        <div className="w-[424px] flex-shrink-0 rounded-2xl overflow-hidden shadow-md bg-white border border-gray-100">
-            {/* Thumbnail container */}
-            <div className="relative h-[238px]">
-                {/* Image portion with gradient overlay */}
+        <div className="w-full md:w-[424px] flex-shrink-0 rounded-2xl overflow-hidden shadow-md bg-white border border-gray-100">
+            {/* Thumbnail container - adjust height to maintain aspect ratio on mobile */}
+            <div className="relative w-full aspect-[16/9]">
                 <ThumbnailImage 
                     src={imageSrc} 
                     alt={imageAlt} 
