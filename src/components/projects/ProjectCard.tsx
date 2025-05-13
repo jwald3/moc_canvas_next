@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Project } from '@/types/project';
 import { formatRelativeTime } from '@/utils/dateUtils';
+import { Star } from 'lucide-react';
 
 interface ProjectCardProps {
     project: Project;
@@ -8,6 +9,7 @@ interface ProjectCardProps {
     onProjectClick: (id: number) => void;
     onTagClick: (tag: string) => void;
     activeTags: string[];
+    onSaveToggle?: (id: number) => void;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -16,6 +18,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     onProjectClick,
     onTagClick,
     activeTags,
+    onSaveToggle,
 }) => {
     const [maxChars, setMaxChars] = useState(40);
 
@@ -62,6 +65,28 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             className="relative flex flex-col w-full rounded-lg overflow-hidden bg-white hover:shadow-xl cursor-pointer transition-all group border-2 border-orange-300 card-shadow card-shadow-hover"
             onClick={() => onProjectClick(project.id)}
         >
+            {onSaveToggle && (
+                <button
+                    className="absolute top-2 right-2 z-20 p-2 transition-all hover:scale-110 group/star"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onSaveToggle(project.id);
+                    }}
+                    title={isSaved ? "Unsave Project" : "Save Project"}
+                >
+                    <Star 
+                        size={24} 
+                        className={`
+                            transition-all drop-shadow-md
+                            ${isSaved 
+                                ? 'fill-orange-500 text-orange-500' 
+                                : 'fill-transparent text-white group-hover/star:text-orange-500'
+                            }
+                        `}
+                    />
+                </button>
+            )}
+
             <div className="relative aspect-[3/2] w-full overflow-hidden">
                 <img
                     src={project.image}

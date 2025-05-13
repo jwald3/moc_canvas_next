@@ -130,6 +130,9 @@ export const ProjectsDashboard = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [activeTags, setActiveTags] = useState<string[]>([]);
     const [currentSort, setCurrentSort] = useState<SortOption>(sortOptions[0]);
+    const [savedProjectIds, setSavedProjectIds] = useState<number[]>(
+        savedProjects.map(p => p.id)
+    );
 
     // Update type definitions for functions
     const filterProjects = (projectsList: Project[]): Project[] => {
@@ -180,7 +183,9 @@ export const ProjectsDashboard = () => {
 
     // Modify the filtered projects to include sorting
     const filteredMyProjects = sortProjects(filterProjects(projects));
-    const filteredSavedProjects = sortProjects(filterProjects(savedProjects));
+    const filteredSavedProjects = sortProjects(
+        filterProjects(savedProjects.filter(p => savedProjectIds.includes(p.id)))
+    );
 
     const navigateCarousel = (
         direction: "next" | "prev",
@@ -242,6 +247,16 @@ export const ProjectsDashboard = () => {
         setSearchQuery("");
         setMyProjectsStartIndex(0);
         setSavedProjectsStartIndex(0);
+    };
+
+    const handleSaveToggle = (id: number) => {
+        setSavedProjectIds(prev => {
+            if (prev.includes(id)) {
+                return prev.filter(savedId => savedId !== id);
+            } else {
+                return [...prev, id];
+            }
+        });
     };
 
     useEffect(() => {
@@ -578,12 +593,13 @@ export const ProjectsDashboard = () => {
                                                     <ProjectCard
                                                         key={project.id}
                                                         project={project}
-                                                        isSaved
+                                                        isSaved={savedProjectIds.includes(project.id)}
                                                         onProjectClick={
                                                             handleProjectClick
                                                         }
                                                         onTagClick={handleTagClick}
                                                         activeTags={activeTags}
+                                                        onSaveToggle={handleSaveToggle}
                                                     />
                                                 )
                                             )}
@@ -609,7 +625,8 @@ export const ProjectsDashboard = () => {
                                             onProjectClick={handleProjectClick}
                                             onTagClick={handleTagClick}
                                             activeTags={activeTags}
-                                            isSaved
+                                            isSaved={savedProjectIds.includes(project.id)}
+                                            onSaveToggle={handleSaveToggle}
                                         />
                                     ))}
                                     {!showAllSavedProjects && filteredSavedProjects.length > 3 && (
