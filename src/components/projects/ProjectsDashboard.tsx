@@ -363,6 +363,9 @@ export const ProjectsDashboard = () => {
                 <div className={`${isMobile ? 'hidden' : 'block'} relative mb-6`}>
                     {filteredMyProjects.length > 0 && (
                         <>
+                            <h2 className="text-xl font-bold text-gray-800 mb-6 mt-8">
+                                My Projects
+                            </h2>
                             <button
                                 className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-indigo-700 transition-all border border-gray-100"
                                 onClick={() => navigateCarousel("prev", "my")}
