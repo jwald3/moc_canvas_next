@@ -12,6 +12,7 @@ import {
     List
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
+import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import type { Project } from '@/types/project';
 import { projects, savedProjects } from '@/components/projects/sample-data';
 
@@ -127,15 +128,15 @@ const AllProjectsPage = () => {
                     </div>
 
                     {/* Filters and View Toggle */}
-                    <div className="flex flex-col sm:flex-row justify-between mt-4 space-y-3 sm:space-y-0">
-                        <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-3 sm:space-y-0">
+                        <div className="flex flex-wrap gap-2 sm:max-w-[66%]">
                             {allTags.map((tag) => (
                                 <button
                                     key={tag}
-                                    className={`text-xs px-3 py-1.5 rounded-full transition-all ${
+                                    className={`text-xs px-2 py-1 rounded-full transition-colors ${
                                         activeTag === tag
-                                            ? "bg-card-gradient text-white shadow-md"
-                                            : "bg-white border-2 border-orange-400 text-orange-700 hover:bg-orange-500 hover:text-white"
+                                            ? "bg-card-gradient text-white shadow-sm"
+                                            : "bg-white/90 border border-orange-300 text-orange-700 hover:bg-orange-500 hover:text-white"
                                     }`}
                                     onClick={() => handleTagClick(tag)}
                                 >
@@ -144,46 +145,61 @@ const AllProjectsPage = () => {
                             ))}
                         </div>
 
-                        <div className="flex items-center space-x-2">
-                            <div className="bg-white rounded-full shadow-sm border-2 border-orange-300">
+                        <div className="flex items-center flex-shrink-0 ml-4">
+                            <div className="bg-white rounded-full shadow-sm border-2 border-orange-300 overflow-hidden">
                                 <button 
-                                    className={`px-3 py-1.5 text-sm rounded-l-full ${
+                                    className={`px-3 py-1.5 text-sm rounded-l-full relative ${
                                         viewMode === 'grid' 
-                                            ? 'bg-card-gradient text-white' 
+                                            ? 'bg-card-gradient text-white before:absolute before:inset-0 before:bg-card-gradient' 
                                             : 'text-orange-700 hover:bg-orange-50'
                                     }`}
                                     onClick={() => setViewMode('grid')}
                                 >
-                                    <Grid size={16} />
+                                    <Grid size={16} className="relative z-10" />
                                 </button>
                                 <button 
-                                    className={`px-3 py-1.5 text-sm rounded-r-full ${
+                                    className={`px-3 py-1.5 text-sm rounded-r-full relative ${
                                         viewMode === 'list' 
-                                            ? 'bg-card-gradient text-white' 
+                                            ? 'bg-card-gradient text-white before:absolute before:inset-0 before:bg-card-gradient' 
                                             : 'text-orange-700 hover:bg-orange-50'
                                     }`}
                                     onClick={() => setViewMode('list')}
                                 >
-                                    <List size={16} />
+                                    <List size={16} className="relative z-10" />
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Projects Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredProjects.map(project => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            isSaved={viewType === 'saved'}
-                            onProjectClick={handleProjectClick}
-                            onTagClick={handleTagClick}
-                            activeTag={activeTag}
-                        />
-                    ))}
-                </div>
+                {/* Projects Grid/List */}
+                {viewMode === 'grid' ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredProjects.map(project => (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                isSaved={viewType === 'saved'}
+                                onProjectClick={handleProjectClick}
+                                onTagClick={handleTagClick}
+                                activeTag={activeTag}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col space-y-4">
+                        {filteredProjects.map(project => (
+                            <ProjectListItem
+                                key={project.id}
+                                project={project}
+                                isSaved={viewType === 'saved'}
+                                onProjectClick={handleProjectClick}
+                                onTagClick={handleTagClick}
+                                activeTag={activeTag}
+                            />
+                        ))}
+                    </div>
+                )}
 
                 {filteredProjects.length === 0 && (
                     <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200">
