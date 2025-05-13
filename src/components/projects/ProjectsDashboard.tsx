@@ -20,6 +20,76 @@ interface ProjectCardProps {
     activeTag: string;
 }
 
+const formatRelativeTime = (timestamp: string): string => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    
+    // Future dates should show as "Just now"
+    if (diffInSeconds < 0) return "Just now";
+    
+    const SECONDS_IN = {
+        year: 31536000,
+        month: 2592000,
+        day: 86400,
+        hour: 3600,
+        minute: 60
+    };
+    
+    const days = Math.floor(diffInSeconds / SECONDS_IN.day);
+    const years = Math.floor(diffInSeconds / SECONDS_IN.year);
+    const months = Math.floor(diffInSeconds / SECONDS_IN.month);
+
+    // Years
+    if (years >= 2) return `more than ${years} years ago`;
+    if (years === 1) return "1 year ago";
+    
+    // Months
+    if (months >= 1) return `${months} month${months > 1 ? 's' : ''} ago`;
+    
+    // Weeks and Days
+    if (days >= 30) return "30 days ago";
+    if (days >= 29) return "29 days ago";
+    if (days >= 28) return "4 weeks ago";
+    if (days >= 27) return "27 days ago";
+    if (days >= 26) return "26 days ago";
+    if (days >= 25) return "25 days ago";
+    if (days >= 24) return "24 days ago";
+    if (days >= 23) return "23 days ago";
+    if (days >= 22) return "22 days ago";
+    if (days >= 21) return "3 weeks ago";
+    if (days >= 20) return "20 days ago";
+    if (days >= 19) return "19 days ago";
+    if (days >= 18) return "18 days ago";
+    if (days >= 17) return "17 days ago";
+    if (days >= 16) return "16 days ago";
+    if (days >= 15) return "15 days ago";
+    if (days >= 14) return "2 weeks ago";
+    if (days >= 13) return "13 days ago";
+    if (days >= 12) return "12 days ago";
+    if (days >= 11) return "11 days ago";
+    if (days >= 10) return "10 days ago";
+    if (days >= 9) return "9 days ago";
+    if (days >= 8) return "8 days ago";
+    if (days >= 7) return "1 week ago";
+    if (days >= 6) return "6 days ago";
+    if (days >= 5) return "5 days ago";
+    if (days >= 4) return "4 days ago";
+    if (days >= 3) return "3 days ago";
+    if (days >= 2) return "2 days ago";
+    if (days >= 1) return "1 day ago";
+    
+    // Hours
+    const hours = Math.floor(diffInSeconds / SECONDS_IN.hour);
+    if (hours >= 1) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    
+    // Minutes
+    const minutes = Math.floor(diffInSeconds / SECONDS_IN.minute);
+    if (minutes >= 1) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    
+    return "Just now";
+};
+
 const ProjectCard: React.FC<ProjectCardProps> = ({
     project,
     isSaved,
@@ -85,7 +155,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 <div>
                     {isSaved && <p className="text-sm mb-1">{project.owner}</p>}
                     <p className="text-xs text-gray-500">
-                        Updated {project.lastUpdated}
+                        Updated {formatRelativeTime(project.lastUpdated)}
                     </p>
                 </div>
                 <button
@@ -115,6 +185,21 @@ const ViewAllButton = ({ onClick }: { onClick: () => void }) => (
     </button>
 );
 
+// Add these types at the top of the file
+type SortOption = {
+    label: string;
+    value: keyof Project | 'tagCount';
+    direction: 'asc' | 'desc';
+};
+
+const sortOptions: SortOption[] = [
+    { label: 'Recently Updated', value: 'lastUpdated', direction: 'desc' },
+    { label: 'Project Name (A-Z)', value: 'name', direction: 'asc' },
+    { label: 'Project Name (Z-A)', value: 'name', direction: 'desc' },
+    { label: 'Most Tags', value: 'tagCount', direction: 'desc' },
+    { label: 'Least Tags', value: 'tagCount', direction: 'asc' },
+];
+
 export const ProjectsDashboard = () => {
     // State with proper typing
     const [myProjectsStartIndex, setMyProjectsStartIndex] = useState<number>(0);
@@ -127,6 +212,7 @@ export const ProjectsDashboard = () => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [activeTag, setActiveTag] = useState<string>("");
+    const [currentSort, setCurrentSort] = useState<SortOption>(sortOptions[0]);
 
     // Update type definitions for functions
     const filterProjects = (projectsList: Project[]): Project[] => {
@@ -150,9 +236,35 @@ export const ProjectsDashboard = () => {
         });
     };
 
-    // Filtered projects
-    const filteredMyProjects = filterProjects(projects);
-    const filteredSavedProjects = filterProjects(savedProjects);
+    // Add sorting function
+    const sortProjects = (projects: Project[]): Project[] => {
+        return [...projects].sort((a, b) => {
+            if (currentSort.value === 'tagCount') {
+                const comparison = a.tags.length - b.tags.length;
+                return currentSort.direction === 'asc' ? comparison : -comparison;
+            }
+            
+            if (currentSort.value === 'lastUpdated') {
+                const aDate = new Date(a.lastUpdated).getTime();
+                const bDate = new Date(b.lastUpdated).getTime();
+                const comparison = bDate - aDate;
+                return currentSort.direction === 'asc' ? -comparison : comparison;
+            }
+
+            const aValue = a[currentSort.value];
+            const bValue = b[currentSort.value];
+            
+            if (typeof aValue === 'string' && typeof bValue === 'string') {
+                const comparison = aValue.localeCompare(bValue);
+                return currentSort.direction === 'asc' ? comparison : -comparison;
+            }
+            return 0;
+        });
+    };
+
+    // Modify the filtered projects to include sorting
+    const filteredMyProjects = sortProjects(filterProjects(projects));
+    const filteredSavedProjects = sortProjects(filterProjects(savedProjects));
 
     const navigateCarousel = (
         direction: "next" | "prev",
@@ -296,28 +408,47 @@ export const ProjectsDashboard = () => {
                 </div>
 
                 <div className="mb-6">
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search size={18} className="text-gray-400" />
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="relative flex-grow">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Search size={18} className="text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Search projects by name or tag..."
+                                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                value={searchQuery}
+                                onChange={handleSearch}
+                            />
+                            {searchQuery && (
+                                <button
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                                    onClick={() => setSearchQuery("")}
+                                >
+                                    <X size={18} className="text-gray-400 hover:text-gray-600" />
+                                </button>
+                            )}
                         </div>
-                        <input
-                            type="text"
-                            placeholder="Search projects by name or tag..."
-                            className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                        {searchQuery && (
-                            <button
-                                className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                                onClick={() => setSearchQuery("")}
-                            >
-                                <X
-                                    size={18}
-                                    className="text-gray-400 hover:text-gray-600"
-                                />
-                            </button>
-                        )}
+
+                        <select
+                            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-700 sm:w-48"
+                            value={`${currentSort.value}-${currentSort.direction}`}
+                            onChange={(e) => {
+                                const option = sortOptions.find(
+                                    opt => `${opt.value}-${opt.direction}` === e.target.value
+                                );
+                                if (option) setCurrentSort(option);
+                            }}
+                        >
+                            {sortOptions.map((option) => (
+                                <option 
+                                    key={`${option.value}-${option.direction}`}
+                                    value={`${option.value}-${option.direction}`}
+                                >
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </div>
 
