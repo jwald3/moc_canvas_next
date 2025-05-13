@@ -19,7 +19,7 @@ interface ProjectCardProps {
     isSaved?: boolean;
     onProjectClick: (id: number | React.MouseEvent) => void;
     onTagClick: (tag: string) => void;
-    activeTag: string;
+    activeTags: string[];
 }
 
 const formatRelativeTime = (timestamp: string): string => {
@@ -128,7 +128,7 @@ export const ProjectsDashboard = () => {
     const [cardsPerView, setCardsPerView] = useState<number>(3);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [activeTag, setActiveTag] = useState<string>("");
+    const [activeTags, setActiveTags] = useState<string[]>([]);
     const [currentSort, setCurrentSort] = useState<SortOption>(sortOptions[0]);
 
     // Update type definitions for functions
@@ -136,20 +136,19 @@ export const ProjectsDashboard = () => {
         return projectsList.filter((project) => {
             const matchesSearch =
                 searchQuery === "" ||
-                project.name
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase()) ||
+                project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 project.tags.some((tag) =>
                     tag.toLowerCase().includes(searchQuery.toLowerCase())
                 );
 
-            const matchesTag =
-                activeTag === "" ||
-                project.tags.some(
-                    (tag) => tag.toLowerCase() === activeTag.toLowerCase()
+            const matchesTags = activeTags.length === 0 ||
+                activeTags.every(activeTag =>
+                    project.tags.some(tag => 
+                        tag.toLowerCase() === activeTag.toLowerCase()
+                    )
                 );
 
-            return matchesSearch && matchesTag;
+            return matchesSearch && matchesTags;
         });
     };
 
@@ -236,12 +235,11 @@ export const ProjectsDashboard = () => {
     };
 
     const handleTagClick = (tag: string): void => {
-        if (activeTag === tag) {
-            setActiveTag("");
-        } else {
-            setActiveTag(tag);
-            setSearchQuery("");
-        }
+        setActiveTags(prev => {
+            const isActive = prev.includes(tag);
+            return isActive ? prev.filter(t => t !== tag) : [...prev, tag];
+        });
+        setSearchQuery("");
         setMyProjectsStartIndex(0);
         setSavedProjectsStartIndex(0);
     };
@@ -292,7 +290,7 @@ export const ProjectsDashboard = () => {
     const allTags = getAllTags();
     const clearSearch = () => {
         setSearchQuery("");
-        setActiveTag("");
+        setActiveTags([]);
     };
 
     // Add these for mobile view
@@ -379,7 +377,7 @@ export const ProjectsDashboard = () => {
                         <button
                             key={tag}
                             className={`text-xs px-3 py-1.5 rounded-full transition-all ${
-                                activeTag === tag
+                                activeTags.includes(tag)
                                     ? "bg-card-gradient text-white shadow-md"
                                     : "bg-white border-2 border-orange-400 text-orange-700 hover:bg-orange-500 hover:text-white"
                             }`}
@@ -388,10 +386,10 @@ export const ProjectsDashboard = () => {
                             {tag}
                         </button>
                     ))}
-                    {activeTag && (
+                    {activeTags.length > 0 && (
                         <button
                             className="text-xs px-3 py-1.5 rounded-full bg-red-100 text-red-700 hover:bg-red-200 flex items-center transition-all"
-                            onClick={() => setActiveTag("")}
+                            onClick={() => setActiveTags([])}
                         >
                             Clear Filter <X size={12} className="ml-1" />
                         </button>
@@ -419,7 +417,7 @@ export const ProjectsDashboard = () => {
 
                 {/* Add empty states for both sections */}
                 {filteredMyProjects.length === 0 &&
-                (searchQuery || activeTag) ? (
+                (searchQuery || activeTags.length > 0) ? (
                     <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200 mb-6">
                         <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                             <Search size={24} className="text-gray-400" />
@@ -467,7 +465,7 @@ export const ProjectsDashboard = () => {
                                                         handleProjectClick
                                                     }
                                                     onTagClick={handleTagClick}
-                                                    activeTag={activeTag}
+                                                    activeTags={activeTags}
                                                 />
                                             </div>
                                         )
@@ -493,7 +491,7 @@ export const ProjectsDashboard = () => {
                             project={project}
                             onProjectClick={handleProjectClick}
                             onTagClick={handleTagClick}
-                            activeTag={activeTag}
+                            activeTags={activeTags}
                         />
                     ))}
                     {!showAllMyProjects && filteredMyProjects.length > 3 && (
@@ -562,7 +560,7 @@ export const ProjectsDashboard = () => {
                                                     handleProjectClick
                                                 }
                                                 onTagClick={handleTagClick}
-                                                activeTag={activeTag}
+                                                activeTags={activeTags}
                                             />
                                         )
                                     )}
@@ -587,7 +585,7 @@ export const ProjectsDashboard = () => {
                                     project={project}
                                     onProjectClick={handleProjectClick}
                                     onTagClick={handleTagClick}
-                                    activeTag={activeTag}
+                                    activeTags={activeTags}
                                     isSaved
                                 />
                             ))}

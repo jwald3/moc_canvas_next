@@ -8,7 +8,7 @@ interface ProjectListItemProps {
     isSaved?: boolean;
     onProjectClick: (id: number) => void;
     onTagClick: (tag: string) => void;
-    activeTag: string;
+    activeTags: string[];
 }
 
 export const ProjectListItem: React.FC<ProjectListItemProps> = ({
@@ -16,7 +16,7 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
     isSaved,
     onProjectClick,
     onTagClick,
-    activeTag,
+    activeTags,
 }) => {
     return (
         <div 
@@ -55,7 +55,7 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                                     onTagClick(tag);
                                 }}
                                 className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
-                                    activeTag === tag
+                                    activeTags.includes(tag)
                                         ? 'bg-card-gradient text-white shadow-sm'
                                         : 'bg-orange-50 text-orange-700 hover:bg-orange-100'
                                 }`}

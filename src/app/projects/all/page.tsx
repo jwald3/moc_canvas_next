@@ -23,7 +23,7 @@ const AllProjectsPage = () => {
     
     // State
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeTag, setActiveTag] = useState('');
+    const [activeTags, setActiveTags] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
     // Get the correct project list based on view type
@@ -48,22 +48,31 @@ const AllProjectsPage = () => {
                 tag.toLowerCase().includes(searchQuery.toLowerCase())
             );
         
-        const matchesTag = !activeTag ||
-            project.tags.some(tag => 
-                tag.toLowerCase() === activeTag.toLowerCase()
+        const matchesTags = activeTags.length === 0 ||
+            activeTags.every(activeTag =>
+                project.tags.some(tag => 
+                    tag.toLowerCase() === activeTag.toLowerCase()
+                )
             );
         
-        return matchesSearch && matchesTag;
+        return matchesSearch && matchesTags;
     });
 
     // Handlers
     const clearSearch = () => {
         setSearchQuery('');
-        setActiveTag('');
+        setActiveTags([]);
     };
 
     const handleTagClick = (tag: string) => {
-        setActiveTag(activeTag === tag ? '' : tag);
+        setActiveTags(prev => {
+            const isActive = prev.includes(tag);
+            if (isActive) {
+                return prev.filter(t => t !== tag);
+            } else {
+                return [...prev, tag];
+            }
+        });
     };
 
     const handleCreateProject = () => {
@@ -134,7 +143,7 @@ const AllProjectsPage = () => {
                                 <button
                                     key={tag}
                                     className={`text-xs px-2 py-1 rounded-full transition-colors ${
-                                        activeTag === tag
+                                        activeTags.includes(tag)
                                             ? "bg-card-gradient text-white shadow-sm"
                                             : "bg-white/90 border border-orange-300 text-orange-700 hover:bg-orange-500 hover:text-white"
                                     }`}
@@ -182,7 +191,7 @@ const AllProjectsPage = () => {
                                 isSaved={viewType === 'saved'}
                                 onProjectClick={handleProjectClick}
                                 onTagClick={handleTagClick}
-                                activeTag={activeTag}
+                                activeTags={activeTags}
                             />
                         ))}
                     </div>
@@ -195,7 +204,7 @@ const AllProjectsPage = () => {
                                 isSaved={viewType === 'saved'}
                                 onProjectClick={handleProjectClick}
                                 onTagClick={handleTagClick}
-                                activeTag={activeTag}
+                                activeTags={activeTags}
                             />
                         ))}
                     </div>

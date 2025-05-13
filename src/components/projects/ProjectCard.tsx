@@ -7,7 +7,7 @@ interface ProjectCardProps {
     isSaved?: boolean;
     onProjectClick: (id: number) => void;
     onTagClick: (tag: string) => void;
-    activeTag: string;
+    activeTags: string[];
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -15,7 +15,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     isSaved,
     onProjectClick,
     onTagClick,
-    activeTag,
+    activeTags,
 }) => {
     const [maxChars, setMaxChars] = useState(40);
 
@@ -78,7 +78,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                             <span
                                 key={index}
                                 className={`${
-                                    activeTag === tag
+                                    activeTags.includes(tag)
                                         ? "bg-card-gradient text-white shadow-md"
                                         : "bg-white/90 text-orange-700 hover:bg-orange-500 hover:text-white"
                                 } text-xs px-2 py-1 rounded-full mr-1 mb-1 cursor-pointer transition-all`}
