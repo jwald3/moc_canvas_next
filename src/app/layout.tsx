@@ -8,6 +8,8 @@ import {
     UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Github, Twitter, Linkedin } from "lucide-react";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,7 +36,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body
-                    className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                    className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
                 >
                     <header className="flex justify-end items-center p-4 gap-4 h-16">
                         <SignedOut>
@@ -45,7 +47,111 @@ export default function RootLayout({
                             <UserButton />
                         </SignedIn>
                     </header>
-                    {children}
+                    <main className="flex-grow">
+                        {children}
+                    </main>
+                    <footer className="bg-gray-50 border-t border-gray-200">
+                        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                                {/* Company Info */}
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                        Company
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        <li>
+                                            <Link href="/about" className="text-gray-500 hover:text-gray-900">
+                                                About Us
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/careers" className="text-gray-500 hover:text-gray-900">
+                                                Careers
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/blog" className="text-gray-500 hover:text-gray-900">
+                                                Blog
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                {/* Resources */}
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                        Resources
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        <li>
+                                            <Link href="/docs" className="text-gray-500 hover:text-gray-900">
+                                                Documentation
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/tutorials" className="text-gray-500 hover:text-gray-900">
+                                                Tutorials
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/support" className="text-gray-500 hover:text-gray-900">
+                                                Support
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                {/* Legal */}
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                        Legal
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        <li>
+                                            <Link href="/privacy" className="text-gray-500 hover:text-gray-900">
+                                                Privacy Policy
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/terms" className="text-gray-500 hover:text-gray-900">
+                                                Terms of Service
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/cookies" className="text-gray-500 hover:text-gray-900">
+                                                Cookie Policy
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                {/* Social */}
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                        Connect
+                                    </h3>
+                                    <div className="flex space-x-6">
+                                        <a href="https://github.com" className="text-gray-400 hover:text-gray-500">
+                                            <Github className="h-6 w-6" />
+                                        </a>
+                                        <a href="https://twitter.com" className="text-gray-400 hover:text-gray-500">
+                                            <Twitter className="h-6 w-6" />
+                                        </a>
+                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-gray-500">
+                                            <Linkedin className="h-6 w-6" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Bottom section */}
+                            <div className="mt-12 pt-8 border-t border-gray-200">
+                                <p className="text-sm text-gray-400 text-center">
+                                    © {new Date().getFullYear()} Your Company Name. All rights reserved.
+                                </p>
+                            </div>
+                        </div>
+                    </footer>
                 </body>
             </html>
         </ClerkProvider>
