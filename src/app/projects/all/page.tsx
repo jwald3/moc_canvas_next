@@ -146,11 +146,11 @@ const AllProjectsPage = () => {
                         </div>
 
                         <div className="flex items-center flex-shrink-0 ml-4">
-                            <div className="bg-white rounded-full shadow-sm border-2 border-orange-300 overflow-hidden">
+                            <div className="bg-white rounded-full shadow-sm border-2 border-orange-300 overflow-hidden flex">
                                 <button 
-                                    className={`px-3 py-1.5 text-sm rounded-l-full relative ${
+                                    className={`px-3 py-1.5 text-sm relative ${
                                         viewMode === 'grid' 
-                                            ? 'bg-card-gradient text-white before:absolute before:inset-0 before:bg-card-gradient' 
+                                            ? 'bg-card-gradient text-white before:absolute before:inset-[-1px] before:bg-card-gradient' 
                                             : 'text-orange-700 hover:bg-orange-50'
                                     }`}
                                     onClick={() => setViewMode('grid')}
@@ -158,9 +158,9 @@ const AllProjectsPage = () => {
                                     <Grid size={16} className="relative z-10" />
                                 </button>
                                 <button 
-                                    className={`px-3 py-1.5 text-sm rounded-r-full relative ${
+                                    className={`px-3 py-1.5 text-sm relative ${
                                         viewMode === 'list' 
-                                            ? 'bg-card-gradient text-white before:absolute before:inset-0 before:bg-card-gradient' 
+                                            ? 'bg-card-gradient text-white before:absolute before:inset-[-1px] before:bg-card-gradient' 
                                             : 'text-orange-700 hover:bg-orange-50'
                                     }`}
                                     onClick={() => setViewMode('list')}
