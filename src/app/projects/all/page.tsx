@@ -16,10 +16,40 @@ import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import type { Project } from '@/types/project';
 import { projects, savedProjects } from '@/components/projects/sample-data';
 
+const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
+    const router = useRouter();
+
+    return (
+        <div className="flex items-center gap-4 text-sm">
+            <button
+                className={`transition-colors ${
+                    currentView === 'my'
+                        ? 'text-orange-600 font-medium'
+                        : 'text-gray-500 hover:text-orange-600'
+                }`}
+                onClick={() => router.push('/projects/all?view=my')}
+            >
+                My Projects
+            </button>
+            <div className="w-1 h-1 rounded-full bg-gray-300" />
+            <button
+                className={`transition-colors ${
+                    currentView === 'saved'
+                        ? 'text-orange-600 font-medium'
+                        : 'text-gray-500 hover:text-orange-600'
+                }`}
+                onClick={() => router.push('/projects/all?view=saved')}
+            >
+                Saved Projects
+            </button>
+        </div>
+    );
+};
+
 const AllProjectsPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const viewType = searchParams.get('view') || 'my';
+    const currentView = searchParams.get('view') as 'my' | 'saved' || 'my';
     
     // State
     const [searchQuery, setSearchQuery] = useState('');
@@ -27,7 +57,7 @@ const AllProjectsPage = () => {
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
     // Get the correct project list based on view type
-    const projectsList = viewType === 'saved' ? savedProjects : projects;
+    const projectsList = currentView === 'saved' ? savedProjects : projects;
 
     // Get all unique tags
     const getAllTags = () => {
@@ -88,21 +118,24 @@ const AllProjectsPage = () => {
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-                    <div className="flex items-center">
-                        <Link
-                            href="/projects"
-                            className="mr-3 p-2 rounded-full hover:bg-white/20 transition-colors"
-                        >
-                            <ChevronLeft size={20} className="text-orange-800" />
-                        </Link>
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-800 mb-1">
-                                {viewType === 'saved' ? 'Saved Projects' : 'My Projects'}
-                            </h1>
-                            <p className="text-sm text-gray-600">
-                                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
-                            </p>
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center">
+                            <Link
+                                href="/projects"
+                                className="mr-3 p-2 rounded-full hover:bg-white/20 transition-colors"
+                            >
+                                <ChevronLeft size={20} className="text-orange-800" />
+                            </Link>
+                            <div>
+                                <h1 className="text-2xl font-bold text-gray-800 mb-1">
+                                    {currentView === 'my' ? 'My Projects' : 'Saved Projects'}
+                                </h1>
+                                <p className="text-sm text-gray-600">
+                                    {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
+                                </p>
+                            </div>
                         </div>
+                        <ViewToggle currentView={currentView} />
                     </div>
                     <button
                         className="mt-4 sm:mt-0 bg-card-gradient hover-gradient text-white px-4 py-2 rounded-full flex items-center transition-all shadow-md hover:shadow-lg font-semibold text-shadow"
@@ -188,7 +221,7 @@ const AllProjectsPage = () => {
                             <ProjectCard
                                 key={project.id}
                                 project={project}
-                                isSaved={viewType === 'saved'}
+                                isSaved={currentView === 'saved'}
                                 onProjectClick={handleProjectClick}
                                 onTagClick={handleTagClick}
                                 activeTags={activeTags}
@@ -201,7 +234,7 @@ const AllProjectsPage = () => {
                             <ProjectListItem
                                 key={project.id}
                                 project={project}
-                                isSaved={viewType === 'saved'}
+                                isSaved={currentView === 'saved'}
                                 onProjectClick={handleProjectClick}
                                 onTagClick={handleTagClick}
                                 activeTags={activeTags}
