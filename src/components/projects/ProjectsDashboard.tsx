@@ -8,6 +8,7 @@ import {
     Bookmark,
 } from "lucide-react";
 import type { Project } from "@/types/project";
+import Link from 'next/link';
 
 // Move sample data to a separate file
 import { projects, savedProjects } from "./sample-data";
@@ -536,10 +537,24 @@ export const ProjectsDashboard = () => {
                     )}
                 </div>
 
-                {/* Always show the "My Projects" header */}
-                <h2 className="text-xl font-bold text-gray-800 mb-6">
-                    My Projects
-                </h2>
+                {/* My Projects Header Section */}
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 className="text-xl font-bold text-gray-800">
+                            My Projects
+                        </h2>
+                        <p className="text-sm text-gray-500">
+                            {filteredMyProjects.length} project{filteredMyProjects.length !== 1 ? 's' : ''}
+                        </p>
+                    </div>
+                    <Link 
+                        href="/projects?view=my"
+                        className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
+                    >
+                        See All
+                        <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-0.5 transition-transform" />
+                    </Link>
+                </div>
 
                 {/* Add empty states for both sections */}
                 {filteredMyProjects.length === 0 &&
@@ -643,9 +658,23 @@ export const ProjectsDashboard = () => {
                 {/* Saved Projects Section */}
                 {filteredSavedProjects.length > 0 && (
                     <div className="mt-12">
-                        <h2 className="text-xl font-bold text-gray-800 mb-6">
-                            Saved Projects
-                        </h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-800">
+                                    Saved Projects
+                                </h2>
+                                <p className="text-sm text-gray-500">
+                                    {filteredSavedProjects.length} project{filteredSavedProjects.length !== 1 ? 's' : ''}
+                                </p>
+                            </div>
+                            <Link 
+                                href="/projects?view=saved"
+                                className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
+                            >
+                                See All
+                                <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                        </div>
                         <div
                             className={`${
                                 isMobile ? "hidden" : "block"
