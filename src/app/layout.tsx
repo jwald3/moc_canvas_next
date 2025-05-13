@@ -36,41 +36,53 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body
-                    className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gradient-to-br from-yellow-50 via-white to-blue-50`}
+                    className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-theme-gradient`}
                 >
-                    <header className="border-b border-yellow-100 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+                    <header className="sticky top-0 z-50 bg-orange-50/90 backdrop-blur-sm border-b border-orange-200 shadow-sm">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between items-center h-16">
                                 <Link 
                                     href="/" 
-                                    className="flex items-center space-x-2"
+                                    className="flex items-center space-x-2 group"
                                 >
-                                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-500">
+                                    <span className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 bg-clip-text text-transparent group-hover:from-orange-600 group-hover:via-orange-700 group-hover:to-orange-600 transition-all">
                                         MOC Canvas
                                     </span>
                                 </Link>
 
                                 <nav className="hidden md:flex items-center space-x-8">
-                                    <Link href="/projects" className="text-gray-600 hover:text-yellow-600 font-medium">
+                                    <Link 
+                                        href="/projects" 
+                                        className="text-gray-600 hover:text-orange-600 font-medium transition-colors relative group"
+                                    >
                                         Projects
+                                        <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                                     </Link>
-                                    <Link href="/explore" className="text-gray-600 hover:text-yellow-600 font-medium">
+                                    <Link 
+                                        href="/explore" 
+                                        className="text-gray-600 hover:text-orange-600 font-medium transition-colors relative group"
+                                    >
                                         Explore
+                                        <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                                     </Link>
-                                    <Link href="/community" className="text-gray-600 hover:text-yellow-600 font-medium">
+                                    <Link 
+                                        href="/community" 
+                                        className="text-gray-600 hover:text-orange-600 font-medium transition-colors relative group"
+                                    >
                                         Community
+                                        <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                                     </Link>
                                 </nav>
 
                                 <div className="flex items-center space-x-4">
                                     <SignedOut>
                                         <SignInButton mode="modal">
-                                            <button className="text-gray-600 hover:text-yellow-600 font-medium">
+                                            <button className="text-gray-600 hover:text-orange-600 font-medium transition-colors">
                                                 Sign in
                                             </button>
                                         </SignInButton>
                                         <SignUpButton mode="modal">
-                                            <button className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors font-medium shadow-sm hover:shadow-md">
+                                            <button className="bg-card-gradient hover-gradient text-white px-4 py-2 rounded-full transition-all shadow-sm hover:shadow-md font-semibold text-shadow">
                                                 Sign up
                                             </button>
                                         </SignUpButton>
@@ -80,7 +92,13 @@ export default function RootLayout({
                                             afterSignOutUrl="/"
                                             appearance={{
                                                 elements: {
-                                                    avatarBox: "w-8 h-8"
+                                                    avatarBox: "w-8 h-8",
+                                                    userButtonPopoverCard: "!bg-white !border-orange-100",
+                                                    userButtonPopoverFooter: "!border-orange-100",
+                                                    userButtonPopoverActionButton: "!text-gray-600 hover:!text-orange-600 !font-medium",
+                                                    userButtonPopoverActionButtonIcon: "!text-gray-400",
+                                                    userPreviewMainIdentifier: "!text-gray-900",
+                                                    userPreviewSecondaryIdentifier: "!text-gray-500",
                                                 }
                                             }}
                                         />
@@ -94,26 +112,26 @@ export default function RootLayout({
                         {children}
                     </main>
 
-                    <footer className="bg-white/80 backdrop-blur-sm border-t border-yellow-100">
+                    <footer className="bg-white/80 backdrop-blur-sm border-t border-orange-100">
                         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
                                         Company
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/about" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/about" className="text-gray-600 hover:text-orange-600">
                                                 About Us
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/careers" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/careers" className="text-gray-600 hover:text-orange-600">
                                                 Careers
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/blog" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/blog" className="text-gray-600 hover:text-orange-600">
                                                 Blog
                                             </Link>
                                         </li>
@@ -121,22 +139,22 @@ export default function RootLayout({
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
                                         Resources
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/docs" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/docs" className="text-gray-600 hover:text-orange-600">
                                                 Documentation
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/tutorials" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/tutorials" className="text-gray-600 hover:text-orange-600">
                                                 Tutorials
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/support" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/support" className="text-gray-600 hover:text-orange-600">
                                                 Support
                                             </Link>
                                         </li>
@@ -144,22 +162,22 @@ export default function RootLayout({
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
                                         Legal
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/privacy" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/privacy" className="text-gray-600 hover:text-orange-600">
                                                 Privacy Policy
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/terms" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/terms" className="text-gray-600 hover:text-orange-600">
                                                 Terms of Service
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/cookies" className="text-gray-600 hover:text-yellow-600">
+                                            <Link href="/cookies" className="text-gray-600 hover:text-orange-600">
                                                 Cookie Policy
                                             </Link>
                                         </li>
@@ -167,24 +185,24 @@ export default function RootLayout({
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
                                         Connect
                                     </h3>
                                     <div className="flex space-x-6">
-                                        <a href="https://github.com" className="text-gray-400 hover:text-yellow-600 transition-colors">
+                                        <a href="https://github.com" className="text-gray-400 hover:text-orange-600 transition-colors">
                                             <Github className="h-6 w-6" />
                                         </a>
-                                        <a href="https://twitter.com" className="text-gray-400 hover:text-yellow-600 transition-colors">
+                                        <a href="https://twitter.com" className="text-gray-400 hover:text-orange-600 transition-colors">
                                             <Twitter className="h-6 w-6" />
                                         </a>
-                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-yellow-600 transition-colors">
+                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-orange-600 transition-colors">
                                             <Linkedin className="h-6 w-6" />
                                         </a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="mt-12 pt-8 border-t border-yellow-100">
+                            <div className="mt-12 pt-8 border-t border-orange-100">
                                 <p className="text-sm text-gray-400 text-center">
                                     © {new Date().getFullYear()} MOC Canvas. All rights reserved.
                                 </p>
