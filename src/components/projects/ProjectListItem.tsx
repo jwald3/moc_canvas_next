@@ -30,15 +30,17 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                 />
             </div>
             
-            <div className="flex-grow p-3 flex items-center">
-                <div className="flex-grow max-w-[calc(100%-120px)]">
-                    <div className="flex justify-between items-start mb-2">
-                        <div>
-                            <h3 className="font-semibold text-gray-800">{project.name}</h3>
+            <div className="flex-grow p-3 flex items-center justify-between">
+                <div className="flex-grow pr-8 min-w-0">
+                    <div className="flex items-start gap-4 mb-2">
+                        <div className="min-w-0 flex-grow">
+                            <div className="flex items-center gap-3">
+                                <h3 className="font-semibold text-gray-800 truncate">{project.name}</h3>
+                                <span className="text-sm text-gray-500 flex-shrink-0">
+                                    {formatRelativeTime(project.lastUpdated)}
+                                </span>
+                            </div>
                             {isSaved && <p className="text-sm text-gray-600 mt-0.5">{project.owner}</p>}
-                        </div>
-                        <div className="text-sm text-gray-500 ml-4 flex-shrink-0">
-                            {formatRelativeTime(project.lastUpdated)}
                         </div>
                     </div>
                     
@@ -62,7 +64,7 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                     </div>
                 </div>
                 
-                <div className="ml-4 flex items-center flex-shrink-0">
+                <div className="flex-shrink-0 self-center">
                     <button
                         className="py-1.5 px-4 bg-card-gradient hover-gradient text-white rounded-full transition-all shadow-sm hover:shadow-md text-xs font-medium"
                         onClick={(e) => {
