@@ -548,7 +548,7 @@ export const ProjectsDashboard = () => {
                         </p>
                     </div>
                     <Link 
-                        href="/projects?view=my"
+                        href="/projects/all?view=my"
                         className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
                     >
                         See All
@@ -668,7 +668,7 @@ export const ProjectsDashboard = () => {
                                 </p>
                             </div>
                             <Link 
-                                href="/projects?view=saved"
+                                href="/projects/all?view=saved"
                                 className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
                             >
                                 See All
