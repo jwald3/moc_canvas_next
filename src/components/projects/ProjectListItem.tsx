@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Project } from '@/types/project';
 import { formatRelativeTime } from '@/utils/dateUtils';
+import { Clock } from 'lucide-react';
 
 interface ProjectListItemProps {
     project: Project;
@@ -36,7 +37,8 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                         <div className="min-w-0 flex-grow">
                             <div className="flex items-center gap-3">
                                 <h3 className="font-semibold text-gray-800 truncate">{project.name}</h3>
-                                <span className="text-sm text-gray-500 flex-shrink-0">
+                                <span className="text-sm text-gray-500 flex-shrink-0 flex items-center gap-1">
+                                    <Clock size={14} />
                                     {formatRelativeTime(project.lastUpdated)}
                                 </span>
                             </div>
