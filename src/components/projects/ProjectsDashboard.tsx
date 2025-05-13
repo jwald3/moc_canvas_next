@@ -458,7 +458,7 @@ export const ProjectsDashboard = () => {
                 </div>
 
                 {/* Add the tags filter section after the search input */}
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="mt-3 mb-8 flex flex-wrap gap-2">
                     {allTags.map((tag) => (
                         <button
                             key={tag}
@@ -481,6 +481,11 @@ export const ProjectsDashboard = () => {
                         </button>
                     )}
                 </div>
+
+                {/* Always show the "My Projects" header */}
+                <h2 className="text-xl font-bold text-gray-800 mb-6">
+                    My Projects
+                </h2>
 
                 {/* Add empty states for both sections */}
                 {filteredMyProjects.length === 0 &&
@@ -509,9 +514,6 @@ export const ProjectsDashboard = () => {
                 <div className={`${isMobile ? 'hidden' : 'block'} relative mb-6`}>
                     {filteredMyProjects.length > 0 && (
                         <>
-                            <h2 className="text-xl font-bold text-gray-800 mb-6 mt-8">
-                                My Projects
-                            </h2>
                             <button
                                 className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-indigo-700 transition-all border border-gray-100"
                                 onClick={() => navigateCarousel("prev", "my")}
@@ -555,9 +557,6 @@ export const ProjectsDashboard = () => {
 
                 {/* Mobile View - My Projects */}
                 <div className={`${isMobile ? 'block' : 'hidden'} space-y-4`}>
-                    <h2 className="text-xl font-bold text-gray-800 mb-6 mt-8">
-                        My Projects
-                    </h2>
                     {visibleMyProjects.map((project) => (
                         <ProjectCard
                             key={project.id}
@@ -640,9 +639,6 @@ export const ProjectsDashboard = () => {
 
                         {/* Mobile View - Saved Projects */}
                         <div className={`${isMobile ? 'block' : 'hidden'} space-y-4 mt-12`}>
-                            <h2 className="text-xl font-bold text-gray-800 mb-6">
-                                Saved Projects
-                            </h2>
                             {visibleSavedProjects.map((project) => (
                                 <ProjectCard
                                     key={project.id}
