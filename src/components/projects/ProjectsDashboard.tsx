@@ -121,13 +121,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     if (project === null) {
         return (
             <div
-                className="group flex flex-col justify-center items-center w-full h-full rounded-xl border-2 border-dashed border-indigo-300 mx-2 my-4 hover:border-indigo-500 cursor-pointer transition-all bg-gradient-to-br from-gray-50 to-indigo-50 hover:shadow-md"
+                className="group flex flex-col justify-center items-center w-full h-full rounded-xl border-2 border-dashed border-orange-400 mx-2 my-4 hover:border-orange-500 cursor-pointer transition-all bg-gradient-to-br from-orange-100 to-amber-100 hover:shadow-lg hover:shadow-orange-100/50"
                 onClick={(e) => onProjectClick(e)}
             >
-                <div className="bg-indigo-100 rounded-full p-5 mb-4 group-hover:bg-indigo-200 transition-colors">
-                    <Plus size={32} className="text-indigo-600" />
+                <div className="bg-gradient-to-br from-orange-400 to-amber-400 rounded-full p-5 mb-4 group-hover:from-orange-500 group-hover:to-amber-500 transition-all">
+                    <Plus size={32} className="text-white" />
                 </div>
-                <p className="text-indigo-700 font-medium text-lg">
+                <p className="text-orange-700 font-medium text-lg">
                     Create New Project
                 </p>
             </div>
@@ -162,17 +162,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     return (
         <div
             key={project.id}
-            className="relative flex flex-col w-full rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg cursor-pointer mx-2 my-2 transition-all group"
+            className="relative flex flex-col w-full rounded-lg overflow-hidden bg-white hover:shadow-xl cursor-pointer mx-2 my-2 transition-all group border-2 border-orange-300 card-shadow card-shadow-hover"
             onClick={() => onProjectClick(project.id)}
         >
             <div className="relative aspect-[3/2] w-full overflow-hidden">
                 <img
                     src={project.image}
                     alt={project.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70 p-4 flex flex-col justify-between">
-                    <h3 className="text-white font-semibold text-xl">
+                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/20 to-black/80 p-4 flex flex-col justify-between group-hover:via-black/30 group-hover:to-black/90 transition-all">
+                    <h3 className="text-white font-bold text-xl drop-shadow-md">
                         {project.name}
                     </h3>
 
@@ -182,9 +182,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                                 key={index}
                                 className={`${
                                     activeTag === tag
-                                        ? "bg-indigo-600"
-                                        : "bg-black/40"
-                                } text-white text-xs px-2 py-1 rounded mr-1 mb-1 cursor-pointer hover:bg-indigo-600`}
+                                        ? "bg-card-gradient text-white shadow-md"
+                                        : "bg-white border-2 border-orange-400 text-orange-700 hover:bg-orange-500 hover:text-white"
+                                } text-xs px-2 py-1 rounded-full mr-1 mb-1 cursor-pointer transition-all backdrop-blur-sm`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     onTagClick(tag);
@@ -195,10 +195,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                         ))}
                         {hiddenCount > 0 && (
                             <span
-                                className="bg-black/40 text-white text-xs px-2 py-1 rounded mr-1 mb-1 cursor-pointer hover:bg-indigo-600"
+                                className="bg-black/40 text-white text-xs px-2 py-1 rounded-full mr-1 mb-1 cursor-pointer hover:bg-orange-500 transition-all backdrop-blur-sm"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    // Could add functionality to show all tags
                                     alert(`Additional tags: ${project.tags.slice(visibleTags.length).join(', ')}`);
                                 }}
                             >
@@ -209,24 +208,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
             </div>
 
-            <div className="px-3 py-2.5 flex justify-between items-center bg-white">
+            <div className="px-4 py-3 flex justify-between items-center bg-gradient-to-br from-white to-orange-50">
                 <div>
-                    {isSaved && <p className="text-sm mb-1">{project.owner}</p>}
+                    {isSaved && <p className="text-sm mb-1 text-gray-700">{project.owner}</p>}
                     <p className="text-xs text-gray-500">
                         Updated {formatRelativeTime(project.lastUpdated)}
                     </p>
                 </div>
                 <button
-                    className="py-1 px-3 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+                    className="py-1.5 px-4 bg-card-gradient hover-gradient text-white rounded-full transition-all shadow-sm hover:shadow-md flex items-center space-x-1 group font-semibold text-shadow"
                     onClick={(e) => {
                         e.stopPropagation();
                         onProjectClick(project.id);
                     }}
                 >
-                    <span className="flex items-center">
-                        <span className="text-xs font-medium">View</span>
-                        <ChevronRight size={12} className="ml-1" />
-                    </span>
+                    <span className="text-xs font-medium">View</span>
+                    <ChevronRight size={12} className="transform group-hover:translate-x-0.5 transition-transform" />
                 </button>
             </div>
         </div>
@@ -237,7 +234,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 const ViewAllButton = ({ onClick }: { onClick: () => void }) => (
     <button
         onClick={onClick}
-        className="w-full mt-4 py-2 text-center text-indigo-600 font-medium hover:text-indigo-800 border border-dashed border-indigo-300 rounded-lg hover:border-indigo-500 transition-all"
+        className="w-full mt-4 py-2 text-center text-orange-600 font-medium hover:text-orange-800 border border-dashed border-orange-300 rounded-lg hover:border-orange-500 transition-all"
     >
         See More
     </button>
@@ -445,9 +442,9 @@ export const ProjectsDashboard = () => {
         : filteredSavedProjects.slice(0, 3);
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+        <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 px-2">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
                     <div>
                         <h1 className="text-2xl font-bold text-gray-800 mb-1">
                             Project Dashboard
@@ -457,7 +454,7 @@ export const ProjectsDashboard = () => {
                         </p>
                     </div>
                     <button
-                        className="mt-4 sm:mt-0 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded flex items-center transition-all shadow-sm"
+                        className="mt-4 sm:mt-0 bg-card-gradient hover-gradient text-white px-4 py-2 rounded-full flex items-center transition-all shadow-md hover:shadow-lg font-semibold text-shadow"
                         onClick={handleCreateProject}
                     >
                         <Plus size={18} className="mr-2" />
@@ -474,7 +471,7 @@ export const ProjectsDashboard = () => {
                             <input
                                 type="text"
                                 placeholder="Search projects by name or tag..."
-                                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                className="w-full pl-10 pr-10 py-2.5 border-2 border-orange-400 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white shadow-sm"
                                 value={searchQuery}
                                 onChange={handleSearch}
                             />
@@ -489,7 +486,7 @@ export const ProjectsDashboard = () => {
                         </div>
 
                         <select
-                            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-700 sm:w-48"
+                            className="px-4 py-2.5 border border-orange-200 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/70 backdrop-blur-sm text-gray-700 sm:w-48 cursor-pointer"
                             value={`${currentSort.value}-${currentSort.direction}`}
                             onChange={(e) => {
                                 const option = sortOptions.find(
@@ -497,7 +494,6 @@ export const ProjectsDashboard = () => {
                                 );
                                 if (option) {
                                     setCurrentSort(option);
-                                    // Reset carousel positions
                                     setMyProjectsStartIndex(0);
                                     setSavedProjectsStartIndex(0);
                                 }
@@ -520,10 +516,10 @@ export const ProjectsDashboard = () => {
                     {allTags.map((tag) => (
                         <button
                             key={tag}
-                            className={`text-xs px-2 py-1 rounded-md ${
+                            className={`text-xs px-3 py-1.5 rounded-full transition-all ${
                                 activeTag === tag
-                                    ? "bg-indigo-600 text-white"
-                                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                    ? "bg-card-gradient text-white shadow-md"
+                                    : "bg-white border-2 border-orange-400 text-orange-700 hover:bg-orange-500 hover:text-white"
                             }`}
                             onClick={() => handleTagClick(tag)}
                         >
@@ -532,7 +528,7 @@ export const ProjectsDashboard = () => {
                     ))}
                     {activeTag && (
                         <button
-                            className="text-xs px-2 py-1 rounded-md bg-red-100 text-red-700 hover:bg-red-200 flex items-center"
+                            className="text-xs px-3 py-1.5 rounded-full bg-red-100 text-red-700 hover:bg-red-200 flex items-center transition-all"
                             onClick={() => setActiveTag("")}
                         >
                             Clear Filter <X size={12} className="ml-1" />
@@ -560,7 +556,7 @@ export const ProjectsDashboard = () => {
                             you're looking for.
                         </p>
                         <button
-                            className="text-indigo-600 font-medium hover:text-indigo-800"
+                            className="text-orange-600 font-medium hover:text-orange-800"
                             onClick={clearSearch}
                         >
                             Clear search and filters
@@ -573,7 +569,7 @@ export const ProjectsDashboard = () => {
                     {filteredMyProjects.length > 0 && (
                         <>
                             <button
-                                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-indigo-700 transition-all border border-gray-100"
+                                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
                                 onClick={() => navigateCarousel("prev", "my")}
                             >
                                 <ChevronLeft size={20} />
@@ -604,7 +600,7 @@ export const ProjectsDashboard = () => {
                             </div>
 
                             <button
-                                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-indigo-700 transition-all border border-gray-100"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
                                 onClick={() => navigateCarousel("next", "my")}
                             >
                                 <ChevronRight size={20} />
@@ -630,19 +626,17 @@ export const ProjectsDashboard = () => {
                 </div>
 
                 {/* Create New Project Card */}
-                <div className="my-8 px-2">
-                    <div 
-                        onClick={handleCreateProject}
-                        className="cursor-pointer w-full max-w-sm border-2 border-dashed border-indigo-300 rounded-xl py-8 hover:border-indigo-500 transition-all group bg-white hover:bg-indigo-50"
-                    >
-                        <div className="flex flex-col items-center justify-center gap-4">
-                            <div className="bg-indigo-100 rounded-full p-4 group-hover:bg-indigo-200 transition-colors">
-                                <Plus size={24} className="text-indigo-600" />
-                            </div>
-                            <span className="text-indigo-700 font-medium text-lg">
-                                Create New Project
-                            </span>
+                <div 
+                    onClick={handleCreateProject}
+                    className="cursor-pointer w-full max-w-sm border-2 border-dashed border-orange-400 rounded-xl py-8 hover:border-orange-500 transition-all group bg-white hover:bg-orange-50 card-shadow-hover"
+                >
+                    <div className="flex flex-col items-center justify-center gap-4">
+                        <div className="bg-card-gradient rounded-full p-4 group-hover:bg-gradient-hover transition-all">
+                            <Plus size={24} className="text-white" />
                         </div>
+                        <span className="text-orange-700 font-medium text-lg">
+                            Create New Project
+                        </span>
                     </div>
                 </div>
 
@@ -658,7 +652,7 @@ export const ProjectsDashboard = () => {
                             } relative`}
                         >
                             <button
-                                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-indigo-700 transition-all border border-gray-100"
+                                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
                                 onClick={() =>
                                     navigateCarousel("prev", "saved")
                                 }
@@ -686,7 +680,7 @@ export const ProjectsDashboard = () => {
                             </div>
 
                             <button
-                                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-indigo-700 transition-all border border-gray-100"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
                                 onClick={() =>
                                     navigateCarousel("next", "saved")
                                 }

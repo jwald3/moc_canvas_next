@@ -3,6 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Custom theme colors */
+  --color-primary: #ff6b00;     /* Vibrant orange */
+  --color-primary-light: #ff8533;
+  --color-primary-dark: #e65c00;
+  --color-secondary: #ffd700;   /* LEGO yellow */
+  --color-accent: #ff3d00;      /* Deep orange accent */
+  
+  /* Background gradients */
+  --gradient-background: linear-gradient(135deg, #fff6e5 0%, #fff9ec 50%, #fff6e5 100%);
+  --gradient-card: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%);
+  --gradient-hover: linear-gradient(135deg, #ff8500 0%, #ff5500 100%);
 }
 
 @theme inline {
@@ -54,4 +66,32 @@ body {
 
 .subtle-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #CBD5E1;
+}
+
+/* Add new utility classes */
+.bg-theme-gradient {
+  background: var(--gradient-background);
+}
+
+.bg-card-gradient {
+  background: var(--gradient-card);
+}
+
+.hover-gradient:hover {
+  background: var(--gradient-hover);
+}
+
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(255, 107, 0, 0.1), 
+              0 2px 4px -1px rgba(255, 107, 0, 0.06);
+}
+
+.card-shadow-hover:hover {
+  box-shadow: 0 10px 15px -3px rgba(255, 107, 0, 0.1), 
+              0 4px 6px -2px rgba(255, 107, 0, 0.05);
+}
+
+/* Add to your utility classes */
+.text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }

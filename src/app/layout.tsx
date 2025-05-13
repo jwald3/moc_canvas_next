@@ -36,42 +36,41 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body
-                    className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+                    className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gradient-to-br from-yellow-50 via-white to-blue-50`}
                 >
-                    <header className="border-b border-gray-200 bg-white">
+                    <header className="border-b border-yellow-100 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between items-center h-16">
-                                {/* Logo and Name */}
                                 <Link 
                                     href="/" 
                                     className="flex items-center space-x-2"
                                 >
-                                    <span className="text-xl font-bold text-gray-900">MOC Canvas</span>
+                                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-500">
+                                        MOC Canvas
+                                    </span>
                                 </Link>
 
-                                {/* Navigation - can be expanded later */}
                                 <nav className="hidden md:flex items-center space-x-8">
-                                    <Link href="/projects" className="text-gray-500 hover:text-gray-900">
+                                    <Link href="/projects" className="text-gray-600 hover:text-yellow-600 font-medium">
                                         Projects
                                     </Link>
-                                    <Link href="/explore" className="text-gray-500 hover:text-gray-900">
+                                    <Link href="/explore" className="text-gray-600 hover:text-yellow-600 font-medium">
                                         Explore
                                     </Link>
-                                    <Link href="/community" className="text-gray-500 hover:text-gray-900">
+                                    <Link href="/community" className="text-gray-600 hover:text-yellow-600 font-medium">
                                         Community
                                     </Link>
                                 </nav>
 
-                                {/* Auth Buttons */}
                                 <div className="flex items-center space-x-4">
                                     <SignedOut>
                                         <SignInButton mode="modal">
-                                            <button className="text-gray-500 hover:text-gray-900">
+                                            <button className="text-gray-600 hover:text-yellow-600 font-medium">
                                                 Sign in
                                             </button>
                                         </SignInButton>
                                         <SignUpButton mode="modal">
-                                            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                                            <button className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors font-medium shadow-sm hover:shadow-md">
                                                 Sign up
                                             </button>
                                         </SignUpButton>
@@ -94,102 +93,98 @@ export default function RootLayout({
                     <main className="flex-grow">
                         {children}
                     </main>
-                    <footer className="bg-gray-50 border-t border-gray-200">
+
+                    <footer className="bg-white/80 backdrop-blur-sm border-t border-yellow-100">
                         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                                {/* Company Info */}
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
                                         Company
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/about" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/about" className="text-gray-600 hover:text-yellow-600">
                                                 About Us
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/careers" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/careers" className="text-gray-600 hover:text-yellow-600">
                                                 Careers
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/blog" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/blog" className="text-gray-600 hover:text-yellow-600">
                                                 Blog
                                             </Link>
                                         </li>
                                     </ul>
                                 </div>
 
-                                {/* Resources */}
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
                                         Resources
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/docs" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/docs" className="text-gray-600 hover:text-yellow-600">
                                                 Documentation
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/tutorials" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/tutorials" className="text-gray-600 hover:text-yellow-600">
                                                 Tutorials
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/support" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/support" className="text-gray-600 hover:text-yellow-600">
                                                 Support
                                             </Link>
                                         </li>
                                     </ul>
                                 </div>
 
-                                {/* Legal */}
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
                                         Legal
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/privacy" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/privacy" className="text-gray-600 hover:text-yellow-600">
                                                 Privacy Policy
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/terms" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/terms" className="text-gray-600 hover:text-yellow-600">
                                                 Terms of Service
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/cookies" className="text-gray-500 hover:text-gray-900">
+                                            <Link href="/cookies" className="text-gray-600 hover:text-yellow-600">
                                                 Cookie Policy
                                             </Link>
                                         </li>
                                     </ul>
                                 </div>
 
-                                {/* Social */}
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-yellow-600 uppercase tracking-wider">
                                         Connect
                                     </h3>
                                     <div className="flex space-x-6">
-                                        <a href="https://github.com" className="text-gray-400 hover:text-gray-500">
+                                        <a href="https://github.com" className="text-gray-400 hover:text-yellow-600 transition-colors">
                                             <Github className="h-6 w-6" />
                                         </a>
-                                        <a href="https://twitter.com" className="text-gray-400 hover:text-gray-500">
+                                        <a href="https://twitter.com" className="text-gray-400 hover:text-yellow-600 transition-colors">
                                             <Twitter className="h-6 w-6" />
                                         </a>
-                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-gray-500">
+                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-yellow-600 transition-colors">
                                             <Linkedin className="h-6 w-6" />
                                         </a>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Bottom section */}
-                            <div className="mt-12 pt-8 border-t border-gray-200">
+                            <div className="mt-12 pt-8 border-t border-yellow-100">
                                 <p className="text-sm text-gray-400 text-center">
                                     © {new Date().getFullYear()} MOC Canvas. All rights reserved.
                                 </p>
