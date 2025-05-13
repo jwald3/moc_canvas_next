@@ -502,7 +502,7 @@ export const ProjectsDashboard = () => {
                 {/* Create New Project Card */}
                 <div 
                     onClick={handleCreateProject}
-                    className="cursor-pointer w-full max-w-sm border-2 border-dashed border-orange-400 rounded-xl py-12 my-8 hover:border-orange-500 transition-all group bg-white hover:bg-orange-50 card-shadow-hover"
+                    className="cursor-pointer w-full md:w-1/2 lg:w-1/3 border-2 border-dashed border-orange-400 rounded-xl py-12 my-8 hover:border-orange-500 transition-all group bg-white hover:bg-orange-50 card-shadow-hover"
                 >
                     <div className="flex flex-col items-center justify-center gap-4">
                         <div className="bg-card-gradient rounded-full p-4 group-hover:bg-gradient-hover transition-all">
