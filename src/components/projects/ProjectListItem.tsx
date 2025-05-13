@@ -25,9 +25,13 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
         >
             <div className="w-40 h-28 flex-shrink-0 relative overflow-hidden">
                 <img
-                    src={project.image}
+                    src={project.image || "/images/app-image-demo.jpg"}
                     alt={project.name}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = "/images/app-image-demo.jpg";
+                    }}
                 />
             </div>
             
