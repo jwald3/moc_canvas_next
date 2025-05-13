@@ -419,13 +419,18 @@ export const ProjectsDashboard = () => {
 
                 {/* Create New Project Card */}
                 <div className="my-8 px-2">
-                    <div className="max-w-sm mx-auto">
-                        <ProjectCard
-                            project={null}
-                            onProjectClick={handleCreateProject}
-                            onTagClick={handleTagClick}
-                            activeTag={activeTag}
-                        />
+                    <div 
+                        onClick={handleCreateProject}
+                        className="cursor-pointer w-full max-w-sm border-2 border-dashed border-indigo-300 rounded-xl py-8 hover:border-indigo-500 transition-all group bg-white hover:bg-indigo-50"
+                    >
+                        <div className="flex flex-col items-center justify-center gap-4">
+                            <div className="bg-indigo-100 rounded-full p-4 group-hover:bg-indigo-200 transition-colors">
+                                <Plus size={24} className="text-indigo-600" />
+                            </div>
+                            <span className="text-indigo-700 font-medium text-lg">
+                                Create New Project
+                            </span>
+                        </div>
                     </div>
                 </div>
 
