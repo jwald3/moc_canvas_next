@@ -89,9 +89,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
             <div className="relative aspect-[3/2] w-full overflow-hidden">
                 <img
-                    src={project.image}
+                    src={project.image || "/images/app-image-demo.jpg"}
                     alt={project.name}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = "/images/app-image-demo.jpg";
+                    }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/20 to-black/80 p-4 flex flex-col justify-between">
                     <h3 className="text-white font-bold text-xl drop-shadow-md">
