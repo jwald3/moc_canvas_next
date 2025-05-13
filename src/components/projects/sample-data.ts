@@ -5,7 +5,7 @@ export const projects: Project[] = [
         id: 1,
         name: "Imperial Star Destroyer",
         image: "/images/app-image-demo.jpg",
-        tags: ["Star Wars", "Spaceships", "Custom Build"],
+        tags: ["Star Wars", "Spaceships", "Custom Build", "Large Scale", "Build", "Sci-Fi"],
         lastUpdated: "2025-05-11T15:30:00Z",
     },
     {

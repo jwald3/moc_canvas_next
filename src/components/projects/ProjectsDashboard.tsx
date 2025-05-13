@@ -97,6 +97,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     onTagClick,
     activeTag,
 }) => {
+    // Add useEffect to track screen size
+    const [maxChars, setMaxChars] = useState(40);
+
+    useEffect(() => {
+        const updateMaxChars = () => {
+            // For mobile screens (< 640px) use larger character limit
+            if (window.innerWidth < 640) {
+                setMaxChars(60);
+            } else {
+                setMaxChars(40);
+            }
+        };
+
+        // Set initial value
+        updateMaxChars();
+
+        // Update on resize
+        window.addEventListener('resize', updateMaxChars);
+        return () => window.removeEventListener('resize', updateMaxChars);
+    }, []);
+
     if (project === null) {
         return (
             <div
@@ -112,6 +133,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
         );
     }
+
+    const ELLIPSIS_LENGTH = 4; // "+ N "
+    
+    // Calculate visible tags
+    const getVisibleTags = (tags: string[]) => {
+        let totalLength = 0;
+        let visibleTags: string[] = [];
+        
+        for (let i = 0; i < tags.length; i++) {
+            const tag = tags[i];
+            if (totalLength + tag.length + (i > 0 ? 1 : 0) <= maxChars - ELLIPSIS_LENGTH) {
+                visibleTags.push(tag);
+                totalLength += tag.length + (i > 0 ? 1 : 0); // Add 1 for spacing
+            } else {
+                break;
+            }
+        }
+        
+        return {
+            visibleTags,
+            hiddenCount: tags.length - visibleTags.length
+        };
+    };
+
+    const { visibleTags, hiddenCount } = getVisibleTags(project.tags);
 
     return (
         <div
@@ -131,7 +177,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                     </h3>
 
                     <div className="flex flex-wrap">
-                        {project.tags.map((tag, index) => (
+                        {visibleTags.map((tag, index) => (
                             <span
                                 key={index}
                                 className={`${
@@ -147,6 +193,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                                 {tag}
                             </span>
                         ))}
+                        {hiddenCount > 0 && (
+                            <span
+                                className="bg-black/40 text-white text-xs px-2 py-1 rounded mr-1 mb-1 cursor-pointer hover:bg-indigo-600"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    // Could add functionality to show all tags
+                                    alert(`Additional tags: ${project.tags.slice(visibleTags.length).join(', ')}`);
+                                }}
+                            >
+                                +{hiddenCount}
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>
