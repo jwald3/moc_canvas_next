@@ -103,6 +103,16 @@ const ViewAllButton = ({ onClick }: { onClick: () => void }) => (
     </button>
 );
 
+// Add this component at the top of the file, near ViewAllButton
+const ToggleViewButton = ({ expanded, onClick }: { expanded: boolean; onClick: () => void }) => (
+    <button
+        onClick={onClick}
+        className="w-full py-3 text-orange-600 font-medium hover:text-orange-800 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors text-center mt-4"
+    >
+        {expanded ? "See Less" : "See All"}
+    </button>
+);
+
 // Add these types at the top of the file
 type SortOption = {
     label: string;
@@ -510,8 +520,11 @@ export const ProjectsDashboard = () => {
                             activeTags={activeTags}
                         />
                     ))}
-                    {!showAllMyProjects && filteredMyProjects.length > 3 && (
-                        <ViewAllButton onClick={() => setShowAllMyProjects(true)} />
+                    {filteredMyProjects.length > 3 && (
+                        <ToggleViewButton 
+                            expanded={showAllMyProjects}
+                            onClick={() => setShowAllMyProjects(!showAllMyProjects)}
+                        />
                     )}
                 </div>
 
@@ -645,8 +658,11 @@ export const ProjectsDashboard = () => {
                                         onSaveToggle={handleSaveToggle}
                                     />
                                 ))}
-                                {!showAllSavedProjects && filteredSavedProjects.length > 3 && (
-                                    <ViewAllButton onClick={() => setShowAllSavedProjects(true)} />
+                                {filteredSavedProjects.length > 3 && (
+                                    <ToggleViewButton 
+                                        expanded={showAllSavedProjects}
+                                        onClick={() => setShowAllSavedProjects(!showAllSavedProjects)}
+                                    />
                                 )}
                             </div>
                         </>
