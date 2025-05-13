@@ -541,13 +541,15 @@ export const ProjectsDashboard = () => {
                                 {filteredSavedProjects.length} project{filteredSavedProjects.length !== 1 ? 's' : ''}
                             </p>
                         </div>
-                        <Link 
-                            href="/projects/all?view=saved"
-                            className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
-                        >
-                            See All
-                            <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-0.5 transition-transform" />
-                        </Link>
+                        {savedProjectIds.length > 0 && (
+                            <Link 
+                                href="/projects/all?view=saved"
+                                className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
+                            >
+                                See All
+                                <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                        )}
                     </div>
 
                     {filteredSavedProjects.length === 0 ? (
