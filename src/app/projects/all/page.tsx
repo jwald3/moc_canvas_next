@@ -11,6 +11,7 @@ import {
     Grid,
     List
 } from 'lucide-react';
+import { ProjectCard } from '@/components/projects/ProjectCard';
 import type { Project } from '@/types/project';
 import { projects, savedProjects } from '@/components/projects/sample-data';
 
@@ -23,7 +24,7 @@ const AllProjectsPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTag, setActiveTag] = useState('');
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-    
+
     // Get the correct project list based on view type
     const projectsList = viewType === 'saved' ? savedProjects : projects;
 
@@ -71,62 +72,6 @@ const AllProjectsPage = () => {
     const handleProjectClick = (id: number) => {
         alert(`Navigating to project ${id}`);
     };
-
-    // Project Card Component
-    const ProjectCard = ({ project }: { project: Project }) => (
-        <div
-            key={project.id}
-            className="relative flex flex-col w-full rounded-lg overflow-hidden bg-white hover:shadow-xl cursor-pointer transition-all group border-2 border-orange-300 card-shadow card-shadow-hover"
-            onClick={() => handleProjectClick(project.id)}
-        >
-            <div className="relative aspect-[3/2] w-full overflow-hidden">
-                <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/20 to-black/80 p-4 flex flex-col justify-between">
-                    <h3 className="text-white font-bold text-xl drop-shadow-md">
-                        {project.name}
-                    </h3>
-
-                    <div className="flex flex-wrap">
-                        {project.tags.map((tag, index) => (
-                            <span
-                                key={index}
-                                className={`${
-                                    activeTag === tag
-                                        ? "bg-card-gradient text-white shadow-md"
-                                        : "bg-white/90 text-orange-700 hover:bg-orange-500 hover:text-white"
-                                } text-xs px-2 py-1 rounded-full mr-1 mb-1 cursor-pointer transition-all`}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleTagClick(tag);
-                                }}
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            <div className="px-4 py-3 flex justify-between items-center bg-gradient-to-br from-white to-orange-50">
-                <p className="text-xs text-gray-500">
-                    Updated {project.lastUpdated}
-                </p>
-                <button
-                    className="py-1.5 px-4 bg-card-gradient hover-gradient text-white rounded-full transition-all shadow-sm hover:shadow-md flex items-center space-x-1 group"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        handleProjectClick(project.id);
-                    }}
-                >
-                    <span className="text-xs font-medium">View</span>
-                </button>
-            </div>
-        </div>
-    );
 
     return (
         <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
@@ -227,9 +172,16 @@ const AllProjectsPage = () => {
                 </div>
 
                 {/* Projects Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredProjects.map(project => (
-                        <ProjectCard key={project.id} project={project} />
+                        <ProjectCard
+                            key={project.id}
+                            project={project}
+                            isSaved={viewType === 'saved'}
+                            onProjectClick={handleProjectClick}
+                            onTagClick={handleTagClick}
+                            activeTag={activeTag}
+                        />
                     ))}
                 </div>
 
