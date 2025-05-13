@@ -437,7 +437,12 @@ export const ProjectsDashboard = () => {
                                 const option = sortOptions.find(
                                     opt => `${opt.value}-${opt.direction}` === e.target.value
                                 );
-                                if (option) setCurrentSort(option);
+                                if (option) {
+                                    setCurrentSort(option);
+                                    // Reset carousel positions
+                                    setMyProjectsStartIndex(0);
+                                    setSavedProjectsStartIndex(0);
+                                }
                             }}
                         >
                             {sortOptions.map((option) => (
