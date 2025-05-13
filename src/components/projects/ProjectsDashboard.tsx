@@ -105,6 +105,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     );
 };
 
+// First, add a "View All" button component for reuse
+const ViewAllButton = ({ onClick }: { onClick: () => void }) => (
+    <button
+        onClick={onClick}
+        className="w-full mt-4 py-2 text-center text-indigo-600 font-medium hover:text-indigo-800 border border-dashed border-indigo-300 rounded-lg hover:border-indigo-500 transition-all"
+    >
+        See More
+    </button>
+);
+
 export const ProjectsDashboard = () => {
     // State with proper typing
     const [myProjectsStartIndex, setMyProjectsStartIndex] = useState<number>(0);
@@ -407,8 +417,11 @@ export const ProjectsDashboard = () => {
                     )}
                 </div>
 
-                {/* Mobile View */}
+                {/* Mobile View - My Projects */}
                 <div className={`${isMobile ? 'block' : 'hidden'} space-y-4`}>
+                    <h2 className="text-xl font-bold text-gray-800 mb-6 mt-8">
+                        My Projects
+                    </h2>
                     {visibleMyProjects.map((project) => (
                         <ProjectCard
                             key={project.id}
@@ -418,6 +431,9 @@ export const ProjectsDashboard = () => {
                             activeTag={activeTag}
                         />
                     ))}
+                    {!showAllMyProjects && filteredMyProjects.length > 3 && (
+                        <ViewAllButton onClick={() => setShowAllMyProjects(true)} />
+                    )}
                 </div>
 
                 {/* Create New Project Card */}
@@ -486,22 +502,24 @@ export const ProjectsDashboard = () => {
                             </button>
                         </div>
 
-                        {/* Mobile View for Saved Projects */}
-                        <div
-                            className={`${
-                                isMobile ? "block" : "hidden"
-                            } space-y-4`}
-                        >
+                        {/* Mobile View - Saved Projects */}
+                        <div className={`${isMobile ? 'block' : 'hidden'} space-y-4 mt-12`}>
+                            <h2 className="text-xl font-bold text-gray-800 mb-6">
+                                Saved Projects
+                            </h2>
                             {visibleSavedProjects.map((project) => (
                                 <ProjectCard
                                     key={project.id}
                                     project={project}
-                                    isSaved
                                     onProjectClick={handleProjectClick}
                                     onTagClick={handleTagClick}
                                     activeTag={activeTag}
+                                    isSaved
                                 />
                             ))}
+                            {!showAllSavedProjects && filteredSavedProjects.length > 3 && (
+                                <ViewAllButton onClick={() => setShowAllSavedProjects(true)} />
+                            )}
                         </div>
                     </div>
                 )}
