@@ -234,49 +234,49 @@ const HomePage = () => {
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-[70vh] md:min-h-[80vh] lg:min-h-[85vh] flex items-center bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+        <section className="relative min-h-[25vh] lg:min-h-[60vh] flex items-center bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
           {/* Decorative elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-amber-200 to-yellow-200 rounded-full opacity-20 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-200 to-red-200 rounded-full opacity-20 blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-20">
-            <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12 lg:py-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="max-w-xl">
                 <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 lg:px-4 lg:py-2 rounded-full text-amber-600 font-medium mb-4 lg:mb-6 border border-amber-100 text-sm lg:text-base">
                   <Star size={14} className="fill-amber-500" />
                   <span>The Ultimate LEGO® Building Platform</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 lg:mb-6 leading-tight">
+                <h1 className="text-4xl md:text-4xl lg:text-6xl font-bold text-gray-900 mb-4 lg:mb-6 leading-tight">
                   Track Your LEGO® Journey
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 mt-1 lg:mt-2">
                     Brick by Brick
                   </span>
                 </h1>
-                <p className="text-lg lg:text-xl text-gray-600 mb-6 lg:mb-8 max-w-lg">
+                <p className="text-lg text-gray-600 mb-6 lg:mb-8">
                   Join thousands of LEGO® enthusiasts in documenting builds, sharing creations, and connecting with the community.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 mb-8 lg:mb-12">
-                  <button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-6 lg:px-8 py-3 lg:py-4 rounded-xl font-semibold text-base lg:text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                  <button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
                     Start Building
                   </button>
-                  <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 lg:px-8 py-3 lg:py-4 rounded-xl font-semibold text-base lg:text-lg shadow-md hover:shadow-lg transition-all border border-gray-200">
+                  <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-xl font-semibold text-base shadow-md hover:shadow-lg transition-all border border-gray-200">
                     Explore Projects
                   </button>
                 </div>
-                <div className="grid grid-cols-3 gap-4 lg:gap-8">
+                <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1">10K+</div>
-                    <div className="text-sm lg:text-base text-gray-600">Active Builders</div>
+                    <div className="text-2xl font-bold text-gray-900 mb-1">10K+</div>
+                    <div className="text-sm text-gray-600">Active Builders</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1">50K+</div>
-                    <div className="text-sm lg:text-base text-gray-600">Projects Created</div>
+                    <div className="text-2xl font-bold text-gray-900 mb-1">50K+</div>
+                    <div className="text-sm text-gray-600">Projects Created</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1">100K+</div>
-                    <div className="text-sm lg:text-base text-gray-600">Parts Tracked</div>
+                    <div className="text-2xl font-bold text-gray-900 mb-1">100K+</div>
+                    <div className="text-sm text-gray-600">Parts Tracked</div>
                   </div>
                 </div>
               </div>
@@ -285,7 +285,7 @@ const HomePage = () => {
                 <img 
                   src="/images/millennium-falcon.jpg"
                   alt="Featured LEGO build"
-                  className="relative rounded-3xl shadow-2xl w-full md:max-w-[80%] lg:max-w-none mx-auto"
+                  className="relative rounded-3xl shadow-2xl w-full object-cover max-w-md mx-auto"
                 />
               </div>
             </div>
