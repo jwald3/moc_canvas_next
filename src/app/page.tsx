@@ -36,8 +36,6 @@ interface FeaturedBuild {
   likes: number;
   views: number;
   tags: string[];
-  pieces: number;
-  progress: number;
 }
 
 interface NewsItem {
@@ -84,9 +82,7 @@ const HomePage = () => {
       image: "/images/millennium-falcon.jpg",
       likes: 2453,
       views: 12840,
-      tags: ["Star Wars", "UCS", "Spaceship"],
-      pieces: 7541,
-      progress: 82
+      tags: ["Star Wars", "UCS", "Spaceship"]
     },
     {
       id: 2,
@@ -95,9 +91,7 @@ const HomePage = () => {
       image: "/images/castle-moc.jpg",
       likes: 1987,
       views: 8932,
-      tags: ["Castle", "Medieval", "MOC"],
-      pieces: 4892,
-      progress: 100
+      tags: ["Castle", "Medieval", "MOC"]
     },
     {
       id: 3,
@@ -106,9 +100,7 @@ const HomePage = () => {
       image: "/images/diner-moc.jpg",
       likes: 1645,
       views: 7321,
-      tags: ["Modular", "City", "Building"],
-      pieces: 2480,
-      progress: 65
+      tags: ["Modular", "City", "Building"]
     }
   ];
   
@@ -353,18 +345,6 @@ const HomePage = () => {
                     <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
                       {build.name}
                     </h3>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">{build.pieces} pieces</span>
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-20 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-amber-500 to-orange-500"
-                            style={{ width: `${build.progress}%` }}
-                          />
-                        </div>
-                        <span className="text-sm text-gray-500">{build.progress}%</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               ))}
