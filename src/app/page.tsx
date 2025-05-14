@@ -230,11 +230,11 @@ const HomePage = () => {
     setActiveCategory(category);
   };
 
-  return (
+    return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-[25vh] lg:min-h-[60vh] flex items-center bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+        <section className="relative min-h-[25vh] lg:min-h-[45vh] flex items-center bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
           {/* Decorative elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-amber-200 to-yellow-200 rounded-full opacity-20 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
@@ -263,7 +263,7 @@ const HomePage = () => {
                   </button>
                   <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-xl font-semibold text-base shadow-md hover:shadow-lg transition-all border border-gray-200">
                     Explore Projects
-                  </button>
+                    </button>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
@@ -610,7 +610,7 @@ const HomePage = () => {
                 Cookies
               </Link>
             </div>
-          </div>
+            </div>
         </div>
       </footer>
 
@@ -624,8 +624,8 @@ const HomePage = () => {
           scrollbar-width: none;
         }
       `}</style>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default HomePage;
