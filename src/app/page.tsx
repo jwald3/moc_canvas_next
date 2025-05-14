@@ -366,39 +366,64 @@ const HomePage = () => {
         </section>
 
         {/* Popular Themes */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-24 bg-white relative overflow-hidden">
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 opacity-[0.03]" 
+            style={{ 
+              backgroundImage: 'url("/grid.svg")',
+              backgroundSize: '40px 40px',
+              backgroundRepeat: 'repeat'
+            }} 
+          />
+          
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Popular Themes</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Explore different LEGO® themes and find your next build inspiration
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Explore Popular Themes
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover amazing builds across different LEGO® themes and find inspiration for your next project
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {popularThemes.map(theme => (
                 <div 
                   key={theme.name}
-                  className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all cursor-pointer border border-gray-100"
+                  className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100"
                 >
-                  <div className={`h-2 bg-gradient-to-r ${theme.color}`} />
-                  <div className="p-6">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${theme.color} flex items-center justify-center mb-4`}>
-                      <div className="text-white">{theme.icon}</div>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">
-                      {theme.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">{theme.count}</p>
-                    <div className="mt-4 flex justify-end">
-                      <ChevronRight 
-                        size={16} 
-                        className="text-amber-600 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all" 
-                      />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${theme.color} opacity-[0.08] group-hover:opacity-[0.12] transition-opacity`} />
+                  <div className="relative p-8">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${theme.color} flex items-center justify-center shadow-lg`}>
+                        <div className="text-white">{theme.icon}</div>
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                          {theme.name}
+                        </h3>
+                        <p className="text-gray-500">{theme.count}</p>
+                      </div>
+                      <div className="ml-auto">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br ${theme.color} text-white opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0 -translate-x-4 transition-all duration-300`}>
+                          <ChevronRight size={16} />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* View All Themes Button */}
+            <div className="mt-12 text-center">
+              <Link 
+                href="/themes"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-medium transition-colors group"
+              >
+                View All Themes
+                <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
         </section>
