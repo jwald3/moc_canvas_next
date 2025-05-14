@@ -10,7 +10,6 @@ interface BuildSection {
   id: number;
   sectionTitle: string;
   description: string;
-  sectionType: string;
   images: ImageType[];
 }
 
@@ -47,8 +46,6 @@ const NewProjectPage = () => {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('Planning');
-  const [setNumber, setSetNumber] = useState('');
-  const [totalPieces, setTotalPieces] = useState('');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [showTagSuggestions, setShowTagSuggestions] = useState(false);
@@ -57,7 +54,7 @@ const NewProjectPage = () => {
   const [imagePreview, setImagePreview] = useState<ImageType | null>(null);
   const [imageTitle, setImageTitle] = useState('');
   const [buildSections, setBuildSections] = useState<BuildSection[]>([
-    { id: 1, sectionTitle: '', description: '', sectionType: 'Overview', images: [] }
+    { id: 1, sectionTitle: '', description: '', images: [] }
   ]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -140,21 +137,12 @@ const NewProjectPage = () => {
 
   // Add new section
   const addNewSection = () => {
-    const sectionTypes = [
-      'Overview', 'Detail Highlight', 'Interior', 'Construction Process', 
-      'Custom Feature', 'Minifigures', 'Techniques', 'Modifications'
-    ];
-    const existingSectionTypes = buildSections.map(section => section.sectionType);
-    const availableSectionTypes = sectionTypes.filter(type => !existingSectionTypes.includes(type));
-    const nextSectionType = availableSectionTypes.length > 0 ? availableSectionTypes[0] : 'Custom Section';
-    
     setBuildSections([
       ...buildSections,
       {
         id: Date.now(),
         sectionTitle: '',
         description: '',
-        sectionType: nextSectionType,
         images: []
       }
     ]);
@@ -180,14 +168,11 @@ const NewProjectPage = () => {
     if (e) e.preventDefault();
     setIsSubmitting(true);
     
-    // Mock submission delay
     setTimeout(() => {
       console.log({
         name: projectName,
         description,
         status: selectedStatus,
-        setNumber,
-        totalPieces: parseInt(totalPieces) || 0,
         tags,
         mainImage: imagePreview,
         additionalImages: images,
@@ -197,12 +182,6 @@ const NewProjectPage = () => {
       setIsSubmitting(false);
       alert('Project created successfully!');
     }, 1500);
-  };
-
-  // Handle number input
-  const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
-    const value = e.target.value.replace(/\D/g, '');
-    setter(value);
   };
 
   return (
@@ -314,41 +293,6 @@ const NewProjectPage = () => {
                     onChange={(e) => setDescription(e.target.value)}
                     required
                   />
-                </div>
-                
-                {/* Set Info */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="setNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                      Set Number (optional)
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Hash size={16} className="text-gray-400" />
-                      </div>
-                      <input
-                        type="text"
-                        id="setNumber"
-                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-                        placeholder="e.g., 75192"
-                        value={setNumber}
-                        onChange={(e) => handleNumberInput(e, setSetNumber)}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="totalPieces" className="block text-sm font-medium text-gray-700 mb-1">
-                      Total Pieces (optional)
-                    </label>
-                    <input
-                      type="text"
-                      id="totalPieces"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-                      placeholder="e.g., 7541"
-                      value={totalPieces}
-                      onChange={(e) => handleNumberInput(e, setTotalPieces)}
-                    />
-                  </div>
                 </div>
                 
                 {/* Status */}
@@ -540,7 +484,7 @@ const NewProjectPage = () => {
                   <div key={section.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-center mb-4">
                       <h3 className="font-medium text-gray-800">
-                        {section.sectionTitle || section.sectionType || `Section ${index + 1}`}
+                        {section.sectionTitle || `Section ${index + 1}`}
                       </h3>
                       {buildSections.length > 1 && (
                         <button
@@ -566,28 +510,6 @@ const NewProjectPage = () => {
                           value={section.sectionTitle}
                           onChange={(e) => updateSectionField(section.id, 'sectionTitle', e.target.value)}
                         />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor={`sectionType-${section.id}`} className="block text-sm font-medium text-gray-700 mb-1">
-                          Section Type
-                        </label>
-                        <select
-                          id={`sectionType-${section.id}`}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-                          value={section.sectionType}
-                          onChange={(e) => updateSectionField(section.id, 'sectionType', e.target.value)}
-                        >
-                          <option value="Overview">Overview</option>
-                          <option value="Detail Highlight">Detail Highlight</option>
-                          <option value="Interior">Interior</option>
-                          <option value="Construction Process">Construction Process</option>
-                          <option value="Custom Feature">Custom Feature</option>
-                          <option value="Minifigures">Minifigures</option>
-                          <option value="Techniques">Building Techniques</option>
-                          <option value="Modifications">Modifications</option>
-                          <option value="Custom Section">Custom Section</option>
-                        </select>
                       </div>
                       
                       <div>
@@ -624,7 +546,7 @@ const NewProjectPage = () => {
                               <div key={image.id} className="relative rounded overflow-hidden border border-gray-200">
                                 <img 
                                   src={image.url} 
-                                  alt={`${section.sectionTitle || section.sectionType || `Section ${index + 1}`} Image ${imgIndex + 1}`}
+                                  alt={`Section ${index + 1} Image ${imgIndex + 1}`}
                                   className="w-full aspect-square object-cover"
                                 />
                               </div>
@@ -706,18 +628,6 @@ const NewProjectPage = () => {
                 </p>
                 
                 <div className="flex flex-col gap-2 text-sm">
-                  {setNumber && (
-                    <div className="flex items-center">
-                      <Hash size={16} className="text-gray-400 mr-2" />
-                      <span>Set #{setNumber}</span>
-                    </div>
-                  )}
-                  {totalPieces && (
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 bg-yellow-400 rounded-sm mr-2"></div>
-                      <span>{totalPieces} pieces</span>
-                    </div>
-                  )}
                   <div className="flex items-center">
                     <Clock size={16} className="text-gray-400 mr-2" />
                     <span>Created today</span>
