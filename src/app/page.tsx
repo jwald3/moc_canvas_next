@@ -256,9 +256,12 @@ const HomePage = () => {
                   >
                     Start Building
                   </Link>
-                  <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-xl font-semibold text-base shadow-md hover:shadow-lg transition-all border border-gray-200">
+                  <Link 
+                    href="/explore"
+                    className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-xl font-semibold text-base shadow-md hover:shadow-lg transition-all border border-gray-200"
+                  >
                     Explore Projects
-                  </button>
+                  </Link>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
@@ -356,7 +359,7 @@ const HomePage = () => {
         </section>
 
         {/* News Section */}
-        <section id="news" className="py-8 bg-white">
+        {/* <section id="news" className="py-8 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Latest Brick News</h2>
@@ -394,7 +397,7 @@ const HomePage = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Categories Nav */}
         <section className="bg-gradient-to-r from-orange-500 to-yellow-500 py-4">
@@ -530,72 +533,6 @@ const HomePage = () => {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white pt-20 pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-10 w-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
-                  <span className="font-bold text-xl">B</span>
-                </div>
-                <span className="text-xl font-bold">BrickTracker</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                The ultimate platform for LEGO® enthusiasts to track, share, and discover amazing builds.
-              </p>
-            </div>
-            {[
-              {
-                title: "Product",
-                links: ["Features", "Pricing", "Testimonials", "FAQ"]
-              },
-              {
-                title: "Resources",
-                links: ["Blog", "Documentation", "Help Center", "API"]
-              },
-              {
-                title: "Company",
-                links: ["About", "Careers", "Contact", "Press"]
-              }
-            ].map(section => (
-              <div key={section.title}>
-                <h4 className="text-lg font-semibold mb-4">{section.title}</h4>
-                <ul className="space-y-2">
-                  {section.links.map(link => (
-                    <li key={link}>
-                      <Link 
-                        href="#"
-                        className="text-gray-400 hover:text-amber-500 transition-colors"
-                      >
-                        {link}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-gray-400 text-sm">
-              © 2025 BrickTracker. All rights reserved. Not affiliated with The LEGO Group.
-            </div>
-            <div className="flex gap-6">
-              <Link href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
-                Terms
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
-                Privacy
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
-                Cookies
-              </Link>
-            </div>
-            </div>
-        </div>
-      </footer>
 
       {/* CSS for hiding scrollbars */}
       <style jsx global>{`
