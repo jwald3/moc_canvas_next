@@ -159,7 +159,7 @@ const HomePage = () => {
       id: 1,
       name: "Microscale City Skyline",
       creator: "MiniBuilder",
-      image: "/api/placeholder/300/300?text=Microscale+City",
+      image: "/images/microscale-city.jpg",
       likes: 847,
       tags: ["Microscale", "Architecture", "MOC"]
     },
@@ -167,7 +167,7 @@ const HomePage = () => {
       id: 2,
       name: "Hogwarts Great Hall Rebuild",
       creator: "WizardFan",
-      image: "/api/placeholder/300/300?text=Hogwarts+Great+Hall",
+      image: "/images/hogwarts-great-hall.jpg",
       likes: 1243,
       tags: ["Harry Potter", "MOC", "Castle"]
     },
@@ -175,7 +175,7 @@ const HomePage = () => {
       id: 3,
       name: "Space Exploration Vehicle",
       creator: "AstroBuilder",
-      image: "/api/placeholder/300/300?text=Space+Vehicle",
+      image: "/images/space-exploration.jpg",
       likes: 976,
       tags: ["Space", "Vehicle", "Technic"]
     },
@@ -183,7 +183,7 @@ const HomePage = () => {
       id: 4,
       name: "Japanese Garden Diorama",
       creator: "ZenBricks",
-      image: "/api/placeholder/300/300?text=Japanese+Garden",
+      image: "/images/zen-garden.jpg",
       likes: 1547,
       tags: ["Diorama", "Landscape", "Architecture"]
     }
@@ -234,63 +234,140 @@ const HomePage = () => {
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <main>
         {/* Hero Section */}
-        <section id="featured" className="relative bg-gradient-to-br from-yellow-50 to-orange-50 pt-4 pb-8 overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-300 rounded-full opacity-20 -mr-32 -mt-32"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-300 rounded-full opacity-20 -ml-40 -mb-40"></div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-800">Featured Builds</h2>
-              <Link href="#" className="text-yellow-600 hover:text-yellow-700 font-medium flex items-center text-sm">
-                View All
-                <ChevronRight size={16} className="ml-1" />
+        <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+          {/* Decorative elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-amber-200 to-yellow-200 rounded-full opacity-20 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-200 to-red-200 rounded-full opacity-20 blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full text-amber-600 font-medium mb-6 border border-amber-100">
+                  <Star size={16} className="fill-amber-500" />
+                  <span>The Ultimate LEGO® Building Platform</span>
+                </div>
+                <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                  Track Your LEGO® Journey
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 mt-2">
+                    Brick by Brick
+                  </span>
+                </h1>
+                <p className="text-xl text-gray-600 mb-8 max-w-lg">
+                  Join thousands of LEGO® enthusiasts in documenting builds, sharing creations, and connecting with the community.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                  <button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                    Start Building
+                  </button>
+                  <button className="bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-xl font-semibold text-lg shadow-md hover:shadow-lg transition-all border border-gray-200">
+                    Explore Projects
+                  </button>
+                </div>
+                <div className="grid grid-cols-3 gap-8">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-gray-900 mb-1">10K+</div>
+                    <div className="text-gray-600">Active Builders</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-gray-900 mb-1">50K+</div>
+                    <div className="text-gray-600">Projects Created</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-gray-900 mb-1">100K+</div>
+                    <div className="text-gray-600">Parts Tracked</div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative hidden lg:block">
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-3xl transform rotate-6 scale-105"></div>
+                <img 
+                  src="/images/millennium-falcon.jpg"
+                  alt="Featured LEGO build"
+                  className="relative rounded-3xl shadow-2xl"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Builds */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex justify-between items-end mb-12">
+              <div>
+                <div className="text-amber-600 font-medium mb-2">Featured Projects</div>
+                <h2 className="text-3xl font-bold text-gray-900">Latest Community Builds</h2>
+              </div>
+              <Link 
+                href="/projects"
+                className="group flex items-center gap-2 text-gray-600 hover:text-amber-600 transition-colors"
+              >
+                View All Projects
+                <ChevronRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
 
-            {/* Featured Carousel */}
-            <div className="relative rounded-xl overflow-hidden shadow-lg bg-white">
-              {/* Navigation Buttons */}
-              <button 
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
-                onClick={() => navigateFeatured('prev')}
-              >
-                <ChevronLeft size={24} />
-              </button>
-              
-              <button 
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
-                onClick={() => navigateFeatured('next')}
-              >
-                <ChevronRight size={24} />
-              </button>
-
-              {/* Featured Build */}
-              <div className="relative aspect-[16/9] md:aspect-[21/9]">
-                <img 
-                  src={featuredBuilds[featuredIndex].image} 
-                  alt={featuredBuilds[featuredIndex].name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                  {/* ... Featured build content ... */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {featuredBuilds.map(build => (
+                <div 
+                  key={build.id}
+                  className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-gray-100"
+                  onClick={() => handleViewBuild(build.id)}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={build.image}
+                      alt={build.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <div className="flex items-center gap-2 text-white mb-2">
+                          <Star className="fill-amber-400 text-amber-400" size={16} />
+                          <span className="text-sm">{build.likes} likes</span>
+                          <span className="text-sm">•</span>
+                          <span className="text-sm">{build.views} views</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {build.tags.map(tag => (
+                            <span 
+                              key={tag}
+                              className="text-xs bg-white/20 text-white px-2 py-1 rounded-full backdrop-blur-sm"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                        <Users size={14} className="text-gray-600" />
+                      </div>
+                      <span className="text-gray-600 text-sm">{build.creator}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
+                      {build.name}
+                    </h3>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-500">{build.pieces} pieces</span>
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-20 bg-gray-200 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-gradient-to-r from-amber-500 to-orange-500"
+                            style={{ width: `${build.progress}%` }}
+                          />
+                        </div>
+                        <span className="text-sm text-gray-500">{build.progress}%</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              
-              {/* Pagination dots */}
-              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                {featuredBuilds.map((_, idx) => (
-                  <button
-                    key={idx}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === featuredIndex ? 'bg-white w-6' : 'bg-white/50'}`}
-                    onClick={() => setFeaturedIndex(idx)}
-                  />
-                ))}
-              </div>
-            </div>
-            
-            {/* Build stats - desktop only */}
-            <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-              {/* ... Build stats content ... */}
+              ))}
             </div>
           </div>
         </section>
