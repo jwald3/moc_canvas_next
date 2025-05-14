@@ -11,6 +11,7 @@ import {
 import type { Project } from "@/types/project";
 import Link from 'next/link';
 import { ProjectCard } from './ProjectCard';
+import { useRouter } from 'next/navigation';
 
 // Move sample data to a separate file
 import { projects, savedProjects } from "./sample-data";
@@ -144,6 +145,7 @@ export const ProjectsDashboard = () => {
     const [savedProjectIds, setSavedProjectIds] = useState<number[]>(
         savedProjects.map(p => p.id)
     );
+    const router = useRouter();
 
     // Update type definitions for functions
     const filterProjects = (projectsList: Project[]): Project[] => {
@@ -241,7 +243,7 @@ export const ProjectsDashboard = () => {
         if (typeof e !== "number") {
             e.stopPropagation();
         }
-        alert("Creating a new project");
+        router.push('/projects/new');
     };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {

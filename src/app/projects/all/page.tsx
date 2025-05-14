@@ -106,7 +106,7 @@ const AllProjectsPage = () => {
     };
 
     const handleCreateProject = () => {
-        alert('Creating a new project');
+        router.push('/projects/new');
     };
 
     const handleProjectClick = (id: number) => {
