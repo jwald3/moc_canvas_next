@@ -116,8 +116,8 @@ const NewProjectPage = () => {
       if (section.id === sectionId) {
         const newImage: ImageType = {
           id: Date.now(),
-          url: `/api/placeholder/400/300?text=${encodeURIComponent(section.sectionTitle || section.sectionType)}`,
-          title: section.sectionTitle || section.sectionType
+          url: `/api/placeholder/400/300?text=${encodeURIComponent(section.sectionTitle)}`,
+          title: section.sectionTitle
         };
         return {
           ...section,
