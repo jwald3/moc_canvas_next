@@ -250,12 +250,15 @@ const HomePage = () => {
                   Join thousands of LEGO® enthusiasts in documenting builds, sharing creations, and connecting with the community.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                  <Link 
+                    href="/projects"
+                    className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
+                  >
                     Start Building
-                  </button>
+                  </Link>
                   <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-xl font-semibold text-base shadow-md hover:shadow-lg transition-all border border-gray-200">
                     Explore Projects
-                    </button>
+                  </button>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
