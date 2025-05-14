@@ -65,13 +65,6 @@ export default function RootLayout({
                                         Explore
                                         <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                                     </Link>
-                                    <Link 
-                                        href="/community" 
-                                        className="text-gray-600 hover:text-orange-600 font-medium transition-colors relative group"
-                                    >
-                                        Community
-                                        <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                                    </Link>
                                 </nav>
 
                                 <div className="flex items-center space-x-4">
