@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, Plus, Image, Users, Bookmark, Share2, Square, CheckSquare, Clock, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { projects, projectDetails } from '@/components/projects/sample-data';
 
 // Types
 interface ProjectImage {
@@ -36,96 +37,25 @@ interface Project {
   steps: BuildStep[];
 }
 
-const ProjectDetailsPage = () => {
+const ProjectDetailsPage = ({ params }: { params: { id: string } }) => {
   // State
   const [activeTab, setActiveTab] = useState('progress');
   const router = useRouter();
   
-  // Mock project data
-  const project: Project = {
-    name: "LEGO Star Wars UCS Millennium Falcon",
-    description: "Building the iconic UCS Millennium Falcon (set #75192). This 7,541-piece build is expected to take about 3 months working on weekends.",
-    progress: 65,
-    status: "In Progress",
-    tags: ["Star Wars", "UCS", "Spaceship", "Advanced"],
-    stats: {
-      totalPieces: 7541,
-      completedPieces: 4902,
-      totalSteps: 28,
-      completedSteps: 18
-    },
-    steps: [
-      {
-        id: 1,
-        title: "Base Structure",
-        description: "Assembling the foundation and main support beams",
-        completed: true,
-        images: [
-          {
-            id: 101,
-            type: "reference",
-            url: "/api/placeholder/400/300?text=Reference+Base"
-          },
-          {
-            id: 102,
-            type: "progress",
-            url: "/api/placeholder/400/300?text=My+Base+Structure"
-          },
-          {
-            id: 103,
-            type: "progress",
-            url: "/api/placeholder/400/300?text=Base+Detail+View"
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: "Cockpit Assembly",
-        description: "Building the cockpit and connecting to the main frame",
-        completed: true,
-        images: [
-          {
-            id: 104,
-            type: "reference",
-            url: "/api/placeholder/400/300?text=Reference+Cockpit"
-          },
-          {
-            id: 105,
-            type: "progress",
-            url: "/api/placeholder/400/300?text=My+Cockpit+Frame"
-          },
-          {
-            id: 106,
-            type: "progress",
-            url: "/api/placeholder/400/300?text=Cockpit+Detail"
-          },
-          {
-            id: 107,
-            type: "progress",
-            url: "/api/placeholder/400/300?text=Cockpit+Installed"
-          }
-        ]
-      },
-      {
-        id: 3,
-        title: "Engine Assembly",
-        description: "Adding the hyperdrive and engines to the rear section",
-        completed: false,
-        images: [
-          {
-            id: 108,
-            type: "reference",
-            url: "/api/placeholder/400/300?text=Reference+Engine"
-          },
-          {
-            id: 109,
-            type: "progress",
-            url: "/api/placeholder/400/300?text=Engine+Parts+Sorted"
-          }
-        ]
-      }
-    ]
-  };
+  // Get basic project data
+  const basicProject = projects.find(p => p.id === parseInt(params.id));
+  // Get detailed project data
+  const details = projectDetails[parseInt(params.id)];
+  
+  // Combine basic and detailed data
+  const project = basicProject ? {
+    ...basicProject,
+    ...details
+  } : null;
+
+  if (!project) {
+    return <div>Project not found</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -159,7 +89,7 @@ const ProjectDetailsPage = () => {
         <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
           {/* Project Hero Image */}
           <div className="w-full h-64 relative bg-gray-200">
-            {project.steps[0]?.images[0] && (
+            {project.steps?.[0]?.images[0] && (
               <img 
                 src={project.steps[0].images[0].url} 
                 alt={project.name}
@@ -204,8 +134,8 @@ const ProjectDetailsPage = () => {
                 {/* Stats Information */}
                 <div className="w-full sm:w-64">
                   <div className="flex justify-between text-xs text-gray-500">
-                    <span>{project.stats.completedSteps} of {project.stats.totalSteps} steps complete</span>
-                    <span>{project.stats.completedPieces} pieces used</span>
+                    <span>{project.stats?.completedSteps} of {project.stats?.totalSteps} steps complete</span>
+                    <span>{project.stats?.completedPieces} pieces used</span>
                   </div>
                 </div>
                 
@@ -269,7 +199,7 @@ const ProjectDetailsPage = () => {
         {/* Progress Tab Content */}
         {activeTab === 'progress' && (
           <div className="space-y-6 pb-12">
-            {project.steps.map((step) => (
+            {project.steps?.map((step) => (
               <div 
                 key={step.id}
                 className="bg-white rounded-xl shadow-sm overflow-hidden"
@@ -384,7 +314,7 @@ const ProjectDetailsPage = () => {
             <div className="bg-white rounded-xl shadow-sm p-4">
               <h3 className="text-lg font-medium mb-4">Image Gallery</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {project.steps.flatMap(step => step.images).map(image => (
+                {(project.steps || []).flatMap(step => step.images).map(image => (
                   <div 
                     key={image.id} 
                     className="relative rounded-lg overflow-hidden"
@@ -425,11 +355,11 @@ const ProjectDetailsPage = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="bg-white rounded-lg p-3 shadow-sm">
                     <p className="text-xs text-gray-500 mb-1">Total Pieces</p>
-                    <p className="text-xl font-semibold">{project.stats.totalPieces}</p>
+                    <p className="text-xl font-semibold">{project.stats?.totalPieces}</p>
                   </div>
                   <div className="bg-white rounded-lg p-3 shadow-sm">
                     <p className="text-xs text-gray-500 mb-1">Confirmed Found</p>
-                    <p className="text-xl font-semibold">{project.stats.completedPieces}</p>
+                    <p className="text-xl font-semibold">{project.stats?.completedPieces}</p>
                   </div>
                   <div className="bg-white rounded-lg p-3 shadow-sm">
                     <p className="text-xs text-gray-500 mb-1">Missing</p>
