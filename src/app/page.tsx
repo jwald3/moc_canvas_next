@@ -3,29 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  Search, 
   ChevronRight, 
-  ChevronLeft, 
   Star, 
   TrendingUp, 
-  Calendar, 
   Gift, 
   Users, 
   BookOpen, 
   Trophy, 
-  Plus, 
-  Bell, 
-  Menu, 
-  X 
+  Plus
 } from 'lucide-react';
-import { useRef } from 'react';
-import AppImage from "@/components/ui/images/AppImage";
-import AvatarImage from "@/components/ui/images/AvatarImage";
-import BannerImage from "@/components/ui/images/BannerImage";
-import HeroBanner from "@/components/ui/images/HeroBanner";
-import ThumbnailImage from "@/components/ui/images/ThumbnailImage";
-import ProjectPreviewCard from "@/components/ui/projects/ProjectPreviewCard";
-import ProjectList from "@/components/ui/projects/ProjectList";
+
 
 // Types
 interface FeaturedBuild {

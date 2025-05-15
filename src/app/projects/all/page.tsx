@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
-import type { Project } from '@/types/project';
 import { projects, savedProjects } from '@/components/projects/sample-data';
 
 const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {

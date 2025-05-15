@@ -5,7 +5,6 @@ import {
     Plus,
     Search,
     X,
-    Bookmark,
     Star,
 } from "lucide-react";
 import type { Project } from "@/types/project";

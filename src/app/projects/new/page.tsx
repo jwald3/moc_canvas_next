@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { ChevronLeft, Plus, Image, Tag, Hash, Calendar, Clock, Trash2, X, Upload, Save, Info } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 // Define types for our state
