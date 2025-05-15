@@ -140,35 +140,22 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         steps: [
             {
                 id: 1,
-                title: "Main Frame Assembly",
-                description: "Building the core structural frame and support beams",
+                title: "Bridge Assembly",
+                description: "Building the bridge section of the Star Destroyer",
                 completed: true,
                 images: [
                     {
                         id: 201,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Reference+Frame",
+                        url: "/images/star-destroyer-bridge.jpg",
                     },
                     {
                         id: 202,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Frame+Progress",
+                            type: "progress",
+                            url: "/images/lego-star-destroyer-bridge.png",
                     }
                 ]
             },
-            {
-                id: 2,
-                title: "Bridge Construction",
-                description: "Detailed assembly of the command bridge section",
-                completed: false,
-                images: [
-                    {
-                        id: 203,
-                        type: "reference",
-                        url: "/api/placeholder/400/300?text=Bridge+Reference",
-                    }
-                ]
-            }
         ]
     },
     2: {
@@ -184,19 +171,19 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         steps: [
             {
                 id: 1,
-                title: "Base and Foundation",
+                title: "Exterior",
                 description: "Setting up the main platform and structural base",
                 completed: true,
                 images: [
                     {
                         id: 301,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Base+Reference",
+                        url: "/images/taj-mahal-exterior.jpeg",
                     },
                     {
-                        id: 302,
+                        id: 302,    
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=Base+Complete",
+                        url: "/images/taj-mahal.jpg",
                     }
                 ]
             },
@@ -209,12 +196,12 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                     {
                         id: 303,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Dome+Reference",
+                        url: "/images/taj-mahal-dome.jpg",
                     },
                     {
                         id: 304,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=Dome+Assembly",
+                        url: "/images/lego-taj-mahal-dome.jpg",
                     }
                 ]
             }
@@ -233,19 +220,19 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         steps: [
             {
                 id: 1,
-                title: "Foundation and Ground Floor",
+                title: "Exterior",
                 description: "Building the base structure and lobby area",
                 completed: true,
                 images: [
                     {
                         id: 401,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Tower+Base",
+                        url: "/images/avengers-tower-exterior.jpg",
                     },
                     {
                         id: 402,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=Lobby+Complete",
+                        url: "/images/lego-avengers-tower-exterior.jpg",
                     }
                 ]
             }
@@ -265,24 +252,19 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         steps: [
             {
                 id: 1,
-                title: "Base Structure",
+                title: "Exterior",
                 description: "Assembling the foundation and main support beams",
                 completed: true,
                 images: [
                     {
                         id: 101,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Reference+Base",
+                        url: "/images/millennium-falcon-exterior.jpg",
                     },
                     {
                         id: 102,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=My+Base+Structure",
-                    },
-                    {
-                        id: 103,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Base+Detail+View",
+                        url: "/images/lego-millennium-falcon-exterior.jpg",
                     },
                 ],
             },
@@ -296,41 +278,12 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                     {
                         id: 104,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Reference+Cockpit",
+                        url: "/images/millennium-falcon-cockpit.png",
                     },
                     {
                         id: 105,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=My+Cockpit+Frame",
-                    },
-                    {
-                        id: 106,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Cockpit+Detail",
-                    },
-                    {
-                        id: 107,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Cockpit+Installed",
-                    },
-                ],
-            },
-            {
-                id: 3,
-                title: "Engine Assembly",
-                description:
-                    "Adding the hyperdrive and engines to the rear section",
-                completed: false,
-                images: [
-                    {
-                        id: 108,
-                        type: "reference",
-                        url: "/api/placeholder/400/300?text=Reference+Engine",
-                    },
-                    {
-                        id: 109,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Engine+Parts+Sorted",
+                        url: "/images/lego-millennium-falcon-cockpit.png",
                     },
                 ],
             },
@@ -349,37 +302,37 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         steps: [
             {
                 id: 1,
-                title: "Foundation Ring",
+                title: "Exterior",
                 description: "Laying out the base ring and support structure",
                 completed: true,
                 images: [
                     {
                         id: 501,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Colosseum+Base+Reference",
+                        url: "/images/roman-colosseum-exterior.jpg",
                     },
                     {
                         id: 502,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=Base+Ring+Complete",
+                        url: "/images/colosseum.jpg",
                     }
                 ]
             },
             {
                 id: 2,
-                title: "First Level Arches",
+                title: "Interior",
                 description: "Building the ground floor archways and columns",
                 completed: false,
                 images: [
                     {
                         id: 503,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Arch+Reference",
+                        url: "/images/roman-colosseum-interior.jpg",
                     },
                     {
                         id: 504,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=First+Arch+Test",
+                        url: "/images/lego-roman-colosseum-interior.png",
                     }
                 ]
             }
@@ -398,63 +351,40 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         steps: [
             {
                 id: 1,
-                title: "Great Hall",
+                title: "Exterior",
                 description: "Construction of the iconic Great Hall with floating candles",
                 completed: true,
                 images: [
                     {
                         id: 601,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Great+Hall+Reference",
+                        url: "/images/hogwarts-castle-exterior.jpg",
                     },
                     {
                         id: 602,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=Hall+Interior",
-                    },
-                    {
-                        id: 603,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Ceiling+Detail",
+                        url: "/images/hogwarts-castle.jpg",
                     }
                 ]
             },
             {
                 id: 2,
-                title: "Moving Staircases",
+                title: "Great Hall",
                 description: "Assembly of the magical moving staircase mechanism",
                 completed: true,
                 images: [
                     {
                         id: 604,
                         type: "reference",
-                        url: "/api/placeholder/400/300?text=Staircase+Reference",
+                        url: "/images/hogwarts-great-hall.jpg",
                     },
                     {
                         id: 605,
                         type: "progress",
-                        url: "/api/placeholder/400/300?text=Mechanism+Build",
+                        url: "/images/lego-hogwarts-great-hall.png",
                     }
                 ]
             },
-            {
-                id: 3,
-                title: "Astronomy Tower",
-                description: "Building the tallest tower with telescope and observation deck",
-                completed: false,
-                images: [
-                    {
-                        id: 606,
-                        type: "reference",
-                        url: "/api/placeholder/400/300?text=Tower+Reference",
-                    },
-                    {
-                        id: 607,
-                        type: "progress",
-                        url: "/api/placeholder/400/300?text=Tower+Progress",
-                    }
-                ]
-            }
         ]
     },
     7: {
