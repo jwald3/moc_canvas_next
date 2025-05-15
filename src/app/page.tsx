@@ -45,6 +45,7 @@ interface CommunityHighlight {
 }
 
 interface PopularTheme {
+  id: string;
   name: string;
   count: string;
   color: string;
@@ -170,12 +171,48 @@ const HomePage = () => {
   
   // Popular themes with colorful accents
   const popularThemes: PopularTheme[] = [
-    { name: "Star Wars", count: "3.2K builds", color: "from-blue-500 to-purple-600", icon: <Star size={18} /> },
-    { name: "Technic", count: "2.7K builds", color: "from-red-500 to-yellow-500", icon: <Gift size={18} /> },
-    { name: "City", count: "4.1K builds", color: "from-green-500 to-teal-500", icon: <Users size={18} /> },
-    { name: "Super Heroes", count: "1.8K builds", color: "from-yellow-400 to-orange-500", icon: <Trophy size={18} /> },
-    { name: "Harry Potter", count: "1.5K builds", color: "from-purple-500 to-indigo-600", icon: <BookOpen size={18} /> },
-    { name: "Creator 3-in-1", count: "2.3K builds", color: "from-pink-500 to-rose-600", icon: <Plus size={18} /> },
+    { 
+        id: 'star-wars',
+        name: "Star Wars", 
+        count: "3.2K builds", 
+        color: "from-blue-500 to-purple-600", 
+        icon: <Star size={18} /> 
+    },
+    { 
+        id: 'technic',
+        name: "Technic", 
+        count: "2.7K builds", 
+        color: "from-red-500 to-yellow-500", 
+        icon: <Gift size={18} /> 
+    },
+    { 
+        id: 'city',
+        name: "City", 
+        count: "4.1K builds", 
+        color: "from-green-500 to-teal-500", 
+        icon: <Users size={18} /> 
+    },
+    { 
+        id: 'creator',
+        name: "Creator 3-in-1", 
+        count: "2.3K builds", 
+        color: "from-pink-500 to-rose-600", 
+        icon: <Plus size={18} /> 
+    },
+    { 
+        id: 'ideas',
+        name: "Ideas", 
+        count: "1.5K builds", 
+        color: "from-purple-500 to-indigo-600", 
+        icon: <BookOpen size={18} /> 
+    },
+    { 
+        id: 'super-heroes',
+        name: "Super Heroes", 
+        count: "1.8K builds", 
+        color: "from-yellow-400 to-orange-500", 
+        icon: <Trophy size={18} /> 
+    },
   ];
   
   // Auto-rotate featured builds
@@ -438,30 +475,31 @@ const HomePage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {popularThemes.map(theme => (
-                <div 
-                  key={theme.name}
-                  className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100"
+                <Link 
+                    key={theme.id}
+                    href={`/explore?theme=${theme.id}`}
+                    className={`relative group overflow-hidden rounded-2xl p-4 transition-all duration-300 bg-white hover:shadow-xl border border-gray-100`}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${theme.color} opacity-[0.08] group-hover:opacity-[0.12] transition-opacity`} />
-                  <div className="relative p-8">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${theme.color} flex items-center justify-center shadow-lg`}>
-                        <div className="text-white">{theme.icon}</div>
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
-                          {theme.name}
-                        </h3>
-                        <p className="text-gray-500">{theme.count}</p>
-                      </div>
-                      <div className="ml-auto">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br ${theme.color} text-white opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0 -translate-x-4 transition-all duration-300`}>
-                          <ChevronRight size={16} />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${theme.color} opacity-[0.08] group-hover:opacity-[0.12] transition-opacity`} />
+                    <div className="relative p-4">
+                        <div className="flex items-center gap-4">
+                            <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${theme.color} flex items-center justify-center shadow-lg`}>
+                                <div className="text-white">{theme.icon}</div>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                    {theme.name}
+                                </h3>
+                                <p className="text-gray-500">{theme.count}</p>
+                            </div>
+                            <div className="ml-auto">
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br ${theme.color} text-white opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0 -translate-x-4 transition-all duration-300`}>
+                                    <ChevronRight size={16} />
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
 
