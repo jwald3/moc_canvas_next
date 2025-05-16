@@ -1,0 +1,45 @@
+import React from "react";
+import {
+    Search,
+    X,
+} from 'lucide-react';
+
+interface AllProjectsSortAndSearchProps {
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+    clearSearch: () => void;
+}
+
+const allProjectsSortAndSearch = ({
+    searchQuery,
+    setSearchQuery,
+    clearSearch,
+}: AllProjectsSortAndSearchProps) => {
+    return (
+        <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search size={18} className="text-gray-400" />
+            </div>
+            <input
+                type="text"
+                placeholder="Search projects by name or tag..."
+                className="w-full pl-10 pr-10 py-2.5 border-2 border-orange-400 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white shadow-sm"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+                <button
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={clearSearch}
+                >
+                    <X
+                        size={18}
+                        className="text-gray-400 hover:text-gray-600"
+                    />
+                </button>
+            )}
+        </div>
+    );
+};
+
+export default allProjectsSortAndSearch;
