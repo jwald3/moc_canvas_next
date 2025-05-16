@@ -11,7 +11,6 @@ import {
     Plus,
 } from "lucide-react";
 import {
-    popularThemes,
     PopularTheme,
 } from "@/data/sample-data";
 
