@@ -21,7 +21,7 @@ interface ProjectStats {
     completedSteps: number;
 }
 
-interface FeaturedBuild {
+export interface FeaturedBuild {
     id: number;
     name: string;
     creator: string;
