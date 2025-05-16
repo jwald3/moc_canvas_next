@@ -4,20 +4,17 @@ import {
     ChevronLeft,
     Plus,
 } from 'lucide-react';
-import { Project } from '@/types/project';
 import ViewToggle from './viewToggle';
+import { useAllProjectsContext } from '@/contexts/AllProjectsContext';
 
-interface AllProjectsHeaderProps {
-    currentView: 'my' | 'saved';
-    handleCreateProject: () => void;
-    filteredProjects: Project[];
-}
 
-const allProjectsHeader = ({
-    currentView,
-    handleCreateProject,
-    filteredProjects,
-}: AllProjectsHeaderProps) => {
+const allProjectsHeader = () => {
+    const {
+        currentView,
+        handleCreateProject,
+        filteredProjects,
+    } = useAllProjectsContext();
+
     return (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
             <div className="flex items-center">
