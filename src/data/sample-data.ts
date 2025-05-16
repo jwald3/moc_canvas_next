@@ -21,6 +21,48 @@ interface ProjectStats {
     completedSteps: number;
 }
 
+interface FeaturedBuild {
+    id: number;
+    name: string;
+    creator: string;
+    image: string;
+    likes: number;
+    views: number;
+    tags: string[];
+}
+
+interface NewsItem {
+    id: number;
+    title: string;
+    date: string;
+    image: string;
+    excerpt: string;
+    commentCount: number;
+    category: string;
+}
+
+interface CommunityHighlight {
+    id: number;
+    name: string;
+    creator: string;
+    image: string;
+    likes: number;
+    tags: string[];
+}
+
+interface PopularTheme {
+    id: string;
+    name: string;
+    count: string;
+    color: string;
+    icon: React.ReactNode;
+}
+
+interface Category {
+    name: string;
+    iconType: string;
+}
+
 export interface Project extends BaseProject {
     id: number;
     name: string;
@@ -128,20 +170,22 @@ export const savedProjects: Project[] = [
 
 export const projectDetails: { [key: number]: Partial<Project> } = {
     1: {
-        description: "A massive 4,784-piece Imperial Star Destroyer build featuring detailed surface paneling, intricate technical sections, and a display stand.",
+        description:
+            "A massive 4,784-piece Imperial Star Destroyer build featuring detailed surface paneling, intricate technical sections, and a display stand.",
         progress: 35,
         status: "In Progress",
         stats: {
             totalPieces: 4784,
             completedPieces: 1674,
             totalSteps: 22,
-            completedSteps: 8
+            completedSteps: 8,
         },
         steps: [
             {
                 id: 1,
                 title: "Bridge Assembly",
-                description: "Building the bridge section of the Star Destroyer",
+                description:
+                    "Building the bridge section of the Star Destroyer",
                 completed: true,
                 images: [
                     {
@@ -151,22 +195,23 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                     },
                     {
                         id: 202,
-                            type: "progress",
-                            url: "/images/lego-star-destroyer-bridge.png",
-                    }
-                ]
+                        type: "progress",
+                        url: "/images/lego-star-destroyer-bridge.png",
+                    },
+                ],
             },
-        ]
+        ],
     },
     2: {
-        description: "Recreation of the iconic Taj Mahal featuring intricate architectural details, ornate domes, and decorative elements. This 5,923-piece set is a challenging but rewarding build.",
+        description:
+            "Recreation of the iconic Taj Mahal featuring intricate architectural details, ornate domes, and decorative elements. This 5,923-piece set is a challenging but rewarding build.",
         progress: 82,
         status: "Almost Complete",
         stats: {
             totalPieces: 5923,
             completedPieces: 4856,
             totalSteps: 24,
-            completedSteps: 20
+            completedSteps: 20,
         },
         steps: [
             {
@@ -181,16 +226,17 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         url: "/images/taj-mahal-exterior.jpeg",
                     },
                     {
-                        id: 302,    
+                        id: 302,
                         type: "progress",
                         url: "/images/taj-mahal.jpg",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
                 title: "Main Dome Construction",
-                description: "Building the central dome and surrounding minarets",
+                description:
+                    "Building the central dome and surrounding minarets",
                 completed: true,
                 images: [
                     {
@@ -202,20 +248,21 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 304,
                         type: "progress",
                         url: "/images/lego-taj-mahal-dome.jpg",
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     3: {
-        description: "Custom-designed Avengers Tower featuring multiple floors, landing pad, and detailed interior with labs and living quarters.",
+        description:
+            "Custom-designed Avengers Tower featuring multiple floors, landing pad, and detailed interior with labs and living quarters.",
         progress: 45,
         status: "In Progress",
         stats: {
             totalPieces: 3842,
             completedPieces: 1728,
             totalSteps: 18,
-            completedSteps: 8
+            completedSteps: 8,
         },
         steps: [
             {
@@ -233,10 +280,10 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 402,
                         type: "progress",
                         url: "/images/lego-avengers-tower-exterior.jpg",
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     5: {
         description:
@@ -290,14 +337,15 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
         ],
     },
     4: {
-        description: "A magnificent recreation of the Ancient Roman Colosseum, featuring authentic architectural details and historically accurate construction techniques. This 9,036-piece build is our most ambitious historical project.",
+        description:
+            "A magnificent recreation of the Ancient Roman Colosseum, featuring authentic architectural details and historically accurate construction techniques. This 9,036-piece build is our most ambitious historical project.",
         progress: 15,
         status: "Just Started",
         stats: {
             totalPieces: 9036,
             completedPieces: 1356,
             totalSteps: 32,
-            completedSteps: 5
+            completedSteps: 5,
         },
         steps: [
             {
@@ -315,8 +363,8 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 502,
                         type: "progress",
                         url: "/images/colosseum.jpg",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
@@ -333,26 +381,28 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 504,
                         type: "progress",
                         url: "/images/lego-roman-colosseum-interior.png",
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     6: {
-        description: "Hogwarts School of Witchcraft and Wizardry in all its magical glory. This 6,020-piece castle features moving staircases, detailed classrooms, and hidden chambers.",
+        description:
+            "Hogwarts School of Witchcraft and Wizardry in all its magical glory. This 6,020-piece castle features moving staircases, detailed classrooms, and hidden chambers.",
         progress: 92,
         status: "Final Details",
         stats: {
             totalPieces: 6020,
             completedPieces: 5538,
             totalSteps: 26,
-            completedSteps: 24
+            completedSteps: 24,
         },
         steps: [
             {
                 id: 1,
                 title: "Exterior",
-                description: "Construction of the iconic Great Hall with floating candles",
+                description:
+                    "Construction of the iconic Great Hall with floating candles",
                 completed: true,
                 images: [
                     {
@@ -364,13 +414,14 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 602,
                         type: "progress",
                         url: "/images/hogwarts-castle.jpg",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
                 title: "Great Hall",
-                description: "Assembly of the magical moving staircase mechanism",
+                description:
+                    "Assembly of the magical moving staircase mechanism",
                 completed: true,
                 images: [
                     {
@@ -382,20 +433,21 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 605,
                         type: "progress",
                         url: "/images/lego-hogwarts-great-hall.png",
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
     7: {
-        description: "A detailed recreation of the iconic Jurassic Park entrance gates, complete with working lights and authentic weathering effects. Features jungle environment and custom dinosaur sculptures.",
+        description:
+            "A detailed recreation of the iconic Jurassic Park entrance gates, complete with working lights and authentic weathering effects. Features jungle environment and custom dinosaur sculptures.",
         progress: 55,
         status: "In Progress",
         stats: {
             totalPieces: 3245,
             completedPieces: 1785,
             totalSteps: 16,
-            completedSteps: 9
+            completedSteps: 9,
         },
         steps: [
             {
@@ -413,8 +465,8 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 702,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=Foundation+Complete",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
@@ -426,26 +478,28 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 703,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=LED+Installation",
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     8: {
-        description: "A sprawling nighttime cityscape of Gotham City, featuring Wayne Tower, GCPD, and other iconic buildings. Includes working LED lighting system.",
+        description:
+            "A sprawling nighttime cityscape of Gotham City, featuring Wayne Tower, GCPD, and other iconic buildings. Includes working LED lighting system.",
         progress: 78,
         status: "Near Complete",
         stats: {
             totalPieces: 4892,
             completedPieces: 3815,
             totalSteps: 20,
-            completedSteps: 16
+            completedSteps: 16,
         },
         steps: [
             {
                 id: 1,
                 title: "City Grid Layout",
-                description: "Setting up the street layout and building foundations",
+                description:
+                    "Setting up the street layout and building foundations",
                 completed: true,
                 images: [
                     {
@@ -457,13 +511,14 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 802,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=Streets+Complete",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
                 title: "Wayne Tower",
-                description: "Constructing the centerpiece Wayne Enterprises building",
+                description:
+                    "Constructing the centerpiece Wayne Enterprises building",
                 completed: true,
                 images: [
                     {
@@ -475,20 +530,21 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 804,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=Tower+Progress",
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     9: {
-        description: "Detailed recreation of the USS Enterprise NCC-1701 from Star Trek, featuring detailed engineering section and removable hull panels to show interior details.",
+        description:
+            "Detailed recreation of the USS Enterprise NCC-1701 from Star Trek, featuring detailed engineering section and removable hull panels to show interior details.",
         progress: 25,
         status: "Early Stages",
         stats: {
             totalPieces: 5673,
             completedPieces: 1418,
             totalSteps: 24,
-            completedSteps: 6
+            completedSteps: 6,
         },
         steps: [
             {
@@ -506,8 +562,8 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 902,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=Warp+Core+Build",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
@@ -519,20 +575,21 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 903,
                         type: "reference",
                         url: "/api/placeholder/400/300?text=Saucer+Reference",
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     10: {
-        description: "Modern interpretation of Stark Industries Headquarters with Tony Stark's workshop, arc reactor testing facility, and Iron Man suit gallery.",
+        description:
+            "Modern interpretation of Stark Industries Headquarters with Tony Stark's workshop, arc reactor testing facility, and Iron Man suit gallery.",
         progress: 40,
         status: "In Progress",
         stats: {
             totalPieces: 4267,
             completedPieces: 1706,
             totalSteps: 19,
-            completedSteps: 8
+            completedSteps: 8,
         },
         steps: [
             {
@@ -550,8 +607,8 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 1002,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=Lobby+Build",
-                    }
-                ]
+                    },
+                ],
             },
             {
                 id: 2,
@@ -568,9 +625,166 @@ export const projectDetails: { [key: number]: Partial<Project> } = {
                         id: 1004,
                         type: "progress",
                         url: "/api/placeholder/400/300?text=Workshop+Layout",
-                    }
-                ]
-            }
-        ]
-    }
+                    },
+                ],
+            },
+        ],
+    },
 };
+
+// Mock featured builds data
+export const featuredBuilds: FeaturedBuild[] = [
+    {
+        id: 1,
+        name: "Star Wars UCS Millennium Falcon",
+        creator: "BrickMaster2000",
+        image: "/images/millennium-falcon.jpg",
+        likes: 2453,
+        views: 12840,
+        tags: ["Star Wars", "UCS", "Spaceship"],
+    },
+    {
+        id: 2,
+        name: "Medieval Castle MOC",
+        creator: "KnightBuilder",
+        image: "/images/castle-moc.jpg",
+        likes: 1987,
+        views: 8932,
+        tags: ["Castle", "Medieval", "MOC"],
+    },
+    {
+        id: 3,
+        name: "Modular Downtown Diner",
+        creator: "CityCreator",
+        image: "/images/diner-moc.jpg",
+        likes: 1645,
+        views: 7321,
+        tags: ["Modular", "City", "Building"],
+    },
+];
+
+// Mock news data
+export const newsItems: NewsItem[] = [
+    {
+        id: 1,
+        title: "New Star Wars UCS Sets Revealed!",
+        date: "May 4, 2025",
+        image: "/images/millennium-falcon.jpg",
+        excerpt:
+            "LEGO unveils impressive new Ultimate Collector Series sets including a massive AT-AT and Naboo Starfighter.",
+        commentCount: 132,
+        category: "News",
+    },
+    {
+        id: 2,
+        title: "Summer Brick Convention Dates Announced",
+        date: "May 10, 2025",
+        image: "/images/lego-con.jpg",
+        excerpt:
+            "The annual Summer Brick Convention will be held in Chicago this year. Early bird registration now open!",
+        commentCount: 87,
+        category: "Events",
+    },
+    {
+        id: 3,
+        title: "Building Techniques: Advanced SNOT Methods",
+        date: "May 7, 2025",
+        image: "/images/snot-tech.jpg",
+        excerpt:
+            "Learn expert Studs Not On Top building methods from master builders in this comprehensive guide.",
+        commentCount: 64,
+        category: "Guides",
+    },
+];
+
+// Mock categories
+export const categories: Category[] = [
+    { name: "All", iconType: "TrendingUp" },
+    { name: "Star Wars", iconType: "Star" },
+    { name: "Technic", iconType: "Gift" },
+    { name: "City", iconType: "Users" },
+    { name: "Ideas", iconType: "BookOpen" },
+    { name: "MOCs", iconType: "Trophy" },
+];
+
+// Mock community highlight data
+export const communityHighlights: CommunityHighlight[] = [
+    {
+        id: 1,
+        name: "Microscale City Skyline",
+        creator: "MiniBuilder",
+        image: "/images/microscale-city.jpg",
+        likes: 847,
+        tags: ["Microscale", "Architecture", "MOC"],
+    },
+    {
+        id: 2,
+        name: "Hogwarts Great Hall Rebuild",
+        creator: "WizardFan",
+        image: "/images/hogwarts-great-hall.jpg",
+        likes: 1243,
+        tags: ["Harry Potter", "MOC", "Castle"],
+    },
+    {
+        id: 3,
+        name: "Space Exploration Vehicle",
+        creator: "AstroBuilder",
+        image: "/images/space-exploration.jpg",
+        likes: 976,
+        tags: ["Space", "Vehicle", "Technic"],
+    },
+    {
+        id: 4,
+        name: "Japanese Garden Diorama",
+        creator: "ZenBricks",
+        image: "/images/zen-garden.jpg",
+        likes: 1547,
+        tags: ["Diorama", "Landscape", "Architecture"],
+    },
+];
+
+// Popular themes with colorful accents
+export const popularThemes = [
+    {
+        id: "star-wars",
+        name: "Star Wars",
+        count: "3.2K builds",
+        color: "from-blue-500 to-purple-600",
+        iconType: "Star",
+    },
+    {
+        id: "technic",
+        name: "Technic",
+        count: "2.7K builds",
+        color: "from-red-500 to-yellow-500",
+        iconType: "Gift",
+    },
+    {
+        id: "city",
+        name: "City",
+        count: "4.1K builds",
+        color: "from-green-500 to-teal-500",
+        iconType: "Users",
+    },
+    {
+        id: "creator",
+        name: "Creator 3-in-1",
+        count: "2.3K builds",
+        color: "from-pink-500 to-rose-600",
+        iconType: "Plus",
+    },
+    {
+        id: "ideas",
+        name: "Ideas",
+        count: "1.5K builds",
+        color: "from-purple-500 to-indigo-600",
+        iconType: "BookOpen",
+    },
+    {
+        id: "super-heroes",
+        name: "Super Heroes",
+        count: "1.8K builds",
+        color: "from-yellow-400 to-orange-500",
+        iconType: "Trophy",
+    },
+];

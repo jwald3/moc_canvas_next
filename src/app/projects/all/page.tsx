@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
-import { projects, savedProjects } from '@/components/projects/sample-data';
+import { projects, savedProjects } from '@/data/sample-data';
 
 const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
     const router = useRouter();

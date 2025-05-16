@@ -13,7 +13,7 @@ import { ProjectCard } from './ProjectCard';
 import { useRouter } from 'next/navigation';
 
 // Move sample data to a separate file
-import { projects, savedProjects } from "./sample-data";
+import { projects, savedProjects } from "../../data/sample-data";
 
 interface ProjectCardProps {
     project: Project | null;

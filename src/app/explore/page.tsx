@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
-import { projects } from '@/components/projects/sample-data';
+import { projects } from '@/data/sample-data';
 
 // Theme definitions with icons and colors
 const themes = [

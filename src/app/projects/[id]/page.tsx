@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, Plus, Image, Users, Bookmark, Share2, Square, CheckSquare, Clock, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { projects, projectDetails } from '@/components/projects/sample-data';
+import { projects, projectDetails } from '@/data/sample-data';
 
 // Types
 interface ProjectImage {
