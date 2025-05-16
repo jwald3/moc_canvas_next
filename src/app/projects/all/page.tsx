@@ -11,42 +11,11 @@ import {
     Grid,
     List
 } from 'lucide-react';
-import { ProjectCard } from '@/components/projects/ProjectCard';
-import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { projects, savedProjects } from '@/data/sample-data';
 import NoProjectsFound from '@/components/projectsAll/noProjectsFound';
 import AllProjectsGrid from '@/components/projectsAll/allProjectsGrid';
 import AllProjectsList from '@/components/projectsAll/allProjectsList';
-
-const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
-    const router = useRouter();
-
-    return (
-        <div className="flex items-center gap-4 text-sm">
-            <button
-                className={`transition-colors ${
-                    currentView === 'my'
-                        ? 'text-orange-600 font-medium'
-                        : 'text-gray-500 hover:text-orange-600'
-                }`}
-                onClick={() => router.push('/projects/all?view=my')}
-            >
-                My Projects
-            </button>
-            <div className="w-1 h-1 rounded-full bg-gray-300" />
-            <button
-                className={`transition-colors ${
-                    currentView === 'saved'
-                        ? 'text-orange-600 font-medium'
-                        : 'text-gray-500 hover:text-orange-600'
-                }`}
-                onClick={() => router.push('/projects/all?view=saved')}
-            >
-                Saved Projects
-            </button>
-        </div>
-    );
-};
+import AllProjectsHeader from '@/components/projectsAll/allProjectsHeader';
 
 const AllProjectsPage = () => {
     const router = useRouter();
@@ -119,30 +88,11 @@ const AllProjectsPage = () => {
         <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-                    <div className="flex items-center">
-                        <Link
-                            href="/projects"
-                            className="mr-3 p-2 rounded-full hover:bg-white/20 transition-colors"
-                        >
-                            <ChevronLeft size={20} className="text-orange-800" />
-                        </Link>
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-800 mb-2">Projects</h1>
-                            <ViewToggle currentView={currentView} />
-                            <p className="text-sm text-gray-600 mt-1">
-                                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
-                            </p>
-                        </div>
-                    </div>
-                    <button
-                        className="mt-4 sm:mt-0 bg-card-gradient hover-gradient text-white px-4 py-2 rounded-full flex items-center transition-all shadow-md hover:shadow-lg font-semibold text-shadow"
-                        onClick={handleCreateProject}
-                    >
-                        <Plus size={18} className="mr-2" />
-                        Add New Project
-                    </button>
-                </div>
+                <AllProjectsHeader
+                    currentView={currentView}
+                    handleCreateProject={handleCreateProject}
+                    filteredProjects={filteredProjects}
+                />
 
                 {/* Search and Filters */}
                 <div className="mb-6">
