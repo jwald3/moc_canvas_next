@@ -16,6 +16,7 @@ import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { projects, savedProjects } from '@/data/sample-data';
 import NoProjectsFound from '@/components/projectsAll/noProjectsFound';
 import AllProjectsGrid from '@/components/projectsAll/allProjectsGrid';
+import AllProjectsList from '@/components/projectsAll/allProjectsList';
 
 const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
     const router = useRouter();
@@ -221,18 +222,13 @@ const AllProjectsPage = () => {
                         activeTags={activeTags}
                     />
                 ) : (
-                    <div className="flex flex-col space-y-4">
-                        {filteredProjects.map(project => (
-                            <ProjectListItem
-                                key={project.id}
-                                project={project}
-                                isSaved={currentView === 'saved'}
-                                onProjectClick={handleProjectClick}
-                                onTagClick={handleTagClick}
-                                activeTags={activeTags}
-                            />
-                        ))}
-                    </div>
+                    <AllProjectsList
+                        filteredProjects={filteredProjects}
+                        currentView={currentView}
+                        handleProjectClick={handleProjectClick}
+                        handleTagClick={handleTagClick}
+                        activeTags={activeTags}
+                    />
                 )}
 
                 {filteredProjects.length === 0 && (
