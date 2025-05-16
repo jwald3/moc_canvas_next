@@ -13,6 +13,7 @@ import { useProjectContext } from "@/contexts/ProjectContext";
 import { projects } from "@/data/sample-data";
 import { useRouter } from 'next/navigation';
 import NewProjectCard from "./newProjectCard";
+import MyProjectsMobileView from "./myProjectsMobileView";
 
 const MyProjects = () => {
     const router = useRouter();
@@ -103,17 +104,7 @@ const MyProjects = () => {
 
             {/* Mobile View - My Projects */}
             {isMobile && filteredMyProjects.length > 0 && (
-                <div className="space-y-4">
-                    {filteredMyProjects.map((project) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            onProjectClick={handleProjectClick}
-                            onTagClick={handleTagClick}
-                            activeTags={activeTags}
-                        />
-                    ))}
-                </div>
+                <MyProjectsMobileView />
             )}
 
             {/* Create New Project Card */}
