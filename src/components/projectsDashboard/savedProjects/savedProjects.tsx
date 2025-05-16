@@ -7,7 +7,7 @@ import {
 import { ProjectCard } from '../../projects/ProjectCard';
 import SavedProjectsMobileView from "./savedProjectsMobileView";
 import NoSavedProjectsCard from "./noSavedProjectsCard";
-import SavedProjectsSeeAllControl from "./savedProjectsSeeAllControl";
+import SavedProjectsHeader from "./savedProjectsHeader";
 
 const SavedProjects = () => {
     const {
@@ -20,20 +20,7 @@ const SavedProjects = () => {
     } = useProjectContext();
     return (
         <div className="mt-12">
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h2 className="text-xl font-bold text-gray-800">
-                        Saved Projects
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                        {filteredSavedProjects.length} project
-                        {filteredSavedProjects.length !== 1 ? "s" : ""}
-                    </p>
-                </div>
-                {filteredSavedProjects.length > 0 && (
-                    <SavedProjectsSeeAllControl />
-                )}
-            </div>
+            <SavedProjectsHeader />
 
             {filteredSavedProjects.length === 0 ? (
                 <NoSavedProjectsCard />
