@@ -17,6 +17,7 @@ import {
     categories,
     popularThemes,
 } from "@/data/sample-data";
+import UsageStats from "@/components/home/UsageStats";
 
 // Add this mapping object near the top of the file, after the imports
 const iconMap = {
@@ -119,32 +120,7 @@ const HomePage = () => {
                                         Explore Projects
                                     </Link>
                                 </div>
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="text-center">
-                                        <div className="text-2xl font-bold text-gray-900 mb-1">
-                                            10K+
-                                        </div>
-                                        <div className="text-sm text-gray-600">
-                                            Active Builders
-                                        </div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-2xl font-bold text-gray-900 mb-1">
-                                            50K+
-                                        </div>
-                                        <div className="text-sm text-gray-600">
-                                            Projects Created
-                                        </div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-2xl font-bold text-gray-900 mb-1">
-                                            100K+
-                                        </div>
-                                        <div className="text-sm text-gray-600">
-                                            Parts Tracked
-                                        </div>
-                                    </div>
-                                </div>
+                                <UsageStats />
                             </div>
                             <div className="relative hidden md:block">
                                 <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-3xl transform rotate-6 scale-105"></div>
