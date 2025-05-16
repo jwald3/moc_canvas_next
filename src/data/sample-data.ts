@@ -63,6 +63,24 @@ interface Category {
     iconType: string;
 }
 
+interface StatusOption {
+    value: string;
+    color: string;
+}
+
+export interface BuildSection {
+    id: number;
+    sectionTitle: string;
+    description: string;
+    images: ImageType[];
+}
+
+export interface ImageType {
+    id: number;
+    url: string;
+    title: string;
+}
+
 export interface Project extends BaseProject {
     id: number;
     name: string;
@@ -708,48 +726,48 @@ export const categories: Category[] = [
 ];
 
 export const themes = [
-    { 
-        id: 'all',
-        name: 'All Themes', 
+    {
+        id: "all",
+        name: "All Themes",
         iconType: "TrendingUp",
-        color: 'from-blue-500 to-purple-600',
-        description: 'Explore projects across all LEGO® themes'
+        color: "from-blue-500 to-purple-600",
+        description: "Explore projects across all LEGO® themes",
     },
-    { 
-        id: 'star-wars',
-        name: 'Star Wars', 
+    {
+        id: "star-wars",
+        name: "Star Wars",
         iconType: "Star",
-        color: 'from-blue-500 to-purple-600',
-        description: 'From a galaxy far, far away - Star Wars LEGO® builds'
+        color: "from-blue-500 to-purple-600",
+        description: "From a galaxy far, far away - Star Wars LEGO® builds",
     },
-    { 
-        id: 'technic',
-        name: 'Technic', 
+    {
+        id: "technic",
+        name: "Technic",
         iconType: "Gift",
-        color: 'from-red-500 to-yellow-500',
-        description: 'Complex mechanical builds and engineering marvels'
+        color: "from-red-500 to-yellow-500",
+        description: "Complex mechanical builds and engineering marvels",
     },
-    { 
-        id: 'city',
-        name: 'City', 
+    {
+        id: "city",
+        name: "City",
         iconType: "Users",
-        color: 'from-green-500 to-teal-500',
-        description: 'Urban builds and everyday LEGO® adventures'
+        color: "from-green-500 to-teal-500",
+        description: "Urban builds and everyday LEGO® adventures",
     },
-    { 
-        id: 'ideas',
-        name: 'Ideas', 
+    {
+        id: "ideas",
+        name: "Ideas",
         iconType: "BookOpen",
-        color: 'from-purple-500 to-indigo-600',
-        description: 'Fan-designed sets and creative concepts'
+        color: "from-purple-500 to-indigo-600",
+        description: "Fan-designed sets and creative concepts",
     },
-    { 
-        id: 'creator',
-        name: 'Creator', 
+    {
+        id: "creator",
+        name: "Creator",
         iconType: "Trophy",
-        color: 'from-yellow-400 to-orange-500',
-        description: '3-in-1 sets and creative building experiences'
-    }
+        color: "from-yellow-400 to-orange-500",
+        description: "3-in-1 sets and creative building experiences",
+    },
 ];
 
 // Mock community highlight data
@@ -832,4 +850,11 @@ export const popularThemes = [
         color: "from-yellow-400 to-orange-500",
         iconType: "Trophy",
     },
+];
+
+export const statusOptions: StatusOption[] = [
+    { value: "Planning", color: "bg-purple-100 text-purple-800" },
+    { value: "In Progress", color: "bg-blue-100 text-blue-800" },
+    { value: "On Hold", color: "bg-amber-100 text-amber-800" },
+    { value: "Completed", color: "bg-green-100 text-green-800" },
 ];
