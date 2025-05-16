@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectCard } from "../projects/ProjectCard";
+import { ProjectCard } from "../../projects/ProjectCard";
 import { useProjectContext } from "@/contexts/ProjectContext";
 
 const savedProjectsMobileView = () => {

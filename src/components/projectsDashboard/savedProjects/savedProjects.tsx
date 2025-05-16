@@ -4,7 +4,7 @@ import {
     ChevronLeft,
     ChevronRight,
 } from "lucide-react";
-import { ProjectCard } from '../projects/ProjectCard';
+import { ProjectCard } from '../../projects/ProjectCard';
 import SavedProjectsMobileView from "./savedProjectsMobileView";
 import NoSavedProjectsCard from "./noSavedProjectsCard";
 import SavedProjectsSeeAllControl from "./savedProjectsSeeAllControl";

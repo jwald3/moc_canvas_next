@@ -8,7 +8,7 @@ import {
     Star,
 } from "lucide-react";
 import Link from 'next/link';
-import { ProjectCard } from '../projects/ProjectCard';
+import { ProjectCard } from '../../projects/ProjectCard';
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { projects } from "@/data/sample-data";
 import { useRouter } from 'next/navigation';

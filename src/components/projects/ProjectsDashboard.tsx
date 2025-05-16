@@ -8,8 +8,8 @@ type RouterType = ReturnType<typeof useRouter>;
 import ProjectDashboardHeader from "@/components/projectsDashboard/projectDashboardHeader";
 import ProjectDashboardControls from "../projectsDashboard/projectDashboardControls";
 import { ProjectProvider, useProjectContext } from "@/contexts/ProjectContext";
-import MyProjects from "../projectsDashboard/myProjects";
-import SavedProjects from "../projectsDashboard/savedProjects";
+import MyProjects from "../projectsDashboard/myProjects/myProjects";
+import SavedProjects from "../projectsDashboard/savedProjects/savedProjects";
 
 // Add these types at the top of the file
 export type SortOption = {
