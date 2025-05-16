@@ -15,6 +15,7 @@ import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { projects, savedProjects } from '@/data/sample-data';
 import NoProjectsFound from '@/components/projectsAll/noProjectsFound';
+import AllProjectsGrid from '@/components/projectsAll/allProjectsGrid';
 
 const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
     const router = useRouter();
@@ -212,18 +213,13 @@ const AllProjectsPage = () => {
 
                 {/* Projects Grid/List */}
                 {viewMode === 'grid' ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredProjects.map(project => (
-                            <ProjectCard
-                                key={project.id}
-                                project={project}
-                                isSaved={currentView === 'saved'}
-                                onProjectClick={handleProjectClick}
-                                onTagClick={handleTagClick}
-                                activeTags={activeTags}
-                            />
-                        ))}
-                    </div>
+                    <AllProjectsGrid
+                        filteredProjects={filteredProjects}
+                        currentView={currentView}
+                        handleProjectClick={handleProjectClick}
+                        handleTagClick={handleTagClick}
+                        activeTags={activeTags}
+                    />
                 ) : (
                     <div className="flex flex-col space-y-4">
                         {filteredProjects.map(project => (
