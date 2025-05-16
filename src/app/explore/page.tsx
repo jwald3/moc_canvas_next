@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -15,57 +15,10 @@ import {
     Users,
     BookOpen,
     Trophy,
-    Plus
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
-import { projects } from '@/data/sample-data';
-
-// Theme definitions with icons and colors
-const themes = [
-    { 
-        id: 'all',
-        name: 'All Themes', 
-        icon: <TrendingUp size={20} />,
-        color: 'from-blue-500 to-purple-600',
-        description: 'Explore projects across all LEGO® themes'
-    },
-    { 
-        id: 'star-wars',
-        name: 'Star Wars', 
-        icon: <Star size={20} />,
-        color: 'from-blue-500 to-purple-600',
-        description: 'From a galaxy far, far away - Star Wars LEGO® builds'
-    },
-    { 
-        id: 'technic',
-        name: 'Technic', 
-        icon: <Gift size={20} />,
-        color: 'from-red-500 to-yellow-500',
-        description: 'Complex mechanical builds and engineering marvels'
-    },
-    { 
-        id: 'city',
-        name: 'City', 
-        icon: <Users size={20} />,
-        color: 'from-green-500 to-teal-500',
-        description: 'Urban builds and everyday LEGO® adventures'
-    },
-    { 
-        id: 'ideas',
-        name: 'Ideas', 
-        icon: <BookOpen size={20} />,
-        color: 'from-purple-500 to-indigo-600',
-        description: 'Fan-designed sets and creative concepts'
-    },
-    { 
-        id: 'creator',
-        name: 'Creator', 
-        icon: <Trophy size={20} />,
-        color: 'from-yellow-400 to-orange-500',
-        description: '3-in-1 sets and creative building experiences'
-    }
-];
+import { projects, themes } from '@/data/sample-data';
 
 const ExplorePage = () => {
     const router = useRouter();
@@ -76,6 +29,16 @@ const ExplorePage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTags, setActiveTags] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+    // Add this mapping object near the top of the file, after the imports
+    const iconMap = {
+        TrendingUp: <TrendingUp size={16} />,
+        Star: <Star size={16} />,
+        Gift: <Gift size={16} />,
+        Users: <Users size={16} />,
+        BookOpen: <BookOpen size={16} />,
+        Trophy: <Trophy size={16} />,
+    };
 
     // Get all unique tags
     const getAllTags = () => {
@@ -176,7 +139,7 @@ const ExplorePage = () => {
                                             ? 'bg-white/20'
                                             : 'bg-gray-100'
                                     }`}>
-                                        {theme.icon}
+                                        {iconMap[theme.iconType as keyof typeof iconMap]}
                                     </div>
                                     <div className="text-left">
                                         <h3 className="font-semibold">{theme.name}</h3>
