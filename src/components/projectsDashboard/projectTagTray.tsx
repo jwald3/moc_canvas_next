@@ -1,14 +1,10 @@
 import React from "react";
 import { X } from "lucide-react";
+import { useProjectContext } from "@/contexts/ProjectContext";
 
-interface ProjectTagTrayProps {
-    allTags: string[];
-    activeTags: string[];
-    handleTagClick: (tag: string) => void;
-    setActiveTags: (tags: string[]) => void;
-}
+const ProjectTagTray = () => {
+    const { allTags, activeTags, handleTagClick, setActiveTags } = useProjectContext();
 
-const projectTagTray = ({ allTags, activeTags, handleTagClick, setActiveTags }: ProjectTagTrayProps) => {
     return (
         <div className="mt-3 mb-8 flex flex-wrap gap-2">
             {allTags.map((tag) => (
@@ -36,4 +32,4 @@ const projectTagTray = ({ allTags, activeTags, handleTagClick, setActiveTags }: 
     );
 };
 
-export default projectTagTray;
+export default ProjectTagTray;

@@ -1,28 +1,19 @@
 import React from "react";
 import { Search, X } from "lucide-react";
-import { SortOption } from "../projects/ProjectsDashboard";
+import { useProjectContext } from "@/contexts/ProjectContext";
 
-interface ProjectDashboardSearchAndSortProps {
-    searchQuery: string;
-    handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    setSearchQuery: (query: string) => void;
-    currentSort: SortOption;
-    setCurrentSort: (sort: SortOption) => void;
-    sortOptions: SortOption[];
-    setMyProjectsStartIndex: (index: number) => void;
-    setSavedProjectsStartIndex: (index: number) => void;
-}   
+const ProjectDashboardSearchAndSort = () => {
+    const {
+        searchQuery,
+        handleSearch,
+        setSearchQuery,
+        currentSort,
+        setCurrentSort,
+        sortOptions,
+        setMyProjectsStartIndex,
+        setSavedProjectsStartIndex,
+    } = useProjectContext();
 
-const projectDashboardSearchAndSort = ({
-    searchQuery,
-    handleSearch,
-    setSearchQuery,
-    currentSort,
-    setCurrentSort,
-    sortOptions,
-    setMyProjectsStartIndex,
-    setSavedProjectsStartIndex,
-}: ProjectDashboardSearchAndSortProps) => {
     return (
         <div className="mb-6">
             <div className="flex flex-col sm:flex-row gap-4">
@@ -80,4 +71,4 @@ const projectDashboardSearchAndSort = ({
     );
 };
 
-export default projectDashboardSearchAndSort;
+export default ProjectDashboardSearchAndSort;

@@ -12,9 +12,14 @@ import Link from 'next/link';
 import { ProjectCard } from './ProjectCard';
 import { useRouter } from 'next/navigation';
 
+// Remove the Router import and use the return type of useRouter
+type RouterType = ReturnType<typeof useRouter>;
+
 import { projects, savedProjects } from "../../data/sample-data";
 import ProjectDashboardHeader from "@/components/projectsDashboard/projectDashboardHeader";
 import ProjectDashboardControls from "../projectsDashboard/projectDashboardControls";
+import { ProjectProvider, useProjectContext } from "@/contexts/ProjectContext";
+import MyProjects from "../projectsDashboard/myProjects";
 
 // Add this component at the top of the file, near ViewAllButton
 const ToggleViewButton = ({ expanded, onClick }: { expanded: boolean; onClick: () => void }) => (
@@ -42,345 +47,34 @@ const sortOptions: SortOption[] = [
 ];
 
 export const ProjectsDashboard = () => {
-    // State with proper typing
-    const [myProjectsStartIndex, setMyProjectsStartIndex] = useState<number>(0);
-    const [savedProjectsStartIndex, setSavedProjectsStartIndex] =
-        useState<number>(0);
-    const [showAllMyProjects, setShowAllMyProjects] = useState<boolean>(false);
-    const [showAllSavedProjects, setShowAllSavedProjects] =
-        useState<boolean>(false);
-    const [cardsPerView, setCardsPerView] = useState<number>(3);
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const [activeTags, setActiveTags] = useState<string[]>([]);
-    const [currentSort, setCurrentSort] = useState<SortOption>(sortOptions[0]);
-    const [savedProjectIds, setSavedProjectIds] = useState<number[]>(
-        savedProjects.map(p => p.id)
-    );
     const router = useRouter();
 
-    // Update type definitions for functions
-    const filterProjects = (projectsList: Project[]): Project[] => {
-        return projectsList.filter((project) => {
-            const matchesSearch =
-                searchQuery === "" ||
-                project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                project.tags.some((tag) =>
-                    tag.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-
-            const matchesTags = activeTags.length === 0 ||
-                activeTags.every(activeTag =>
-                    project.tags.some(tag => 
-                        tag.toLowerCase() === activeTag.toLowerCase()
-                    )
-                );
-
-            return matchesSearch && matchesTags;
-        });
-    };
-
-    // Add sorting function
-    const sortProjects = (projects: Project[]): Project[] => {
-        return [...projects].sort((a, b) => {
-            if (currentSort.value === 'tagCount') {
-                const comparison = a.tags.length - b.tags.length;
-                return currentSort.direction === 'asc' ? comparison : -comparison;
-            }
-            
-            if (currentSort.value === 'lastUpdated') {
-                const aDate = new Date(a.lastUpdated).getTime();
-                const bDate = new Date(b.lastUpdated).getTime();
-                const comparison = bDate - aDate;
-                return currentSort.direction === 'asc' ? -comparison : comparison;
-            }
-
-            const aValue = a[currentSort.value];
-            const bValue = b[currentSort.value];
-            
-            if (typeof aValue === 'string' && typeof bValue === 'string') {
-                const comparison = aValue.localeCompare(bValue);
-                return currentSort.direction === 'asc' ? comparison : -comparison;
-            }
-            return 0;
-        });
-    };
-
-    // Modify the filtered projects to include sorting
-    const filteredMyProjects = sortProjects(filterProjects(projects));
-    const filteredSavedProjects = sortProjects(
-        filterProjects(savedProjects.filter(p => savedProjectIds.includes(p.id)))
+    return (
+        <ProjectProvider router={router}>
+            <ProjectDashboardContent router={router} />
+        </ProjectProvider>
     );
+};
 
-    const navigateCarousel = (
-        direction: "next" | "prev",
-        carouselType: "my" | "saved"
-    ): void => {
-        const projectsList =
-            carouselType === "my" ? filteredMyProjects : filteredSavedProjects;
-        const maxIndex = Math.max(0, projectsList.length - (cardsPerView - 1));
-
-        if (carouselType === "my") {
-            if (direction === "next") {
-                setMyProjectsStartIndex((prevIndex) =>
-                    prevIndex >= maxIndex ? 0 : prevIndex + 1
-                );
-            } else {
-                setMyProjectsStartIndex((prevIndex) =>
-                    prevIndex <= 0 ? maxIndex : prevIndex - 1
-                );
-            }
-        } else {
-            if (direction === "next") {
-                setSavedProjectsStartIndex((prevIndex) =>
-                    prevIndex >= maxIndex ? 0 : prevIndex + 1
-                );
-            } else {
-                setSavedProjectsStartIndex((prevIndex) =>
-                    prevIndex <= 0 ? maxIndex : prevIndex - 1
-                );
-            }
-        }
-    };
-
-    const handleProjectClick = (idOrEvent: number | React.MouseEvent): void => {
-        if (typeof idOrEvent === "number") {
-            alert(`Navigating to project ${idOrEvent}`);
-        } else {
-            handleCreateProject(idOrEvent);
-        }
-    };
-
-    const handleCreateProject = (e: React.MouseEvent | number): void => {
-        if (typeof e !== "number") {
-            e.stopPropagation();
-        }
-        router.push('/projects/new');
-    };
-
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setSearchQuery(e.target.value);
-        setMyProjectsStartIndex(0);
-        setSavedProjectsStartIndex(0);
-    };
-
-    const handleTagClick = (tag: string): void => {
-        setActiveTags(prev => {
-            const isActive = prev.includes(tag);
-            return isActive ? prev.filter(t => t !== tag) : [...prev, tag];
-        });
-        setSearchQuery("");
-        setMyProjectsStartIndex(0);
-        setSavedProjectsStartIndex(0);
-    };
-
-    const handleSaveToggle = (id: number) => {
-        setSavedProjectIds(prev => {
-            if (prev.includes(id)) {
-                return prev.filter(savedId => savedId !== id);
-            } else {
-                return [...prev, id];
-            }
-        });
-    };
-
-    useEffect(() => {
-        const handleResize = () => {
-            const width = window.innerWidth;
-            if (width < 640) {
-                setIsMobile(true);
-                setCardsPerView(1);
-            } else if (width < 1024) {
-                setIsMobile(false);
-                setCardsPerView(2);
-            } else {
-                setIsMobile(false);
-                setCardsPerView(3);
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    // Add these computed values before the return statement
-    const visibleMyProjectsDesktop = filteredMyProjects.slice(
-        myProjectsStartIndex,
-        myProjectsStartIndex + cardsPerView
-    );
-
-    const visibleSavedProjectsDesktop = filteredSavedProjects.slice(
-        savedProjectsStartIndex,
-        savedProjectsStartIndex + cardsPerView
-    );
-
-    // Add this function after filterProjects
-    const getAllTags = (): string[] => {
-        const allTags = new Set<string>();
-        [...projects, ...savedProjects].forEach((project) => {
-            project.tags.forEach((tag) => {
-                allTags.add(tag);
-            });
-        });
-        return Array.from(allTags).sort();
-    };
-
-    // Add this before return statement
-    const allTags = getAllTags();
-    const clearSearch = () => {
-        setSearchQuery("");
-        setActiveTags([]);
-    };
-
-    // Add these for mobile view
-    const visibleMyProjects = showAllMyProjects
-        ? filteredMyProjects
-        : filteredMyProjects.slice(0, 3);
-    const visibleSavedProjects = showAllSavedProjects
-        ? filteredSavedProjects
-        : filteredSavedProjects.slice(0, 3);
+const ProjectDashboardContent = ({ router }: { router: RouterType }) => {
+    const { 
+        navigateCarousel, 
+        handleProjectClick, 
+        handleTagClick, 
+        activeTags, 
+        isMobile,
+        filteredSavedProjects,
+        searchQuery 
+    } = useProjectContext();
 
     return (
         <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
-                <ProjectDashboardHeader handleCreateProject={handleCreateProject} />
+                <ProjectDashboardHeader handleCreateProject={() => {}} />
 
-                <ProjectDashboardControls 
-                    searchQuery={searchQuery}
-                    handleSearch={handleSearch}
-                    setSearchQuery={setSearchQuery}
-                    currentSort={currentSort}
-                    setCurrentSort={setCurrentSort}
-                    sortOptions={sortOptions}
-                    allTags={allTags}
-                    activeTags={activeTags}
-                    handleTagClick={handleTagClick}
-                    setMyProjectsStartIndex={setMyProjectsStartIndex}
-                    setSavedProjectsStartIndex={setSavedProjectsStartIndex}
-                    setActiveTags={setActiveTags}
-                />
+                <ProjectDashboardControls />
 
-                {/* My Projects Header Section */}
-                <div className="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 className="text-xl font-bold text-gray-800">
-                            My Projects
-                        </h2>
-                        <p className="text-sm text-gray-500">
-                            {filteredMyProjects.length} project{filteredMyProjects.length !== 1 ? 's' : ''}
-                        </p>
-                    </div>
-                    <Link 
-                        href="/projects/all?view=my"
-                        className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
-                    >
-                        See All
-                        <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
-                </div>
-
-                {/* Add empty states for both sections */}
-                {filteredMyProjects.length === 0 &&
-                (searchQuery || activeTags.length > 0) ? (
-                    <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200 mb-6">
-                        <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                            <Search size={24} className="text-gray-400" />
-                        </div>
-                        <h3 className="text-lg font-medium text-gray-800 mb-2">
-                            No matching projects found
-                        </h3>
-                        <p className="text-gray-500 mb-4">
-                            Try adjusting your search or filters to find what
-                            you're looking for.
-                        </p>
-                        <button
-                            className="text-orange-600 font-medium hover:text-orange-800"
-                            onClick={clearSearch}
-                        >
-                            Clear search and filters
-                        </button>
-                    </div>
-                ) : null}
-
-                {/* Desktop View */}
-                <div className={`${isMobile ? 'hidden' : 'block'} relative mb-6`}>
-                    {filteredMyProjects.length > 0 && (
-                        <>
-                            <button
-                                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
-                                onClick={() => navigateCarousel("prev", "my")}
-                            >
-                                <ChevronLeft size={20} />
-                            </button>
-
-                            <div className="overflow-hidden px-2">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-                                    {visibleMyProjectsDesktop.map(
-                                        (project, index) => (
-                                            <div
-                                                key={
-                                                    project?.id ||
-                                                    `create-${index}`
-                                                }
-                                            >
-                                                <ProjectCard
-                                                    project={project}
-                                                    onProjectClick={
-                                                        handleProjectClick
-                                                    }
-                                                    onTagClick={handleTagClick}
-                                                    activeTags={activeTags}
-                                                />
-                                            </div>
-                                        )
-                                    )}
-                                </div>
-                            </div>
-
-                            <button
-                                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
-                                onClick={() => navigateCarousel("next", "my")}
-                            >
-                                <ChevronRight size={20} />
-                            </button>
-                        </>
-                    )}
-                </div>
-
-                {/* Mobile View - My Projects */}
-                <div className={`${isMobile ? 'block' : 'hidden'} space-y-4`}>
-                    {visibleMyProjects.map((project) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            onProjectClick={handleProjectClick}
-                            onTagClick={handleTagClick}
-                            activeTags={activeTags}
-                        />
-                    ))}
-                    {filteredMyProjects.length > 3 && (
-                        <ToggleViewButton 
-                            expanded={showAllMyProjects}
-                            onClick={() => setShowAllMyProjects(!showAllMyProjects)}
-                        />
-                    )}
-                </div>
-
-                {/* Create New Project Card */}
-                <div 
-                    onClick={handleCreateProject}
-                    className="cursor-pointer w-full md:w-1/2 lg:w-1/3 border-2 border-dashed border-orange-400 rounded-xl py-12 my-8 hover:border-orange-500 transition-all group bg-white hover:bg-orange-50 card-shadow-hover"
-                >
-                    <div className="flex flex-col items-center justify-center gap-4">
-                        <div className="bg-card-gradient rounded-full p-4 group-hover:bg-gradient-hover transition-all">
-                            <Plus size={24} className="text-white" />
-                        </div>
-                        <span className="text-orange-700 font-medium text-lg">
-                            Create New Project
-                        </span>
-                    </div>
-                </div>
+                <MyProjects />
 
                 {/* Saved Projects Section */}
                 <div className="mt-12">
@@ -393,7 +87,7 @@ export const ProjectsDashboard = () => {
                                 {filteredSavedProjects.length} project{filteredSavedProjects.length !== 1 ? 's' : ''}
                             </p>
                         </div>
-                        {savedProjectIds.length > 0 && (
+                        {filteredSavedProjects.length > 0 && (
                             <Link 
                                 href="/projects/all?view=saved"
                                 className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
@@ -405,39 +99,19 @@ export const ProjectsDashboard = () => {
                     </div>
 
                     {filteredSavedProjects.length === 0 ? (
-                        searchQuery || activeTags.length > 0 ? (
-                            <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200 mb-6">
-                                <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                    <Search size={24} className="text-gray-400" />
-                                </div>
-                                <h3 className="text-lg font-medium text-gray-800 mb-2">
-                                    No matching projects found
-                                </h3>
-                                <p className="text-gray-500 mb-4">
-                                    Try adjusting your search or filters to find what
-                                    you're looking for.
-                                </p>
-                                <button
-                                    className="text-orange-600 font-medium hover:text-orange-800"
-                                    onClick={clearSearch}
-                                >
-                                    Clear search and filters
-                                </button>
+                        <div className="bg-white rounded-lg p-8 shadow-sm text-center border border-gray-200 mb-6">
+                            <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                <Star size={24} className="text-gray-400" />
                             </div>
-                        ) : (
-                            <div className="bg-white rounded-lg p-8 shadow-sm text-center border border-gray-200 mb-6">
-                                <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                    <Star size={24} className="text-gray-400" />
-                                </div>
-                                <h3 className="text-lg font-medium text-gray-800 mb-2">
-                                    No saved projects yet
-                                </h3>
-                                <p className="text-gray-500 mb-4">
-                                    Click the star icon on any project to save it for later.
-                                    Your saved projects will appear here.
-                                </p>
-                            </div>
-                        )
+                            <h3 className="text-lg font-medium text-gray-800 mb-2">
+                                No saved projects found
+                            </h3>
+                            <p className="text-gray-500 mb-4">
+                                {activeTags.length > 0 || searchQuery 
+                                    ? "Try adjusting your filters or search terms."
+                                    : "Click the star icon on any project to save it for later. Your saved projects will appear here."}
+                            </p>
+                        </div>
                     ) : (
                         <>
                             <div
@@ -456,18 +130,14 @@ export const ProjectsDashboard = () => {
 
                                 <div className="overflow-hidden px-2">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-                                        {visibleSavedProjectsDesktop.map(
+                                        {filteredSavedProjects.map(
                                             (project) => (
                                                 <ProjectCard
                                                     key={project.id}
                                                     project={project}
-                                                    isSaved={savedProjectIds.includes(project.id)}
-                                                    onProjectClick={
-                                                        handleProjectClick
-                                                    }
+                                                    onProjectClick={handleProjectClick}
                                                     onTagClick={handleTagClick}
                                                     activeTags={activeTags}
-                                                    onSaveToggle={handleSaveToggle}
                                                 />
                                             )
                                         )}
@@ -486,23 +156,15 @@ export const ProjectsDashboard = () => {
 
                             {/* Mobile View - Saved Projects */}
                             <div className={`${isMobile ? 'block' : 'hidden'} space-y-4 mt-12`}>
-                                {visibleSavedProjects.map((project) => (
+                                {filteredSavedProjects.map((project) => (
                                     <ProjectCard
                                         key={project.id}
                                         project={project}
                                         onProjectClick={handleProjectClick}
                                         onTagClick={handleTagClick}
                                         activeTags={activeTags}
-                                        isSaved={savedProjectIds.includes(project.id)}
-                                        onSaveToggle={handleSaveToggle}
                                     />
                                 ))}
-                                {filteredSavedProjects.length > 3 && (
-                                    <ToggleViewButton 
-                                        expanded={showAllSavedProjects}
-                                        onClick={() => setShowAllSavedProjects(!showAllSavedProjects)}
-                                    />
-                                )}
                             </div>
                         </>
                     )}
