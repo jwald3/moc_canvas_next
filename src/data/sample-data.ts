@@ -50,12 +50,13 @@ interface CommunityHighlight {
     tags: string[];
 }
 
-interface PopularTheme {
+export interface PopularTheme {
     id: string;
     name: string;
     count: string;
     color: string;
-    icon: React.ReactNode;
+    iconType: string;
+
 }
 
 interface Category {
