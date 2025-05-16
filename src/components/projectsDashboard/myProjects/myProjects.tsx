@@ -1,14 +1,13 @@
 import React from "react";
 import {
-    ChevronRight,
     Search,
 } from "lucide-react";
-import Link from 'next/link';
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { projects } from "@/data/sample-data";
 import NewProjectCard from "./newProjectCard";
 import MyProjectsMobileView from "./myProjectsMobileView";
 import MyProjectsDesktopView from "./myProjectsDesktopView";
+import MyProjectsSeeAllControl from "./myProjectsSeeAllControl";
 
 const MyProjects = () => {
     const { 
@@ -30,16 +29,7 @@ const MyProjects = () => {
                         {projects.length !== 1 ? "s" : ""}
                     </p>
                 </div>
-                <Link
-                    href="/projects/all?view=my"
-                    className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
-                >
-                    See All
-                    <ChevronRight
-                        size={16}
-                        className="ml-1 transform group-hover:translate-x-0.5 transition-transform"
-                    />
-                </Link>
+                <MyProjectsSeeAllControl />
             </div>
 
             {/* Add empty states for both sections */}
