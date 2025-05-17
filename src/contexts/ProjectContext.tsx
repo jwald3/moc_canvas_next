@@ -163,8 +163,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         onTagClick: handleTagClick,
         isMobile,
         filterProjects,
-        filteredMyProjects: filterProjects(projects as Project[]),
-        filteredSavedProjects: filterProjects(savedProjects as Project[]),
+        filteredMyProjects: filterProjects(projects as unknown as Project[]),
+        filteredSavedProjects: filterProjects(savedProjects as unknown as Project[]),
     };
 
     return (
