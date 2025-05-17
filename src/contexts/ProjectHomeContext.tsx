@@ -1,10 +1,19 @@
-import React, { createContext, useContext, useState } from 'react';
-import { projects } from "@/data/seed-data";
-import { ProjectObject } from '@/types/hand_spun_datatypes';
-import { projectDetails } from '@/data/sample-data';
+'use client'
+
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import { getProjectById } from '@/actions/project-actions'
+import type { HandSpunProject, HandSpunBuildStep, HandSpunProjectImage } from '@prisma/client'
+
+type ProjectWithRelations = HandSpunProject & {
+  steps?: (HandSpunBuildStep & {
+    images: HandSpunProjectImage[]
+  })[]
+}
 
 interface ProjectHomeContextType {
-    project: ProjectObject | null;
+    project: ProjectWithRelations | null;
+    isLoading: boolean;
+    error: string | null;
     activeTab: string;
     setActiveTab: (tab: string) => void;
     handleAddStep: () => void;
@@ -17,21 +26,27 @@ interface ProjectHomeProviderProps {
     projectId: string;
 }
 
-type ProjectDetailsType = Record<number, Partial<ProjectObject>>;
-
 export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProviderProps) => {
+    const [project, setProject] = useState<ProjectWithRelations | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState("progress");
 
+    useEffect(() => {
+        async function loadProject() {
+            try {
+                setIsLoading(true);
+                const projectData = await getProjectById(projectId);
+                setProject(projectData);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Failed to load project');
+            } finally {
+                setIsLoading(false);
+            }
+        }
 
-    const basicProject = projects.find((p) => p.id.toString() === projectId.toString());
-
-    const details = (projectDetails as ProjectDetailsType)[Number(projectId)];
-    const project = basicProject
-        ? {
-              ...basicProject,
-              ...details,
-          }
-        : null;
+        loadProject();
+    }, [projectId]);
 
     const handleAddStep = () => {
         // TODO: Implement add step functionality
@@ -40,6 +55,8 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
 
     const value = {
         project,
+        isLoading,
+        error,
         activeTab,
         setActiveTab,
         handleAddStep,
