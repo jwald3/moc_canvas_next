@@ -10,7 +10,7 @@ interface AllProjectsListProps {
     activeTags: string[];
 }
 
-const allProjectsList = ({
+const AllProjectsList = ({
     filteredProjects,
     currentView,
     handleProjectClick,
@@ -33,4 +33,4 @@ const allProjectsList = ({
     );
 };
 
-export default allProjectsList;
+export default AllProjectsList;

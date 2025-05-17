@@ -4,7 +4,7 @@ import {
 } from "lucide-react";
 import Link from 'next/link';
 
-const savedProjectsSeeAllControl = () => {
+const SavedProjectsSeeAllControl = () => {
     return (
         <Link
             href="/projects/all?view=saved"
@@ -19,4 +19,4 @@ const savedProjectsSeeAllControl = () => {
     );
 };
 
-export default savedProjectsSeeAllControl;
+export default SavedProjectsSeeAllControl;

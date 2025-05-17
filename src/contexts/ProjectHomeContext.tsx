@@ -1,8 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Project, projects, projectDetails } from "@/data/sample-data";
-
-type RouterType = ReturnType<typeof useRouter>;
 
 interface ProjectHomeContextType {
     project: Project | null;
@@ -15,11 +12,10 @@ const ProjectHomeContext = createContext<ProjectHomeContextType | undefined>(und
 
 interface ProjectHomeProviderProps {
     children: React.ReactNode;
-    router: RouterType;
     projectId: string;
 }
 
-export const ProjectHomeProvider = ({ children, router, projectId }: ProjectHomeProviderProps) => {
+export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProviderProps) => {
     const [activeTab, setActiveTab] = useState("progress");
 
     // Get basic project data and combine with details

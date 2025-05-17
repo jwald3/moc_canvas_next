@@ -12,7 +12,7 @@ interface AllProjectsTagTrayProps {
     handleTagClick: (tag: string) => void;
 }
 
-const allProjectsTagTray = ({
+const AllProjectsTagTray = ({
     allTags,
     activeTags,
     viewMode,
@@ -65,4 +65,4 @@ const allProjectsTagTray = ({
     );
 };
 
-export default allProjectsTagTray;
+export default AllProjectsTagTray;

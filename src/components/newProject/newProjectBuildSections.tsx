@@ -2,7 +2,7 @@ import React from "react";
 import { Info, Trash2, Plus, X } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-const newProjectBuildSections = () => {
+const NewProjectBuildSections = () => {
 
     const { buildSections, addNewSection, removeSection, updateSectionField, addImageToSection, setBuildSections } = useNewProjectContext();
 
@@ -160,4 +160,4 @@ const newProjectBuildSections = () => {
     );
 };
 
-export default newProjectBuildSections;
+export default NewProjectBuildSections;

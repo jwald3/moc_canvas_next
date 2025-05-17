@@ -1,6 +1,7 @@
 import React from "react";
 import { Info } from "lucide-react";
-const tipsCard = () => {
+
+const TipsCard = () => {
     return (
         <div className="bg-indigo-50 rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-indigo-100 px-6 py-4 flex justify-between items-center">
@@ -56,4 +57,4 @@ const tipsCard = () => {
     );
 };
 
-export default tipsCard;
+export default TipsCard;

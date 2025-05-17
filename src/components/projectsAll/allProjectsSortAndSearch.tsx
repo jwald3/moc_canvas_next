@@ -10,7 +10,7 @@ interface AllProjectsSortAndSearchProps {
     clearSearch: () => void;
 }
 
-const allProjectsSortAndSearch = ({
+const AllProjectsSortAndSearch = ({
     searchQuery,
     setSearchQuery,
     clearSearch,
@@ -42,4 +42,4 @@ const allProjectsSortAndSearch = ({
     );
 };
 
-export default allProjectsSortAndSearch;
+export default AllProjectsSortAndSearch;

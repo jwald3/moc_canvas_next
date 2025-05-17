@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import { useProjectContext } from "@/contexts/ProjectContext";
 
-const savedProjectsDesktopView = () => {
+const SavedProjectsDesktopView = () => {
     const { filteredSavedProjects, handleProjectClick, handleTagClick, activeTags, navigateCarousel } = useProjectContext();
 
     return (
@@ -40,4 +40,4 @@ const savedProjectsDesktopView = () => {
     );
 };
 
-export default savedProjectsDesktopView;
+export default SavedProjectsDesktopView;

@@ -8,7 +8,7 @@ import {
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 
-const projectProgressTabContents = () => {
+const ProjectProgressTabContents = () => {
     const { project } = useProjectHomeContext();
 
     return (
@@ -174,4 +174,4 @@ const projectProgressTabContents = () => {
     );
 };
 
-export default projectProgressTabContents;
+export default ProjectProgressTabContents;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const projectNotesTabContents = () => {
+const ProjectNotesTabContents = () => {
     return (
         <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
             <h3 className="text-lg font-medium mb-4">Project Notes</h3>
@@ -39,4 +39,4 @@ const projectNotesTabContents = () => {
     );
 };
 
-export default projectNotesTabContents;
+export default ProjectNotesTabContents;

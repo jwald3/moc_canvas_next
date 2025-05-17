@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { ChevronLeft, Save } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-const newProjectHeader = () => {
+const NewProjectHeader = () => {
     const router = useRouter();
 
     const { isSubmitting, handleSubmit } = useNewProjectContext();
@@ -48,4 +48,4 @@ const newProjectHeader = () => {
     );
 };
 
-export default newProjectHeader;
+export default NewProjectHeader;

@@ -261,7 +261,7 @@ const ExplorePage = () => {
                             No matching projects found
                         </h3>
                         <p className="text-gray-500 mb-4">
-                            Try adjusting your search or filters to find what you're looking for.
+                            Try adjusting your search or filters to find what you&apos;re looking for.
                         </p>
                         <button
                             className="text-orange-600 font-medium hover:text-orange-800"

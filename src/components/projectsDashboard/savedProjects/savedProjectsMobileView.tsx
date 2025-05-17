@@ -2,7 +2,7 @@ import React from "react";
 import { ProjectCard } from "../../projects/ProjectCard";
 import { useProjectContext } from "@/contexts/ProjectContext";
 
-const savedProjectsMobileView = () => {
+const SavedProjectsMobileView = () => {
     const { filteredSavedProjects, activeTags, isMobile, handleProjectClick, handleTagClick } = useProjectContext();
 
     return (
@@ -22,4 +22,4 @@ const savedProjectsMobileView = () => {
     );
 };
 
-export default savedProjectsMobileView;
+export default SavedProjectsMobileView;

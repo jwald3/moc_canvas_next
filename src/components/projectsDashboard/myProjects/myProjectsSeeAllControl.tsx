@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-const myProjectsSeeAllControl = () => {
+const MyProjectsSeeAllControl = () => {
     return (
         <Link
             href="/projects/all?view=my"
@@ -17,4 +17,4 @@ const myProjectsSeeAllControl = () => {
     );
 };
 
-export default myProjectsSeeAllControl;
+export default MyProjectsSeeAllControl;

@@ -8,7 +8,7 @@ import ViewToggle from './viewToggle';
 import { useAllProjectsContext } from '@/contexts/AllProjectsContext';
 
 
-const allProjectsHeader = () => {
+const AllProjectsHeader = () => {
     const {
         currentView,
         handleCreateProject,
@@ -46,4 +46,4 @@ const allProjectsHeader = () => {
     );
 };
 
-export default allProjectsHeader;
+export default AllProjectsHeader;

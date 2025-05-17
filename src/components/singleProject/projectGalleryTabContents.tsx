@@ -1,7 +1,7 @@
 import React from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-const projectGalleryTabContents = () => {
+const ProjectGalleryTabContents = () => {
     const { project } = useProjectHomeContext();
     return (
         <div className="space-y-6 pb-12">
@@ -33,4 +33,4 @@ const projectGalleryTabContents = () => {
     );
 };
 
-export default projectGalleryTabContents;
+export default ProjectGalleryTabContents;

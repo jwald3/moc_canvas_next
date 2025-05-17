@@ -4,7 +4,7 @@ import AllProjectsList from "./allProjectsList";
 import { useAllProjectsContext } from "@/contexts/AllProjectsContext";
 import NoProjectsFound from "./noProjectsFound";
 
-const allProjectsResultsTray = () => {
+const AllProjectsResultsTray = () => {
     const {
         viewMode,
         filteredProjects,
@@ -42,4 +42,4 @@ const allProjectsResultsTray = () => {
     );
 };
 
-export default allProjectsResultsTray;
+export default AllProjectsResultsTray;

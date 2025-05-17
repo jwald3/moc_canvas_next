@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Trash2, Plus } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-const newProjectImageUpload = () => {
+const NewProjectImageUpload = () => {
     const { imagePreview, setImagePreview, setShowImageUpload, images, removeImage } = useNewProjectContext();
 
     return (
@@ -114,4 +114,4 @@ const newProjectImageUpload = () => {
     );
 };
 
-export default newProjectImageUpload;
+export default NewProjectImageUpload;

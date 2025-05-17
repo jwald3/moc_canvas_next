@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 import React from "react";
 import { useProjectContext } from "@/contexts/ProjectContext";
 
-const noSavedProjectsCard = () => {
+const NoSavedProjectsCard = () => {
     const { activeTags, searchQuery } = useProjectContext();
 
     return (
@@ -22,4 +22,4 @@ const noSavedProjectsCard = () => {
     );
 };
 
-export default noSavedProjectsCard;
+export default NoSavedProjectsCard;

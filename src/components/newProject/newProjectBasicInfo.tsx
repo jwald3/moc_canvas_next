@@ -3,7 +3,7 @@ import { Tag, X } from "lucide-react";
 import { statusOptions } from "@/data/sample-data";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-const newProjectBasicInfo = () => {
+const NewProjectBasicInfo = () => {
 
     const { projectName, setProjectName, description, setDescription, selectedStatus, setSelectedStatus, tagInput, showTagSuggestions, handleTagInputChange, tags, addTag, removeTag, handleTagKeyPress, tagSuggestions } = useNewProjectContext();
     
@@ -148,4 +148,4 @@ const newProjectBasicInfo = () => {
     );
 };
 
-export default newProjectBasicInfo;
+export default NewProjectBasicInfo;

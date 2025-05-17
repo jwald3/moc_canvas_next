@@ -3,7 +3,7 @@ import React from "react";
 import { statusOptions } from "@/data/sample-data";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-const projectPreviewCard = () => {
+const ProjectPreviewCard = () => {
     const { imagePreview, projectName, tags, selectedStatus, description, isSubmitting, handleSubmit } = useNewProjectContext();
 
     return (
@@ -92,4 +92,4 @@ const projectPreviewCard = () => {
     );
 };
 
-export default projectPreviewCard;
+export default ProjectPreviewCard;

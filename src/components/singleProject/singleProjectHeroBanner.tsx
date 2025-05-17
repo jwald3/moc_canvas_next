@@ -1,7 +1,7 @@
 import React from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-const singleProjectHeroBanner = () => {
+const SingleProjectHeroBanner = () => {
 
     const { project } = useProjectHomeContext();
 
@@ -41,4 +41,4 @@ const singleProjectHeroBanner = () => {
     );
 };
 
-export default singleProjectHeroBanner;
+export default SingleProjectHeroBanner;

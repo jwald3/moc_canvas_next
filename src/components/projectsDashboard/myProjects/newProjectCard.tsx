@@ -2,7 +2,7 @@ import { Plus } from 'lucide-react'
 import React from "react";
 import { useRouter } from 'next/navigation';
 
-const newProjectCard = () => {
+const NewProjectCard = () => {
     const router = useRouter();
     return (
         <div
@@ -21,4 +21,4 @@ const newProjectCard = () => {
     );
 };
 
-export default newProjectCard;
+export default NewProjectCard;

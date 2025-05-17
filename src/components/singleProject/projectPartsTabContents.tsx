@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 import React from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-const projectPartsTabContents = () => {
+const ProjectPartsTabContents = () => {
     const { project } = useProjectHomeContext();
 
     return (
@@ -103,4 +103,4 @@ const projectPartsTabContents = () => {
     );
 };
 
-export default projectPartsTabContents;
+export default ProjectPartsTabContents;

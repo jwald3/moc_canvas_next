@@ -2,7 +2,7 @@ import React from "react";
 import MyProjectsSeeAllControl from "./myProjectsSeeAllControl";
 import { useProjectContext } from "@/contexts/ProjectContext";
 
-const myProjectsHeader = () => {
+const MyProjectsHeader = () => {
     const { filteredMyProjects } = useProjectContext();
 
     return (
@@ -19,4 +19,4 @@ const myProjectsHeader = () => {
     );
 };
 
-export default myProjectsHeader;
+export default MyProjectsHeader;

@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-    Search,
-    X,
-} from 'lucide-react';
 import AllProjectsTagTray from './allProjectsTagTray';
 import AllProjectsSortAndSearch from './allProjectsSortAndSearch';
 import { useAllProjectsContext } from '@/contexts/AllProjectsContext';
 
-const allProjectsControls = () => {
+const AllProjectsControls = () => {
     const {
         searchQuery,
         setSearchQuery,
@@ -41,4 +37,4 @@ const allProjectsControls = () => {
     );
 };
 
-export default allProjectsControls;
+export default AllProjectsControls;

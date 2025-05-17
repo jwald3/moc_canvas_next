@@ -5,7 +5,7 @@ interface ProjectDashboardHeaderProps {
     handleCreateProject: (e: React.MouseEvent | number) => void;
 }
 
-const projectDashboardHeader = ({
+const ProjectDashboardHeader = ({
     handleCreateProject,
 }: ProjectDashboardHeaderProps) => {
     return (
@@ -29,4 +29,4 @@ const projectDashboardHeader = ({
     );
 };
 
-export default projectDashboardHeader;
+export default ProjectDashboardHeader;

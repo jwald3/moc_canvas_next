@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { ChevronLeft, Bookmark, Share2 } from "lucide-react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-const singleProjectHeader = () => {
+const SingleProjectHeader = () => {
     const router = useRouter();
     const { project } = useProjectHomeContext();
 
@@ -36,4 +36,4 @@ const singleProjectHeader = () => {
     );
 };
 
-export default singleProjectHeader;
+export default SingleProjectHeader;

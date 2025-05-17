@@ -4,7 +4,6 @@ import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
 const NewProjectImageUploadModal = () => {
     const {
-        showImageUpload,
         setShowImageUpload,
         imageTitle,
         setImageTitle,

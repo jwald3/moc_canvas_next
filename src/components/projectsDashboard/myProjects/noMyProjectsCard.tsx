@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 import React from "react";
 import { useProjectContext } from "@/contexts/ProjectContext";
 
-const noMyProjectsCard = () => {
+const NoMyProjectsCard = () => {
     const { activeTags, searchQuery } = useProjectContext();
 
     return (
@@ -22,4 +22,4 @@ const noMyProjectsCard = () => {
     );
 };
 
-export default noMyProjectsCard;
+export default NoMyProjectsCard;

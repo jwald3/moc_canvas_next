@@ -5,7 +5,7 @@ interface NoProjectsFoundProps {
     clearSearch: () => void;
 }
 
-const noProjectsFound = ({ clearSearch }: NoProjectsFoundProps) => {
+const NoProjectsFound = ({ clearSearch }: NoProjectsFoundProps) => {
     return (
         <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200">
             <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
@@ -28,4 +28,4 @@ const noProjectsFound = ({ clearSearch }: NoProjectsFoundProps) => {
     );
 };
 
-export default noProjectsFound;
+export default NoProjectsFound;
