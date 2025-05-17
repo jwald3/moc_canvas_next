@@ -63,8 +63,6 @@ interface NewProjectProviderProps {
 }
 
 export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
-    const router = useRouter();
-
     // State management
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");

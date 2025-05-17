@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Project } from '@/types/project';
 import { projects, savedProjects } from "@/data/sample-data";

@@ -20,8 +20,7 @@ export type AppImageProps = {
   // Conditional props - only used in certain contexts
   overlay?: boolean;
   caption?: string;
-  fallbackSrc?: string; // Fallback image path instead of error state
-  
+
   // Pass-through for native props
 } & Omit<ImageProps, 'src' | 'alt'>;
 
@@ -36,7 +35,6 @@ export default function AppImage({
   rounded = false,
   overlay = false,
   caption,
-  fallbackSrc,
   className = '',
   width,
   height,
