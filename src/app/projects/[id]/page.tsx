@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { projects, projectDetails } from "@/data/sample-data";
+import SingleProjectHeader from "@/components/singleProject/singleProjectHeader";
 
 const ProjectDetailsPage = ({ params }: { params: { id: string } }) => {
     // State
@@ -41,34 +42,7 @@ const ProjectDetailsPage = ({ params }: { params: { id: string } }) => {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <div className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 py-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <button
-                                className="mr-3 p-2 rounded-full hover:bg-gray-100"
-                                onClick={() => router.back()}
-                            >
-                                <ChevronLeft
-                                    size={20}
-                                    className="text-gray-700"
-                                />
-                            </button>
-                            <h1 className="text-xl font-bold text-gray-800">
-                                {project.name}
-                            </h1>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <button className="p-2 rounded-full hover:bg-gray-100">
-                                <Bookmark size={20} className="text-gray-700" />
-                            </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100">
-                                <Share2 size={20} className="text-gray-700" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <SingleProjectHeader project={project} />
 
             {/* Project Hero */}
             <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
