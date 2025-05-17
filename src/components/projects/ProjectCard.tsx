@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import type { Project } from '@/types/project';
+import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { formatRelativeTime } from '@/utils/dateUtils';
 import { Star } from 'lucide-react';
 
 interface ProjectCardProps {
-    project: Project;
+    project: ProjectObject;
     isSaved?: boolean;
-    onProjectClick: (id: number) => void;
+    onProjectClick: (id: string) => void;
     onTagClick: (tag: string) => void;
     activeTags: string[];
-    onSaveToggle?: (id: number) => void;
+    onSaveToggle?: (id: string) => void;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -89,8 +89,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
             <div className="relative aspect-[3/2] w-full overflow-hidden">
                 <img
-                    src={project.image || "/images/app-image-demo.jpg"}
-                    alt={project.name}
+                    src={project.mainImage?.url || "/images/app-image-demo.jpg"}
+                    alt={project.title}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                         const img = e.target as HTMLImageElement;
@@ -99,7 +99,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/20 to-black/80 p-4 flex flex-col justify-between">
                     <h3 className="text-white font-bold text-xl drop-shadow-md">
-                        {project.name}
+                        {project.title}
                     </h3>
 
                     <div className="flex flex-wrap">
@@ -138,7 +138,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <div>
                     {isSaved && <p className="text-sm mb-1 text-gray-700">{project.owner}</p>}
                     <p className="text-xs text-gray-500">
-                        Updated {formatRelativeTime(project.lastUpdated)}
+                        Updated {formatRelativeTime(project.updatedAt)}
                     </p>
                 </div>
                 <button

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { Project } from '@/types/project';
-import { projects, savedProjects } from "@/data/sample-data";
+import { projects } from "@/data/seed-data";
 import { useRouter } from 'next/navigation';
 
 type RouterType = ReturnType<typeof useRouter>;
@@ -58,6 +58,9 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     const [myProjectsStartIndex, setMyProjectsStartIndex] = useState(0);
     const [savedProjectsStartIndex, setSavedProjectsStartIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+
+    // saved projects can just be the projects array for now
+    const savedProjects = projects;
 
     useEffect(() => {
         const handleResize = () => {

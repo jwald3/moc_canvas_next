@@ -51,7 +51,7 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                     </div>
                     
                     <div className="flex flex-wrap gap-1.5">
-                        {project.tags.map((tag) => (
+                        {project.tags.map((tag: string) => (
                             <button
                                 key={tag}
                                 onClick={(e) => {

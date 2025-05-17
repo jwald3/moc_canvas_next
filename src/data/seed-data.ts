@@ -45,7 +45,7 @@ export const projects: ProjectObject[] = [
         mainImage: {
             id: generateGuid(),
             projectId: generateGuid(),
-            url: "/images/star-destroyer-main.jpg",
+            url: "/images/star-destroyer.jpg",
         },
         theme: themes[0], // Star Wars theme
         createdAt: new Date("2025-05-11T15:30:00Z"),
@@ -96,7 +96,7 @@ export const projects: ProjectObject[] = [
         mainImage: {
             id: generateGuid(),
             projectId: generateGuid(),
-            url: "/images/taj-mahal-main.jpg",
+            url: "/images/taj-mahal.jpg",
         },
         theme: themes[1], // Architecture theme
         createdAt: new Date("2025-05-03T09:45:00Z"),
@@ -147,7 +147,7 @@ export const projects: ProjectObject[] = [
         mainImage: {
             id: generateGuid(),
             projectId: generateGuid(),
-            url: "/images/avengers-tower-main.jpg",
+            url: "/images/avengers-tower.jpg",
         },
         theme: themes[2], // Marvel theme
         createdAt: new Date("2025-04-10T11:20:00Z"),
