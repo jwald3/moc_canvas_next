@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
-import { projects, themes } from '@/data/sample-data';
+import { projects, themes } from '@/data/seed-data';
 
 // Add this mapping object near the top of the file, after the imports
 const iconMap = {
@@ -31,7 +31,7 @@ const iconMap = {
 };
 
 // Only keep the getAllTags helper function outside
-const getAllTags = () => {
+const getAllTags = () => {      
     const tagSet = new Set<string>();
     projects.forEach(project => {
         project.tags.forEach(tag => tagSet.add(tag));
@@ -53,7 +53,7 @@ const ExplorePageContent = () => {
     // Move all handlers and filtering logic here
     const filteredProjects = projects.filter(project => {
         const matchesSearch = !searchQuery || 
-            project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             project.tags.some(tag => 
                 tag.toLowerCase().includes(searchQuery.toLowerCase())
             );
@@ -93,7 +93,7 @@ const ExplorePageContent = () => {
         router.push(`/explore?theme=${themeId}`);
     };
 
-    const handleProjectClick = (id: number) => {
+    const handleProjectClick = (id: string) => {
         router.push(`/projects/${id}`);
     };
 

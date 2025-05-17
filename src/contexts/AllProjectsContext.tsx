@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { Project } from '@/types/project';
 
 type RouterType = ReturnType<typeof useRouter>;
 

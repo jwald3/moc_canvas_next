@@ -10,7 +10,7 @@ const SingleProjectHeroBanner = () => {
             {project?.steps?.[0]?.images?.[0] && (
                 <img
                     src={project.steps[0].images[0].url}
-                    alt={project.name}
+                    alt={project.title}
                     className="w-full h-full object-cover"
                 />
             )}
@@ -19,7 +19,7 @@ const SingleProjectHeroBanner = () => {
                 <div className="flex justify-between items-end">
                     <div>
                         <h1 className="text-2xl font-bold text-white mb-2">
-                            {project?.name}
+                            {project?.title}
                         </h1>
                         <div className="flex flex-wrap gap-2 mb-2">
                             {project?.tags?.map((tag, index) => (

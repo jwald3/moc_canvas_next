@@ -32,7 +32,7 @@ const ProjectPartsTabContents = () => {
                                 Total Pieces
                             </p>
                             <p className="text-xl font-semibold">
-                                {project?.stats?.totalPieces}
+                                1000
                             </p>
                         </div>
                         <div className="bg-white rounded-lg p-3 shadow-sm">
@@ -40,7 +40,7 @@ const ProjectPartsTabContents = () => {
                                 Confirmed Found
                             </p>
                             <p className="text-xl font-semibold">
-                                {project?.stats?.completedPieces}
+                                1000
                             </p>
                         </div>
                         <div className="bg-white rounded-lg p-3 shadow-sm">

@@ -3,6 +3,7 @@ import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 const ProjectGalleryTabContents = () => {
     const { project } = useProjectHomeContext();
+    
     return (
         <div className="space-y-6 pb-12">
             <div className="bg-white rounded-xl shadow-sm p-4">

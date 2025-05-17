@@ -63,7 +63,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     return (
         <div
             className="relative flex flex-col w-full rounded-lg overflow-hidden bg-white hover:shadow-xl cursor-pointer transition-all group border-2 border-orange-300 card-shadow card-shadow-hover"
-            onClick={() => onProjectClick(project.id)}
+            onClick={(e) => {
+                console.log("ProjectCard clicked", project.id);
+
+                
+                e.preventDefault();
+                onProjectClick(project.id);
+            }}
         >
             {onSaveToggle && (
                 <button
@@ -144,6 +150,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <button
                     className="py-1.5 px-4 bg-card-gradient hover-gradient text-white rounded-full transition-all shadow-sm hover:shadow-md flex items-center space-x-1 group"
                     onClick={(e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         onProjectClick(project.id);
                     }}

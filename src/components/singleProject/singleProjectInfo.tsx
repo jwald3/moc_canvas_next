@@ -18,13 +18,6 @@ const SingleProjectInfo = () => {
                     {/* Stats Information */}
                     <div className="w-full sm:w-64">
                         <div className="flex justify-between text-xs text-gray-500">
-                            <span>
-                                {project?.stats?.completedSteps} of{" "}
-                                {project?.stats?.totalSteps} steps complete
-                            </span>
-                            <span>
-                                {project?.stats?.completedPieces} pieces used
-                            </span>
                         </div>
                     </div>
 

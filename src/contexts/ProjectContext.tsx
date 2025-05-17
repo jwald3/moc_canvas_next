@@ -28,7 +28,7 @@ interface ProjectContextType {
     sortOptions: SortOption[];
     allTags: string[];
     navigateCarousel: (direction: "next" | "prev", carouselType: "my" | "saved") => void;
-    handleProjectClick: (idOrEvent: number | React.MouseEvent) => void;
+    handleProjectClick: (idOrEvent: string | React.MouseEvent) => void;
     onTagClick: (tag: string) => void;
     isMobile: boolean;
     filterProjects: (projectsList: Project[]) => Project[];
@@ -124,8 +124,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         }
     };
 
-    const handleProjectClick = (idOrEvent: number | React.MouseEvent) => {
-        if (typeof idOrEvent === "number") {
+    const handleProjectClick = (idOrEvent: string | React.MouseEvent) => {
+        if (typeof idOrEvent === "string") {
             router.push(`/projects/${idOrEvent}`);
         }
     };

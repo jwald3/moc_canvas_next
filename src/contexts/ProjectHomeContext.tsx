@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Project, projects, projectDetails } from "@/data/sample-data";
+import { projects } from "@/data/seed-data";
+import { ProjectObject } from '@/types/hand_spun_datatypes';
+import { projectDetails } from '@/data/sample-data';
 
 interface ProjectHomeContextType {
-    project: Project | null;
+    project: ProjectObject | null;
     activeTab: string;
     setActiveTab: (tab: string) => void;
     handleAddStep: () => void;
@@ -15,12 +17,15 @@ interface ProjectHomeProviderProps {
     projectId: string;
 }
 
+type ProjectDetailsType = Record<number, Partial<ProjectObject>>;
+
 export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProviderProps) => {
     const [activeTab, setActiveTab] = useState("progress");
 
-    // Get basic project data and combine with details
-    const basicProject = projects.find((p) => p.id === parseInt(projectId));
-    const details = projectDetails[parseInt(projectId)];
+
+    const basicProject = projects.find((p) => p.id.toString() === projectId.toString());
+
+    const details = (projectDetails as ProjectDetailsType)[Number(projectId)];
     const project = basicProject
         ? {
               ...basicProject,

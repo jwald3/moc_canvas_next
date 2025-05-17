@@ -1,9 +1,6 @@
 import type { 
     ProjectObject,
-    ProjectBuildStepObject,
-    ProjectImageObject,
     ProjectThemeObject,
-    ProjectStatsObject,
     ProjectStatus
 } from '@/types/hand_spun_datatypes';
 
@@ -38,7 +35,8 @@ export const themes: ProjectThemeObject[] = [
 // Projects
 export const projects: ProjectObject[] = [
     {
-        id: generateGuid(),
+        // id: generateGuid(),
+        id: "796a9a39-d8d1-4726-85b8-4555ce154c47",
         title: "Imperial Star Destroyer",
         description: "A massive 4,784-piece Imperial Star Destroyer build featuring detailed surface paneling, intricate technical sections, and a display stand.",
         tags: ["Star Wars", "Spaceships", "Custom Build", "Large Scale", "Build", "Sci-Fi"],
@@ -66,14 +64,16 @@ export const projects: ProjectObject[] = [
                         buildStepId: generateGuid(),
                         order: 1,
                         caption: "Reference image of Star Destroyer bridge",
-                        url: "/images/star-destroyer-bridge.jpg"
+                        url: "/images/star-destroyer-bridge.jpg",
+                        type: "reference" as "reference"
                     },
                     {
                         id: generateGuid(),
                         buildStepId: generateGuid(),
                         order: 2,
                         caption: "Progress on bridge construction",
-                        url: "/images/lego-star-destroyer-bridge.png"
+                        url: "/images/lego-star-destroyer-bridge.png",
+                        type: "progress" as "progress"
                     }
                 ]
             }
@@ -549,12 +549,12 @@ export const projects: ProjectObject[] = [
     }
 ].map(project => {
     // Generate IDs once
-    const projectId = generateGuid();
+    const projectId = project.id || generateGuid(); // Preserve existing ID if present
     const stepIds = project.steps?.map(() => generateGuid()) || [];
 
     return {
         ...project,
-        id: projectId,
+        id: projectId, // Use existing ID if present
         mainImage: {
             ...project.mainImage,
             id: generateGuid(),
