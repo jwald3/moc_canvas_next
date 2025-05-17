@@ -30,7 +30,7 @@ const TipsCard = () => {
                         </span>
                         <p>
                             Include close-up photos of special building
-                            techniques or modifications you've made
+                            techniques or modifications you&apos;ve made
                         </p>
                     </li>
                     <li className="flex items-start">

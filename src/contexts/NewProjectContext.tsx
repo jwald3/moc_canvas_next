@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState } from "react";
 import { BuildSection, ImageType } from "@/data/sample-data";
-import { useRouter } from "next/navigation";
 
 // Mock tag suggestions - moved from page
 const tagSuggestions = [

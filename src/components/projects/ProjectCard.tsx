@@ -40,7 +40,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     
     const getVisibleTags = (tags: string[]) => {
         let totalLength = 0;
-        let visibleTags: string[] = [];
+        const visibleTags: string[] = [];
         
         for (let i = 0; i < tags.length; i++) {
             const tag = tags[i];

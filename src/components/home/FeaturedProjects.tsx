@@ -34,7 +34,7 @@ const FeaturedProjects = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {featuredBuilds.map((build, _) => (
+                    {featuredBuilds.map((build) => (
                         <FeaturedBuildCard
                             key={build.id}
                             build={build}
