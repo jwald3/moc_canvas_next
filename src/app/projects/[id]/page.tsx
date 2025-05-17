@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Plus } from "lucide-react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import SingleProjectHeader from "@/components/singleProject/singleProjectHeader";
 import SingleProjectHeroBanner from "@/components/singleProject/singleProjectHeroBanner";
 import SingleProjectInfo from "@/components/singleProject/singleProjectInfo";
