@@ -66,7 +66,7 @@ const ProjectDetailsPage = () => {
     }
 
     return (
-        <ProjectHomeProvider router={router} projectId={projectId}>
+        <ProjectHomeProvider projectId={projectId}>
             <ProjectContent />
         </ProjectHomeProvider>
     );
