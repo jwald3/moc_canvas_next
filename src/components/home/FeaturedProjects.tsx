@@ -36,7 +36,7 @@ const FeaturedProjects = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {filteredSavedProjects.map((build) => (
+                    {filteredSavedProjects.slice(0, 3).map((build) => (
                         <FeaturedBuildCard
                             key={build.id}
                             build={build}
