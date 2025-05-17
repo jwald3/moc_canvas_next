@@ -1,26 +1,15 @@
 import React from "react";
 import { ProjectListItem } from "../projects/ProjectListItem";
-import { Project } from "@/types/project";
+import { useAllProjectsContext } from "@/contexts/AllProjectsContext";
 
-interface AllProjectsListProps {
-    filteredProjects: Project[];
-    currentView: "my" | "saved";
-    handleProjectClick: (id: number) => void;
-    handleTagClick: (tag: string) => void;
-    activeTags: string[];
-}
+const AllProjectsList = () => {
 
-const AllProjectsList = ({
-    filteredProjects,
-    currentView,
-    handleProjectClick,
-    handleTagClick,
-    activeTags,
-}: AllProjectsListProps) => {
+    const { filteredProjects, currentView, handleProjectClick, handleTagClick, activeTags } = useAllProjectsContext();
+
     return (
         <div className="flex flex-col space-y-4">
             {filteredProjects.map((project) => (
-                <ProjectListItem
+                <ProjectListItem 
                     key={project.id}
                     project={project}
                     isSaved={currentView === "saved"}

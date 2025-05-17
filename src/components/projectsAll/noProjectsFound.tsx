@@ -1,11 +1,11 @@
 import { Search } from "lucide-react";
 import React from "react";
+import { useAllProjectsContext } from "@/contexts/AllProjectsContext";
 
-interface NoProjectsFoundProps {
-    clearSearch: () => void;
-}
 
-const NoProjectsFound = ({ clearSearch }: NoProjectsFoundProps) => {
+const NoProjectsFound = () => {
+    const { clearSearch } = useAllProjectsContext();
+
     return (
         <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200">
             <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">

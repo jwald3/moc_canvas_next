@@ -3,22 +3,12 @@ import {
     Grid,
     List
 } from 'lucide-react';
+import { useAllProjectsContext } from '@/contexts/AllProjectsContext';
 
-interface AllProjectsTagTrayProps {
-    allTags: string[];
-    activeTags: string[];
-    viewMode: 'grid' | 'list';
-    setViewMode: (mode: 'grid' | 'list') => void;
-    handleTagClick: (tag: string) => void;
-}
+const AllProjectsTagTray = () => {
 
-const AllProjectsTagTray = ({
-    allTags,
-    activeTags,
-    viewMode,
-    setViewMode,
-    handleTagClick,
-}: AllProjectsTagTrayProps) => {
+    const { allTags, activeTags, viewMode, setViewMode, handleTagClick } = useAllProjectsContext();
+    
     return (
         <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-3 sm:space-y-0">
             <div className="flex flex-wrap gap-2 sm:max-w-[66%]">

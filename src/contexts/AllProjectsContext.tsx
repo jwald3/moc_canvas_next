@@ -1,13 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import type { Project } from '@/types/project';
+import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { Project } from '@/types/project';
 
 type RouterType = ReturnType<typeof useRouter>;
 
 export type SortOption = {
     label: string;
-    value: keyof Project | 'tagCount';
+    value: keyof ProjectObject | 'tagCount';
     direction: 'asc' | 'desc';
 };
 
@@ -18,7 +19,7 @@ interface AllProjectsContextType {
     setSearchQuery: (query: string) => void;
     currentSort: SortOption;
     setCurrentSort: (sort: SortOption) => void;
-    filteredProjects: Project[];
+    filteredProjects: ProjectObject[];
     myProjectsStartIndex: number;
     setMyProjectsStartIndex: (index: number) => void;
     savedProjectsStartIndex: number;
@@ -31,11 +32,11 @@ interface AllProjectsContextType {
     allTags: string[];
     viewMode: 'grid' | 'list';
     setViewMode: (mode: 'grid' | 'list') => void;
-    handleProjectClick: (id: number) => void;
+    handleProjectClick: (id: string) => void;
     loading: boolean;
     error: string | null;
-    projects: Project[];
-    savedProjects: Project[];
+    projects: ProjectObject[];
+    savedProjects: ProjectObject[];
 }
 
 const AllProjectsContext = createContext<AllProjectsContextType | undefined>(undefined);
@@ -47,16 +48,16 @@ interface AllProjectsProviderProps {
 }
 
 export const sortOptions: SortOption[] = [
-    { label: 'Recently Updated', value: 'lastUpdated', direction: 'desc' },
-    { label: 'Project Name (A-Z)', value: 'name', direction: 'asc' },
-    { label: 'Project Name (Z-A)', value: 'name', direction: 'desc' },
+    { label: 'Recently Updated', value: 'updatedAt', direction: 'desc' },
+    { label: 'Project Name (A-Z)', value: 'title', direction: 'asc' },
+    { label: 'Project Name (Z-A)', value: 'title', direction: 'desc' },
     { label: 'Most Tags', value: 'tagCount', direction: 'desc' },
     { label: 'Least Tags', value: 'tagCount', direction: 'asc' },
 ];
 
 export const AllProjectsProvider = ({ children, router }: AllProjectsProviderProps) => {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [savedProjects, setSavedProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<ProjectObject[]>([]);
+    const [savedProjects, setSavedProjects] = useState<ProjectObject[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -110,7 +111,7 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         router.push('/projects/new');
     };
 
-    const handleProjectClick = (id: number) => {
+    const handleProjectClick = (id: string) => {
         router.push(`/projects/${id}`);
     };
 
@@ -136,10 +137,10 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
     };
 
     // Filter projects based on search and tags
-    const filterProjects = (projectsList: Project[]) => {
+    const filterProjects = (projectsList: ProjectObject[]) => {
         return projectsList.filter(project => {
             const matchesSearch = !searchQuery || 
-                project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 project.tags.some(tag => 
                     tag.toLowerCase().includes(searchQuery.toLowerCase())
                 );

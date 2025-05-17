@@ -1,12 +1,12 @@
 import React from 'react';
-import type { Project } from '@/types/project';
+import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { formatRelativeTime } from '@/utils/dateUtils';
 import { Clock } from 'lucide-react';
 
 interface ProjectListItemProps {
-    project: Project;
+    project: ProjectObject;
     isSaved?: boolean;
-    onProjectClick: (id: number) => void;
+    onProjectClick: (id: string) => void;
     onTagClick: (tag: string) => void;
     activeTags: string[];
 }
@@ -25,8 +25,8 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
         >
             <div className="w-40 h-28 flex-shrink-0 relative overflow-hidden">
                 <img
-                    src={project.image || "/images/app-image-demo.jpg"}
-                    alt={project.name}
+                    src={project?.mainImage?.url || "/images/app-image-demo.jpg"}
+                    alt={project?.title || "Project Image"}
                     className="w-full h-full object-cover"
                     onError={(e) => {
                         const img = e.target as HTMLImageElement;
@@ -40,13 +40,13 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                     <div className="flex items-start gap-4 mb-2">
                         <div className="min-w-0 flex-grow">
                             <div className="flex items-center gap-3">
-                                <h3 className="font-semibold text-gray-800 truncate">{project.name}</h3>
+                                <h3 className="font-semibold text-gray-800 truncate">{project?.title}</h3>
                                 <span className="text-sm text-gray-500 flex-shrink-0 flex items-center gap-1">
                                     <Clock size={14} />
-                                    {formatRelativeTime(project.lastUpdated)}
+                                    {formatRelativeTime(project?.updatedAt || new Date())}
                                 </span>
                             </div>
-                            {isSaved && <p className="text-sm text-gray-600 mt-0.5">{project.owner}</p>}
+                            {isSaved && <p className="text-sm text-gray-600 mt-0.5">{project?.owner}</p>}
                         </div>
                     </div>
                     

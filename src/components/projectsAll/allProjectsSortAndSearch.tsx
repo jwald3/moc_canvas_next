@@ -3,18 +3,15 @@ import {
     Search,
     X,
 } from 'lucide-react';
+import { useAllProjectsContext } from '@/contexts/AllProjectsContext';
 
-interface AllProjectsSortAndSearchProps {
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-    clearSearch: () => void;
-}
+const AllProjectsSortAndSearch = () => {
+    const {
+        searchQuery,
+        setSearchQuery,
+        clearSearch,
+    } = useAllProjectsContext();
 
-const AllProjectsSortAndSearch = ({
-    searchQuery,
-    setSearchQuery,
-    clearSearch,
-}: AllProjectsSortAndSearchProps) => {
     return (
         <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
