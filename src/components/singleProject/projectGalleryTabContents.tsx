@@ -1,5 +1,6 @@
 import React from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
+import Image from "next/image";
 
 const ProjectGalleryTabContents = () => {
     const { project } = useProjectHomeContext();
@@ -16,10 +17,11 @@ const ProjectGalleryTabContents = () => {
                                 key={image.id}
                                 className="relative rounded-lg overflow-hidden"
                             >
-                                <img
+                                <Image
                                     src={image.url}
                                     alt="Project image"
-                                    className="w-full aspect-square object-cover"
+                                    className="object-cover"
+                                    fill
                                 />
                                 <div className="absolute top-0 left-0 bg-black/60 text-white px-2 py-1 text-xs">
                                     {image.type === "reference"

@@ -10,11 +10,9 @@ import {
     Trophy,
     Plus,
 } from "lucide-react";
-import {
-    PopularTheme,
-} from "@/data/sample-data";
+import { HandSpunTheme } from "@prisma/client";
 
-const ThemeTile = ({ theme }: { theme: PopularTheme }) => {
+const ThemeTile = ({ theme }: { theme: HandSpunTheme }) => {
 
     const iconMap = {
         TrendingUp: <TrendingUp size={16} />,
@@ -48,7 +46,7 @@ const ThemeTile = ({ theme }: { theme: PopularTheme }) => {
                         <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                             {theme.name}
                         </h3>
-                        <p className="text-gray-500">{theme.count}</p>
+                        <p className="text-gray-500">10 projects</p>
                     </div>
                     <div className="ml-auto">
                         <div

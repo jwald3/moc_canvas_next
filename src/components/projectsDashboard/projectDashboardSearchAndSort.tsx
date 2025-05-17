@@ -43,11 +43,11 @@ const ProjectDashboardSearchAndSort = () => {
 
                 <select
                     className="px-4 py-2.5 border border-orange-200 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white/70 backdrop-blur-sm text-gray-700 sm:w-48 cursor-pointer"
-                    value={`${currentSort.value}-${currentSort.direction}`}
+                    value={`${String(currentSort.value)}-${currentSort.direction}`}
                     onChange={(e) => {
                         const option = sortOptions.find(
                             (opt) =>
-                                `${opt.value}-${opt.direction}` ===
+                                `${String(opt.value)}-${opt.direction}` ===
                                 e.target.value
                         );
                         if (option) {
@@ -59,8 +59,8 @@ const ProjectDashboardSearchAndSort = () => {
                 >
                     {sortOptions.map((option) => (
                         <option
-                            key={`${option.value}-${option.direction}`}
-                            value={`${option.value}-${option.direction}`}
+                            key={`${String(option.value)}-${option.direction}`}
+                            value={`${String(option.value)}-${option.direction}`}
                         >
                             {option.label}
                         </option>

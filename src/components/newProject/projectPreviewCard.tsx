@@ -1,10 +1,16 @@
 import { Clock } from 'lucide-react'
 import React from "react";
-import { statusOptions } from "@/data/sample-data";
+import Image from "next/image";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
 const ProjectPreviewCard = () => {
     const { imagePreview, projectName, tags, selectedStatus, description, isSubmitting, handleSubmit } = useNewProjectContext();
+
+    const statusOptions = [
+        { value: "draft", color: "bg-gray-100 text-gray-700" },
+        { value: "published", color: "bg-green-100 text-green-700" },
+        { value: "archived", color: "bg-red-100 text-red-700" },
+    ];
 
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden sticky top-6">
@@ -16,17 +22,21 @@ const ProjectPreviewCard = () => {
             <div className="p-6">
                 <div className="rounded-lg overflow-hidden border border-gray-200 mb-4">
                     {imagePreview?.url && imagePreview.url !== "/images/app-image-demo.jpg" ? (
-                        <img
+                        <Image
                             src={imagePreview.url}
                             alt="Project Preview"
                             className="w-full aspect-video object-cover"
+                            width={800}
+                            height={450}
                         />
                     ) : (
                         <div className="w-full aspect-video bg-gray-100 flex items-center justify-center">
-                            <img 
+                            <Image 
                                 src="/images/app-image-demo.jpg"
                                 alt="Default Preview"
                                 className="w-full h-full object-cover"
+                                width={800}
+                                height={450}
                             />
                         </div>
                     )}
@@ -57,7 +67,7 @@ const ProjectPreviewCard = () => {
                     <span
                         className={`text-xs px-2 py-1 rounded-full ${
                             statusOptions.find(
-                                (s) => s.value === selectedStatus
+                                (s: { value: string; color: string }) => s.value === selectedStatus
                             )?.color || "bg-gray-100 text-gray-700"
                         }`}
                     >

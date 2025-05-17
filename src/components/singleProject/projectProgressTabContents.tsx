@@ -1,7 +1,8 @@
 import React from "react";
 import {
-    Image,
+    Image as LucideImage,
 } from "lucide-react";
+import Image from "next/image";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 
@@ -29,7 +30,7 @@ const ProjectProgressTabContents = () => {
                                 </div>
                             </div>
                             <button className="p-1 rounded hover:bg-gray-100">
-                                <Image size={18} className="text-gray-700" />
+                                <LucideImage size={18} className="text-gray-700" />
                             </button>
                         </div>
                     </div>
@@ -48,10 +49,12 @@ const ProjectProgressTabContents = () => {
                                         key={image.id}
                                         className="relative rounded-lg overflow-hidden bg-gray-100"
                                     >
-                                        <img
+                                        <Image
                                             src={image.url}
                                             alt={image.caption}
                                             className="w-full aspect-square object-cover"
+                                            width={400}
+                                            height={400}
                                         />
                                         <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-2 text-xs">
                                             {image.caption}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Info, Trash2, Plus, X } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
+import Image from "next/image";
 
 const NewProjectBuildSections = () => {
 
@@ -128,10 +129,12 @@ const NewProjectBuildSections = () => {
                                                 key={image.id}
                                                 className="relative rounded overflow-hidden border border-gray-200 group"
                                             >
-                                                <img
+                                                <Image
                                                     src={image.url}
                                                     alt={`${image.caption || `Section ${index + 1} Image ${imgIndex + 1}`}`}
                                                     className="w-full aspect-square object-cover"
+                                                    width={300}
+                                                    height={300}
                                                 />
                                                 <button
                                                     onClick={() => removeSectionImage(section.id, image.id)}

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
     Star,
 } from "lucide-react";
@@ -50,10 +51,13 @@ const HomeHero = () => {
                     </div>
                     <div className="relative hidden md:block">
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-3xl transform rotate-6 scale-105"></div>
-                        <img
+                        <Image
                             src="/images/millennium-falcon.jpg"
                             alt="Featured LEGO build"
+                            width={500}
+                            height={375}
                             className="relative rounded-3xl shadow-2xl w-full object-cover max-w-md mx-auto"
+                            priority
                         />
                     </div>
                 </div>

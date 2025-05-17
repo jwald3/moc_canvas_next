@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { formatRelativeTime } from '@/utils/dateUtils';
 import { Clock } from 'lucide-react';
@@ -24,10 +25,11 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
             onClick={() => onProjectClick(project.id)}
         >
             <div className="w-40 h-28 flex-shrink-0 relative overflow-hidden">
-                <img
+                <Image
                     src={project?.mainImage?.url || "/images/app-image-demo.jpg"}
                     alt={project?.title || "Project Image"}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     onError={(e) => {
                         const img = e.target as HTMLImageElement;
                         img.src = "/images/app-image-demo.jpg";

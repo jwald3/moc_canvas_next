@@ -1,10 +1,12 @@
 import { Star, Users } from "lucide-react";
 import React from "react";
-import { FeaturedBuild } from "@/data/sample-data"; 
+import Image from "next/image";
+import { ProjectObject } from "@/types/hand_spun_datatypes";
+
 
 interface FeaturedBuildCardProps {
-    build: FeaturedBuild;
-    handleViewBuild: (id: number) => void;
+    build: ProjectObject;
+    handleViewBuild: (id: string) => void;
 }
 
 const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) => {
@@ -15,10 +17,12 @@ const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) =
             onClick={() => handleViewBuild(build.id)}
         >
             <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                    src={build.image}
-                    alt={build.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                <Image
+                    src={build.mainImage?.url || "/images/app-image-demo.jpg"}
+                    alt={build.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-4 left-4 right-4">
@@ -27,12 +31,12 @@ const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) =
                                 className="fill-amber-400 text-amber-400"
                                 size={16}
                             />
-                            <span className="text-sm">{build.likes} likes</span>
+                            <span className="text-sm">{build.stats.likes} likes</span>
                             <span className="text-sm">•</span>
-                            <span className="text-sm">{build.views} views</span>
+                            <span className="text-sm">{build.stats.views} views</span>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {build.tags.map((tag) => (
+                            {build.tags.map((tag: string) => (
                                 <span
                                     key={tag}
                                     className="text-xs bg-white/20 text-white px-2 py-1 rounded-full backdrop-blur-sm"
@@ -50,11 +54,11 @@ const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) =
                         <Users size={14} className="text-gray-600" />
                     </div>
                     <span className="text-gray-600 text-sm">
-                        {build.creator}
+                        {build.owner}
                     </span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
-                    {build.name}
+                    {build.title}
                 </h3>
             </div>
         </div>

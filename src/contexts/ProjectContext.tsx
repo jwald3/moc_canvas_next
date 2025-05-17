@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { Project } from '@/types/project';
 import { projects } from "@/data/seed-data";
 import { useRouter } from 'next/navigation';
+import { ProjectObject } from '@/types/hand_spun_datatypes';
 
 type RouterType = ReturnType<typeof useRouter>;
 
 export type SortOption = {
     label: string;
-    value: keyof Project | 'tagCount';
+    value: keyof ProjectObject | 'tagCount';
     direction: 'asc' | 'desc';
 };
 
@@ -31,17 +31,17 @@ interface ProjectContextType {
     handleProjectClick: (idOrEvent: string | React.MouseEvent) => void;
     onTagClick: (tag: string) => void;
     isMobile: boolean;
-    filterProjects: (projectsList: Project[]) => Project[];
-    filteredMyProjects: Project[];
-    filteredSavedProjects: Project[];
+    filterProjects: (projectsList: ProjectObject[]) => ProjectObject[];
+    filteredMyProjects: ProjectObject[];
+    filteredSavedProjects: ProjectObject[];
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 export const sortOptions: SortOption[] = [
-    { label: 'Recently Updated', value: 'lastUpdated', direction: 'desc' },
-    { label: 'Project Name (A-Z)', value: 'name', direction: 'asc' },
-    { label: 'Project Name (Z-A)', value: 'name', direction: 'desc' },
+    { label: 'Recently Updated', value: 'updatedAt', direction: 'desc' },
+    { label: 'Project Name (A-Z)', value: 'title', direction: 'asc' },
+    { label: 'Project Name (Z-A)', value: 'title', direction: 'desc' },
     { label: 'Most Tags', value: 'tagCount', direction: 'desc' },
     { label: 'Least Tags', value: 'tagCount', direction: 'asc' },
 ];
@@ -130,11 +130,11 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         }
     };
 
-    const filterProjects = (projectsList: Project[]) => {
+    const filterProjects = (projectsList: ProjectObject[]) => {
         return projectsList.filter(project => {
             // Search query filter
             const matchesSearch = searchQuery === "" || 
-                project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (project.description ? project.description.toLowerCase().includes(searchQuery.toLowerCase()) : false);
 
             // Tags filter
@@ -166,8 +166,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         onTagClick: handleTagClick,
         isMobile,
         filterProjects,
-        filteredMyProjects: filterProjects(projects as unknown as Project[]),
-        filteredSavedProjects: filterProjects(savedProjects as unknown as Project[]),
+        filteredMyProjects: filterProjects(projects as unknown as ProjectObject[]),
+        filteredSavedProjects: filterProjects(savedProjects as unknown as ProjectObject[]),
     };
 
     return (

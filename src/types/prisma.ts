@@ -1,8 +1,8 @@
-import { Project, ProjectStats, BuildStep, ProjectImage } from '@prisma/client';
+import { HandSpunProject, HandSpunProjectStats, HandSpunBuildStep, HandSpunProjectImage } from '@prisma/client';
 
-export type ProjectWithRelations = Project & {
-  stats: ProjectStats | null;
-  steps: (BuildStep & {
-    images: ProjectImage[];
+export type ProjectWithRelations = HandSpunProject & {
+  stats: HandSpunProjectStats | null;
+  steps: (HandSpunBuildStep & {
+    images: HandSpunProjectImage[];
   })[];
 }; 

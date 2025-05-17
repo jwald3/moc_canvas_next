@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import React from "react";
+import Image from "next/image";
 
 const ProjectPartsTabContents = () => {
     return (
@@ -77,12 +78,13 @@ const ProjectPartsTabContents = () => {
                         {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                             <div key={num} className="text-center">
                                 <div className="h-16 w-16 mx-auto bg-gray-100 rounded flex items-center justify-center">
-                                    <img
+                                    <Image
                                         src={`/api/placeholder/64/64?text=${num}x${
                                             num + 1
                                         }`}
                                         alt="Part"
-                                        className="h-12 w-12"
+                                        width={48}
+                                        height={48}
                                     />
                                 </div>
                                 <p className="text-xs mt-1">

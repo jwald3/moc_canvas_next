@@ -1,6 +1,7 @@
 import React from "react";
-import { Image, Trash2, Plus } from "lucide-react";
+import { Image as ImageIcon, Trash2, Plus } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
+import Image from "next/image";
 
 const NewProjectImageUpload = () => {
     const { imagePreview, setImagePreview, setShowImageUpload, images, removeImage } = useNewProjectContext();
@@ -25,7 +26,7 @@ const NewProjectImageUpload = () => {
                             onClick={() => setShowImageUpload(true)}
                         >
                             <div className="mx-auto h-12 w-12 text-gray-400">
-                                <Image size={48} />
+                                <ImageIcon size={48} />
                             </div>
                             <div className="mt-2">
                                 <p className="text-sm text-gray-500">
@@ -38,10 +39,12 @@ const NewProjectImageUpload = () => {
                         </div>
                     ) : (
                         <div className="relative rounded-lg overflow-hidden border border-gray-200">
-                            <img
+                            <Image
                                 src={imagePreview.url}
-                                alt={imagePreview.caption}
+                                alt={imagePreview.caption || "Main project image"}
                                 className="w-full aspect-video object-cover"
+                                width={800}
+                                height={450}
                             />
                             <div className="absolute top-2 right-2 flex space-x-2">
                                 <button
@@ -81,10 +84,12 @@ const NewProjectImageUpload = () => {
                                     key={image.id}
                                     className="relative rounded-lg overflow-hidden border border-gray-200"
                                 >
-                                    <img
+                                    <Image
                                         src={image.url}
-                                        alt={image.caption}
+                                        alt={image.caption || "Project image"}
                                         className="w-full aspect-square object-cover"
+                                        width={400}
+                                        height={400}
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <button

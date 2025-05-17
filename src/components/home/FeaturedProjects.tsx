@@ -2,13 +2,15 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { featuredBuilds } from "@/data/sample-data";
 import FeaturedBuildCard from "./FeaturedBuildCard";
+import { useProjectContext } from "@/contexts/ProjectContext";
 
 const FeaturedProjects = () => {
     const router = useRouter();
 
-    const handleViewBuild = (id: number) => {
+    const { filteredSavedProjects } = useProjectContext();
+
+    const handleViewBuild = (id: string) => {
         router.push(`/projects/${id}`);
     };
 
@@ -34,7 +36,7 @@ const FeaturedProjects = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {featuredBuilds.map((build) => (
+                    {filteredSavedProjects.map((build) => (
                         <FeaturedBuildCard
                             key={build.id}
                             build={build}

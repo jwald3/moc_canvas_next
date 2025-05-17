@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { formatRelativeTime } from '@/utils/dateUtils';
 import { Star } from 'lucide-react';
@@ -94,10 +95,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             )}
 
             <div className="relative aspect-[3/2] w-full overflow-hidden">
-                <img
+                <Image
                     src={project.mainImage?.url || "/images/app-image-demo.jpg"}
                     alt={project.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="object-cover transform group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                         const img = e.target as HTMLImageElement;
                         img.src = "/images/app-image-demo.jpg";

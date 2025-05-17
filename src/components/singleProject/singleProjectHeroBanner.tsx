@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 const SingleProjectHeroBanner = () => {
@@ -8,10 +9,12 @@ const SingleProjectHeroBanner = () => {
     return (
         <div className="w-full h-64 relative bg-gray-200">
             {project?.steps?.[0]?.images?.[0] && (
-                <img
+                <Image
                     src={project.steps[0].images[0].url}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    priority
                 />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>

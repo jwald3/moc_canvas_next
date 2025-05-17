@@ -3,12 +3,19 @@ import Link from "next/link";
 import {
     ChevronRight,
 } from "lucide-react";
-import {
-    popularThemes,
-} from "@/data/sample-data";
 import ThemeTile from "@/components/home/ThemeTile";
+import { prisma } from "@/lib/prisma";
 
-const ExploreThemes = () => {
+const ExploreThemes = async () => {
+    const themes = await prisma.handSpunTheme.findMany({
+        include: {
+            projects: true,
+        },
+    });
+
+    const popularThemes = themes.sort((a, b) => b.projects.length - a.projects.length).slice(0, 3);
+
+
     return (
         <section className="py-24 bg-white relative overflow-hidden">
             {/* Background decorative elements */}
