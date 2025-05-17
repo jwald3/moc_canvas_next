@@ -2,9 +2,29 @@ import React from "react";
 import Link from "next/link";
 import {
     ChevronRight,
+    Rocket,
+    Landmark,
+    Shield,
+    LucideIcon
 } from "lucide-react";
 import ThemeTile from "@/components/home/ThemeTile";
 import { prisma } from "@/lib/prisma";
+
+// Theme configuration mapping
+const themeConfig: Record<string, { color: string, icon: LucideIcon }> = {
+    "Star Wars": {
+        color: "#FFE81F",
+        icon: Rocket
+    },
+    "Architecture": {
+        color: "#4A90E2",
+        icon: Landmark
+    },
+    "Marvel": {
+        color: "#E23636",
+        icon: Shield
+    }
+};
 
 const ExploreThemes = async () => {
     const themes = await prisma.handSpunTheme.findMany({
@@ -40,9 +60,17 @@ const ExploreThemes = async () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {popularThemes.map((theme) => (
-                        <ThemeTile key={theme.id} theme={theme} />
-                    ))}
+                    {popularThemes.map((theme) => {
+                        const config = themeConfig[theme.name];
+                        return (
+                            <ThemeTile 
+                                key={theme.id} 
+                                theme={theme} 
+                                color={config?.color} 
+                                Icon={config?.icon}
+                            />
+                        );
+                    })}
                 </div>
 
                 {/* View All Themes Button */}

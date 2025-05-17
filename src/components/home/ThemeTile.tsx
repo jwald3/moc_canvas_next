@@ -11,8 +11,30 @@ import {
     Plus,
 } from "lucide-react";
 import { HandSpunTheme } from "@prisma/client";
+import { LucideIcon } from "lucide-react";
 
-const ThemeTile = ({ theme }: { theme: HandSpunTheme }) => {
+interface ThemeTileProps {
+    theme: {
+        name: string;
+        id: string;
+        description: string;
+        iconType: string | null;
+        color: string | null;
+    };
+    color?: string;
+    Icon?: LucideIcon;
+}
+
+const ThemeTile = ({ theme, color, Icon }: ThemeTileProps) => {
+    // Convert color string to actual CSS style
+    const gradientStyle = {
+        background: `linear-gradient(to bottom right, ${color}, ${color}80)`,
+    };
+
+    const overlayStyle = {
+        backgroundColor: color,
+        opacity: 0.08,
+    };
 
     const iconMap = {
         TrendingUp: <TrendingUp size={16} />,
@@ -28,18 +50,21 @@ const ThemeTile = ({ theme }: { theme: HandSpunTheme }) => {
         <Link
             key={theme.id}
             href={`/explore?theme=${theme.id}`}
-            className={`relative group overflow-hidden rounded-2xl p-4 transition-all duration-300 bg-white hover:shadow-xl border border-gray-100`}
+            className="relative group overflow-hidden rounded-2xl p-4 transition-all duration-300 bg-white hover:shadow-xl border border-gray-100"
         >
+            {/* Use style prop instead of Tailwind classes for dynamic colors */}
             <div
-                className={`absolute inset-0 bg-gradient-to-br ${theme.color} opacity-[0.08] group-hover:opacity-[0.12] transition-opacity`}
+                className="absolute inset-0 group-hover:opacity-[0.12] transition-opacity"
+                style={overlayStyle}
             />
             <div className="relative p-4">
                 <div className="flex items-center gap-4">
                     <div
-                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${theme.color} flex items-center justify-center shadow-lg`}
+                        className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg"
+                        style={gradientStyle}
                     >
                         <div className="text-white">
-                            {iconMap[theme.iconType as keyof typeof iconMap]}
+                            {Icon && <Icon size={24} />}
                         </div>
                     </div>
                     <div>
@@ -50,7 +75,8 @@ const ThemeTile = ({ theme }: { theme: HandSpunTheme }) => {
                     </div>
                     <div className="ml-auto">
                         <div
-                            className={`w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br ${theme.color} text-white opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0 -translate-x-4 transition-all duration-300`}
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0 -translate-x-4 transition-all duration-300"
+                            style={gradientStyle}
                         >
                             <ChevronRight size={16} />
                         </div>
