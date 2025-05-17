@@ -6,6 +6,11 @@ const NewProjectBuildSections = () => {
 
     const { buildSections, addNewSection, removeSection, updateSectionField, addImageToSection, setBuildSections } = useNewProjectContext();
 
+    // Helper function to generate consistent IDs
+    const getSectionFieldId = (sectionId: string, fieldName: string) => {
+        return `${sectionId}-${fieldName}`;
+    };
+
     const removeSectionImage = (sectionId: string, imageId: string) => {
         setBuildSections(
             buildSections.map((section) => {
@@ -55,14 +60,14 @@ const NewProjectBuildSections = () => {
                         <div className="space-y-4">
                             <div>
                                 <label
-                                    htmlFor={`sectionTitle-${section.id}`}
+                                    htmlFor={getSectionFieldId(section.id, 'title')}
                                     className="block text-sm font-medium text-gray-700 mb-1"
                                 >
                                     Section Title
                                 </label>
                                 <input
                                     type="text"
-                                    id={`sectionTitle-${section.id}`}
+                                    id={getSectionFieldId(section.id, 'title')}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
                                     placeholder="e.g., Cockpit Details, Hidden Features"
                                     value={section.title}
@@ -78,13 +83,13 @@ const NewProjectBuildSections = () => {
 
                             <div>
                                 <label
-                                    htmlFor={`sectionDescription-${section.id}`}
+                                    htmlFor={getSectionFieldId(section.id, 'description')}
                                     className="block text-sm font-medium text-gray-700 mb-1"
                                 >
                                     Description
                                 </label>
                                 <textarea
-                                    id={`sectionDescription-${section.id}`}
+                                    id={getSectionFieldId(section.id, 'description')}
                                     rows={2}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
                                     placeholder="Describe what's special about this part of your build..."

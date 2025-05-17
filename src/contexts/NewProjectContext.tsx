@@ -62,6 +62,9 @@ interface NewProjectProviderProps {
     children: React.ReactNode;
 }
 
+// Create a utility function for generating deterministic IDs
+const generateDeterministicId = (index: number) => `section-${index + 1}`;
+
 export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     // State management
     const [projectName, setProjectName] = useState("");
@@ -75,15 +78,14 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     const [imagePreview, setImagePreview] = useState<ProjectImageObject | null>(null);
     const [imageTitle, setImageTitle] = useState("");
     const [buildSections, setBuildSections] = useState<ProjectBuildStepObject[]>(() => {
-        // Generate the initial UUID only once during initialization
-        const initialId = uuidv4();
-        return [{ 
-            id: initialId, 
-            projectId: "", 
-            title: "", 
-            description: "", 
+        // Use deterministic ID for initial section
+        return [{
+            id: generateDeterministicId(0),
+            projectId: "",
+            title: "",
+            description: "",
             images: [],
-            order: 0 
+            order: 0
         }];
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -188,19 +190,20 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     };
 
     const addNewSection = () => {
-        // Generate new UUID only when actually adding a new section
-        const newId = uuidv4();
-        setBuildSections(prevSections => [
-            ...prevSections,
-            {
-                id: newId,
-                projectId: "",
-                title: "",
-                description: "",
-                images: [],
-                order: prevSections.length
-            },
-        ]);
+        setBuildSections(prevSections => {
+            const newSectionIndex = prevSections.length;
+            return [
+                ...prevSections,
+                {
+                    id: generateDeterministicId(newSectionIndex),
+                    projectId: "",
+                    title: "",
+                    description: "",
+                    images: [],
+                    order: newSectionIndex
+                },
+            ];
+        });
     };
 
     const updateSectionField = (
