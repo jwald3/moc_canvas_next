@@ -65,7 +65,7 @@ export const projects: ProjectObject[] = [
                         order: 1,
                         caption: "Reference image of Star Destroyer bridge",
                         url: "/images/star-destroyer-bridge.jpg",
-                        type: "reference" as "reference"
+                        type: "reference" as const
                     },
                     {
                         id: generateGuid(),
@@ -73,7 +73,7 @@ export const projects: ProjectObject[] = [
                         order: 2,
                         caption: "Progress on bridge construction",
                         url: "/images/lego-star-destroyer-bridge.png",
-                        type: "progress" as "progress"
+                        type: "progress" as const
                     }
                 ]
             }
