@@ -7,76 +7,72 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Project {
+// New models based on hand_spun_datatypes
+model HandSpunProject {
   id          String   @id @default(cuid())
-  name        String
-  description String?
-  image       String
-  tags        String[]
-  lastUpdated DateTime @updatedAt
-  createdAt   DateTime @default(now())
-  owner       String?
-  avatar      String?
-  progress    Float?
-  status      String?
-  
-  // Relations
-  stats       ProjectStats?
-  steps       BuildStep[]
-}
-
-model ProjectStats {
-  id              String  @id @default(cuid())
-  totalPieces     Int
-  completedPieces Int
-  totalSteps      Int
-  completedSteps  Int
-  
-  // Relation to Project
-  project         Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId       String  @unique
-}
-
-model BuildStep {
-  id          String        @id @default(cuid())
   title       String
   description String
-  completed   Boolean       @default(false)
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  status      String   
+  owner       String?
+  avatar      String?
+
+  // Relations
+  theme       HandSpunTheme        @relation(fields: [themeId], references: [id])
+  themeId     String
+  steps       HandSpunBuildStep[]
+  stats       HandSpunProjectStats?
+  mainImage   HandSpunProjectImage? @relation(name: "ProjectMainImage", fields: [mainImageId], references: [id])
+  mainImageId String? @unique
+}
+
+model HandSpunTheme {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  iconType    String?
+  color       String?
+
+  // Relations
+  projects    HandSpunProject[]
+}
+
+model HandSpunBuildStep {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  order       Int
   
   // Relations
-  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     HandSpunProject      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
-  images      ProjectImage[]
+  images      HandSpunProjectImage[]
 }
 
-model ProjectImage {
-  id          String    @id @default(cuid())
-  type        String    // "reference" or "progress"
+model HandSpunProjectImage {
+  id          String   @id @default(cuid())
+  order       Int
+  caption     String
   url         String
-  title       String?
+  type        String?  // Will be "reference" or "progress"
   
   // Relations
-  buildStep   BuildStep @relation(fields: [buildStepId], references: [id], onDelete: Cascade)
-  buildStepId String
+  buildStep   HandSpunBuildStep? @relation(fields: [buildStepId], references: [id], onDelete: Cascade)
+  buildStepId String?  // Make this optional
+  mainForProject HandSpunProject? @relation(name: "ProjectMainImage")
 }
 
-// Optional: Additional models for featured builds, news items, etc. if you plan to store them in the database
-model FeaturedBuild {
-  id        String   @id @default(cuid())
-  name      String
-  creator   String
-  image     String
-  likes     Int      @default(0)
-  views     Int      @default(0)
-  tags      String[]
-}
-
-model NewsItem {
-  id           String   @id @default(cuid())
-  title        String
-  date         DateTime
-  image        String
-  excerpt      String
-  commentCount Int      @default(0)
-  category     String
+model HandSpunProjectStats {
+  id          String  @id @default(cuid())
+  views       Int     @default(0)
+  likes       Int     @default(0)
+  comments    Int     @default(0)
+  shares      Int     @default(0)
+  public      Boolean @default(true)
+  
+  // Relations
+  project     HandSpunProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String         @unique
 } 
