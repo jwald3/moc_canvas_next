@@ -27,6 +27,8 @@ interface NewProjectContextType {
     isSubmitting: boolean;
     tagSuggestions: string[];
     selectedFile: File | null;
+    activeSectionId: number | null;
+    setBuildSections: React.Dispatch<React.SetStateAction<BuildSection[]>>;
 
     // Setters
     setProjectName: (name: string) => void;
@@ -37,6 +39,7 @@ interface NewProjectContextType {
     setImageTitle: (title: string) => void;
     setImagePreview: (preview: ImageType | null) => void;
     setSelectedFile: (file: File | null) => void;
+    setActiveSectionId: (id: number | null) => void;
 
     // Handlers
     handleTagInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -78,6 +81,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     ]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [activeSectionId, setActiveSectionId] = useState<number | null>(null);
 
     // Handlers
     const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +130,6 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
 
     const handleImageUpload = () => {
         if (imageTitle && selectedFile) {
-            // Create a URL for the selected file
             const imageUrl = URL.createObjectURL(selectedFile);
             const newImage: ImageType = {
                 id: Date.now(),
@@ -134,10 +137,27 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
                 title: imageTitle,
             };
 
-            if (imagePreview) {
-                setImages([...images, newImage]);
+            if (activeSectionId) {
+                // Add image to build section
+                setBuildSections(
+                    buildSections.map((section) => {
+                        if (section.id === activeSectionId) {
+                            return {
+                                ...section,
+                                images: [...section.images, newImage],
+                            };
+                        }
+                        return section;
+                    })
+                );
+                setActiveSectionId(null);
             } else {
-                setImagePreview(newImage);
+                // Add image to main project images
+                if (imagePreview) {
+                    setImages([...images, newImage]);
+                } else {
+                    setImagePreview(newImage);
+                }
             }
 
             setImageTitle("");
@@ -147,22 +167,8 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     };
 
     const addImageToSection = (sectionId: number) => {
-        setBuildSections(
-            buildSections.map((section) => {
-                if (section.id === sectionId) {
-                    const newImage: ImageType = {
-                        id: Date.now(),
-                        url: `/api/placeholder/400/300?text=${encodeURIComponent(section.sectionTitle)}`,
-                        title: section.sectionTitle,
-                    };
-                    return {
-                        ...section,
-                        images: [...section.images, newImage],
-                    };
-                }
-                return section;
-            })
-        );
+        setActiveSectionId(sectionId);
+        setShowImageUpload(true);
     };
 
     const removeSection = (sectionId: number) => {
@@ -238,6 +244,8 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         isSubmitting,
         tagSuggestions,
         selectedFile,
+        activeSectionId,
+        setBuildSections,
 
         // Setters
         setProjectName,
@@ -248,6 +256,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         setImageTitle,
         setImagePreview,
         setSelectedFile,
+        setActiveSectionId,
 
         // Handlers
         handleTagInputChange,

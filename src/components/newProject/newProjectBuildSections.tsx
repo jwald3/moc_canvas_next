@@ -1,10 +1,24 @@
 import React from "react";
-import { Info, Trash2, Plus } from "lucide-react";
+import { Info, Trash2, Plus, X } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
 const newProjectBuildSections = () => {
 
-    const { buildSections, addNewSection, removeSection, updateSectionField, addImageToSection } = useNewProjectContext();
+    const { buildSections, addNewSection, removeSection, updateSectionField, addImageToSection, setBuildSections } = useNewProjectContext();
+
+    const removeSectionImage = (sectionId: number, imageId: number) => {
+        setBuildSections(
+            buildSections.map((section) => {
+                if (section.id === sectionId) {
+                    return {
+                        ...section,
+                        images: section.images.filter((img) => img.id !== imageId),
+                    };
+                }
+                return section;
+            })
+        );
+    };
 
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -104,24 +118,24 @@ const newProjectBuildSections = () => {
 
                                 {section.images.length > 0 ? (
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                        {section.images.map(
-                                            (image, imgIndex) => (
-                                                <div
-                                                    key={image.id}
-                                                    className="relative rounded overflow-hidden border border-gray-200"
+                                        {section.images.map((image, imgIndex) => (
+                                            <div
+                                                key={image.id}
+                                                className="relative rounded overflow-hidden border border-gray-200 group"
+                                            >
+                                                <img
+                                                    src={image.url}
+                                                    alt={`${image.title || `Section ${index + 1} Image ${imgIndex + 1}`}`}
+                                                    className="w-full aspect-square object-cover"
+                                                />
+                                                <button
+                                                    onClick={() => removeSectionImage(section.id, image.id)}
+                                                    className="absolute top-1 right-1 p-1 bg-white rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity"
                                                 >
-                                                    <img
-                                                        src={image.url}
-                                                        alt={`Section ${
-                                                            index + 1
-                                                        } Image ${
-                                                            imgIndex + 1
-                                                        }`}
-                                                        className="w-full aspect-square object-cover"
-                                                    />
-                                                </div>
-                                            )
-                                        )}
+                                                    <X size={14} className="text-gray-600" />
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
                                 ) : (
                                     <p className="text-xs text-gray-500 italic">
