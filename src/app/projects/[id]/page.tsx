@@ -18,6 +18,7 @@ import { projects, projectDetails } from "@/data/sample-data";
 import SingleProjectHeader from "@/components/singleProject/singleProjectHeader";
 import SingleProjectHeroBanner from "@/components/singleProject/singleProjectHeroBanner";
 import SingleProjectInfo from "@/components/singleProject/singleProjectInfo";
+import SingleProjectTabs from "@/components/singleProject/singleProjectTabs";
 
 const ProjectDetailsPage = ({ params }: { params: { id: string } }) => {
     // State
@@ -57,50 +58,7 @@ const ProjectDetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
 
                 {/* Tabs */}
-                <div className="border-b border-gray-200 mb-6">
-                    <nav className="-mb-px flex space-x-6 overflow-x-auto">
-                        <button
-                            className={`pb-4 px-1 whitespace-nowrap ${
-                                activeTab === "progress"
-                                    ? "border-b-2 border-indigo-600 text-indigo-600"
-                                    : "text-gray-500 hover:text-gray-700"
-                            } font-medium`}
-                            onClick={() => setActiveTab("progress")}
-                        >
-                            Build Progress
-                        </button>
-                        <button
-                            className={`pb-4 px-1 whitespace-nowrap ${
-                                activeTab === "gallery"
-                                    ? "border-b-2 border-indigo-600 text-indigo-600"
-                                    : "text-gray-500 hover:text-gray-700"
-                            } font-medium`}
-                            onClick={() => setActiveTab("gallery")}
-                        >
-                            Gallery
-                        </button>
-                        <button
-                            className={`pb-4 px-1 whitespace-nowrap ${
-                                activeTab === "parts"
-                                    ? "border-b-2 border-indigo-600 text-indigo-600"
-                                    : "text-gray-500 hover:text-gray-700"
-                            } font-medium`}
-                            onClick={() => setActiveTab("parts")}
-                        >
-                            Parts
-                        </button>
-                        <button
-                            className={`pb-4 px-1 whitespace-nowrap ${
-                                activeTab === "notes"
-                                    ? "border-b-2 border-indigo-600 text-indigo-600"
-                                    : "text-gray-500 hover:text-gray-700"
-                            } font-medium`}
-                            onClick={() => setActiveTab("notes")}
-                        >
-                            Notes
-                        </button>
-                    </nav>
-                </div>
+                <SingleProjectTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
                 {/* Progress Tab Content */}
                 {activeTab === "progress" && (
