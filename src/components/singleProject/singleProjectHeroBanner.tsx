@@ -1,5 +1,4 @@
 import React from "react";
-import { Project } from "@/data/sample-data";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 const singleProjectHeroBanner = () => {
