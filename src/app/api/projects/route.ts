@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const projects = await prisma.project.findMany({
+    const projects = await prisma.handSpunProject.findMany({
       include: {
         stats: true,
         steps: {
