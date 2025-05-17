@@ -1,10 +1,8 @@
-export interface Project {
-  id: number;
-  name: string;
-  image: string;
-  description?: string;
-  tags: string[];
-  lastUpdated: string;
-  owner?: string;
-  avatar?: string;
-} 
+import { Project as PrismaProject, ProjectStats, BuildStep, ProjectImage } from '@prisma/client';
+
+export type Project = PrismaProject & {
+    stats?: ProjectStats | null;
+    steps?: (BuildStep & {
+        images: ProjectImage[];
+    })[];
+}; 
