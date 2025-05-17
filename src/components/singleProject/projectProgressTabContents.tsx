@@ -1,9 +1,6 @@
 import React from "react";
 import {
     Image,
-    Square,
-    CheckSquare,
-    Clock,
 } from "lucide-react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
