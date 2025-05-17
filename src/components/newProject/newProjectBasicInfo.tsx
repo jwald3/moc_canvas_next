@@ -1,42 +1,11 @@
 import React from "react";
 import { Tag, X } from "lucide-react";
 import { statusOptions } from "@/data/sample-data";
+import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-interface NewProjectBasicInfoProps {
-    projectName: string;
-    setProjectName: (name: string) => void;
-    description: string;
-    setDescription: (description: string) => void;
-    selectedStatus: string;
-    setSelectedStatus: (status: string) => void;
-    tagInput: string;
-    setTagInput: (input: string) => void;
-    showTagSuggestions: boolean;
-    handleTagInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    tags: string[];
-    addTag: (tag: string) => void;
-    removeTag: (tag: string) => void;
-    handleTagKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-    tagSuggestions: string[];
-}
+const newProjectBasicInfo = () => {
 
-const newProjectBasicInfo = ({
-    projectName,
-    setProjectName,
-    description,
-    setDescription,
-    selectedStatus,
-    setSelectedStatus,
-    tagInput,
-    setTagInput,
-    showTagSuggestions,
-    handleTagInputChange,
-    handleTagKeyPress,
-    tags,
-    addTag,
-    removeTag,
-    tagSuggestions,
-}: NewProjectBasicInfoProps) => {
+    const { projectName, setProjectName, description, setDescription, selectedStatus, setSelectedStatus, tagInput, setTagInput, showTagSuggestions, handleTagInputChange, tags, addTag, removeTag, handleTagKeyPress, tagSuggestions } = useNewProjectContext();
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-gray-100 px-6 py-4">

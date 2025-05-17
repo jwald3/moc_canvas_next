@@ -1,27 +1,11 @@
 import { Clock } from 'lucide-react'
 import React from "react";
-import { Image } from "lucide-react";
 import { statusOptions } from "@/data/sample-data";
+import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-interface ProjectPreviewCardProps {
-    imagePreview: { url: string };
-    projectName: string;
-    tags: string[];
-    selectedStatus: string;
-    description: string;
-    isSubmitting: boolean;
-    handleSubmit: () => void;
-}
+const projectPreviewCard = () => {
+    const { imagePreview, projectName, tags, selectedStatus, description, isSubmitting, handleSubmit } = useNewProjectContext();
 
-const projectPreviewCard = ({
-    imagePreview,
-    projectName,
-    tags,
-    selectedStatus,
-    description,
-    isSubmitting,
-    handleSubmit,
-}: ProjectPreviewCardProps) => {
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden sticky top-6">
             <div className="border-b border-gray-100 px-6 py-4">

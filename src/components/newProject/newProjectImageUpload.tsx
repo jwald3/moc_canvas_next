@@ -1,21 +1,10 @@
 import React from "react";
 import { Image, Trash2, Plus } from "lucide-react";
+import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-interface NewProjectImageUploadProps {
-    imagePreview: { url: string; title: string } | null;
-    setImagePreview: (preview: { url: string; title: string } | null) => void;
-    setShowImageUpload: (show: boolean) => void;
-    images: { id: number; url: string; title: string }[];
-    removeImage: (id: number) => void;
-}
+const newProjectImageUpload = () => {
+    const { imagePreview, setImagePreview, setShowImageUpload, images, removeImage } = useNewProjectContext();
 
-const newProjectImageUpload = ({
-    imagePreview,
-    setImagePreview,
-    setShowImageUpload,
-    images,
-    removeImage,
-}: NewProjectImageUploadProps) => {
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-gray-100 px-6 py-4">

@@ -1,27 +1,11 @@
 import React from "react";
 import { Info, Trash2, Plus } from "lucide-react";
-import { BuildSection } from "@/data/sample-data";
+import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-interface NewProjectBuildSectionsProps {
-    buildSections: {
-        id: number;
-        sectionTitle: string;
-        description: string;
-        images: { id: number; url: string; title: string }[];
-    }[];
-    addSection: () => void;
-    removeSection: (id: number) => void;
-    updateSectionField: (id: number, field: keyof BuildSection, value: string) => void;
-    addImageToSection: (sectionId: number) => void;
-}
+const newProjectBuildSections = () => {
 
-const newProjectBuildSections = ({
-    buildSections,
-    addSection,
-    removeSection,
-    updateSectionField,
-    addImageToSection,
-}: NewProjectBuildSectionsProps) => {
+    const { buildSections, addNewSection, removeSection, updateSectionField, addImageToSection } = useNewProjectContext();
+
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-gray-100 px-6 py-4 flex justify-between items-center">
@@ -152,7 +136,7 @@ const newProjectBuildSections = ({
                 <button
                     type="button"
                     className="w-full border border-dashed border-yellow-300 hover:border-yellow-500 rounded-lg p-3 flex items-center justify-center text-yellow-600 hover:text-yellow-800 hover:bg-yellow-50 transition-colors"
-                    onClick={addSection}
+                    onClick={addNewSection}
                 >
                     <Plus size={18} className="mr-2" />
                     Add Another Section

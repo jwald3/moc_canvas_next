@@ -1,21 +1,11 @@
 import React from "react";
 import { X, Upload } from "lucide-react";
+import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-interface NewProjectImageUploadModalProps {
-    showImageUpload: boolean;
-    setShowImageUpload: (show: boolean) => void;
-    imageTitle: string;
-    setImageTitle: (title: string) => void;
-    handleImageUpload: () => void;
-}
+const newProjectImageUploadModal = () => {
+    
+    const { showImageUpload, setShowImageUpload, imageTitle, setImageTitle, handleImageUpload } = useNewProjectContext();
 
-const newProjectImageUploadModal = ({
-    showImageUpload,
-    setShowImageUpload,
-    imageTitle,
-    setImageTitle,
-    handleImageUpload,
-}: NewProjectImageUploadModalProps) => {
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex min-h-screen items-center justify-center px-4">

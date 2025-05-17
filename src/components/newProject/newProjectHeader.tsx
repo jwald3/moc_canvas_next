@@ -1,14 +1,13 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, Save } from "lucide-react";
+import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-interface NewProjectHeaderProps {
-    isSubmitting: boolean;
-    handleSubmit: () => void;
-}
-
-const newProjectHeader = ({ isSubmitting, handleSubmit }: NewProjectHeaderProps) => {
+const newProjectHeader = () => {
     const router = useRouter();
+
+    const { isSubmitting, handleSubmit } = useNewProjectContext();
+
     return (
         <div className="bg-white shadow-sm">
             <div className="max-w-7xl mx-auto px-4 py-4">
