@@ -6,7 +6,7 @@ const NewProjectBuildSections = () => {
 
     const { buildSections, addNewSection, removeSection, updateSectionField, addImageToSection, setBuildSections } = useNewProjectContext();
 
-    const removeSectionImage = (sectionId: number, imageId: number) => {
+    const removeSectionImage = (sectionId: string, imageId: string) => {
         setBuildSections(
             buildSections.map((section) => {
                 if (section.id === sectionId) {
@@ -39,7 +39,7 @@ const NewProjectBuildSections = () => {
                     >
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="font-medium text-gray-800">
-                                {section.sectionTitle || `Section ${index + 1}`}
+                                {section.title || `Section ${index + 1}`}
                             </h3>
                             {buildSections.length > 1 && (
                                 <button
@@ -65,11 +65,11 @@ const NewProjectBuildSections = () => {
                                     id={`sectionTitle-${section.id}`}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
                                     placeholder="e.g., Cockpit Details, Hidden Features"
-                                    value={section.sectionTitle}
+                                    value={section.title}
                                     onChange={(e) =>
                                         updateSectionField(
                                             section.id,
-                                            "sectionTitle",
+                                            "title",
                                             e.target.value
                                         )
                                     }
@@ -125,7 +125,7 @@ const NewProjectBuildSections = () => {
                                             >
                                                 <img
                                                     src={image.url}
-                                                    alt={`${image.title || `Section ${index + 1} Image ${imgIndex + 1}`}`}
+                                                    alt={`${image.caption || `Section ${index + 1} Image ${imgIndex + 1}`}`}
                                                     className="w-full aspect-square object-cover"
                                                 />
                                                 <button

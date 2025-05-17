@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { BuildSection, ImageType } from "@/data/sample-data";
+import { ProjectBuildStepObject, ProjectImageObject } from "@/types/hand_spun_datatypes";
+import { v4 as uuidv4 } from 'uuid';
 
 // Mock tag suggestions - moved from page
 const tagSuggestions = [
@@ -19,15 +20,15 @@ interface NewProjectContextType {
     tags: string[];
     showTagSuggestions: boolean;
     showImageUpload: boolean;
-    images: ImageType[];
-    imagePreview: ImageType | null;
+    images: ProjectImageObject[];
+    imagePreview: ProjectImageObject | null;
     imageTitle: string;
-    buildSections: BuildSection[];
+    buildSections: ProjectBuildStepObject[];
     isSubmitting: boolean;
     tagSuggestions: string[];
     selectedFile: File | null;
-    activeSectionId: number | null;
-    setBuildSections: React.Dispatch<React.SetStateAction<BuildSection[]>>;
+    activeSectionId: string | null;
+    setBuildSections: React.Dispatch<React.SetStateAction<ProjectBuildStepObject[]>>;
 
     // Setters
     setProjectName: (name: string) => void;
@@ -36,9 +37,9 @@ interface NewProjectContextType {
     setTagInput: (input: string) => void;
     setShowImageUpload: (show: boolean) => void;
     setImageTitle: (title: string) => void;
-    setImagePreview: (preview: ImageType | null) => void;
+    setImagePreview: (preview: ProjectImageObject | null) => void;
     setSelectedFile: (file: File | null) => void;
-    setActiveSectionId: (id: number | null) => void;
+    setActiveSectionId: (id: string | null) => void;
 
     // Handlers
     handleTagInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -47,11 +48,11 @@ interface NewProjectContextType {
     handleTagKeyPress: (e: React.KeyboardEvent) => void;
     handleFileSelect: (file: File) => void;
     handleImageUpload: () => void;
-    addImageToSection: (sectionId: number) => void;
-    removeSection: (sectionId: number) => void;
+    addImageToSection: (sectionId: string) => void;
+    removeSection: (sectionId: string) => void;
     addNewSection: () => void;
-    updateSectionField: (sectionId: number, field: keyof BuildSection, value: string) => void;
-    removeImage: (imageId: number) => void;
+    updateSectionField: (sectionId: string, field: keyof ProjectBuildStepObject, value: string) => void;
+    removeImage: (imageId: string) => void;
     handleSubmit: (e?: React.FormEvent) => void;
 }
 
@@ -70,15 +71,24 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     const [tags, setTags] = useState<string[]>([]);
     const [showTagSuggestions, setShowTagSuggestions] = useState(false);
     const [showImageUpload, setShowImageUpload] = useState(false);
-    const [images, setImages] = useState<ImageType[]>([]);
-    const [imagePreview, setImagePreview] = useState<ImageType | null>(null);
+    const [images, setImages] = useState<ProjectImageObject[]>([]);
+    const [imagePreview, setImagePreview] = useState<ProjectImageObject | null>(null);
     const [imageTitle, setImageTitle] = useState("");
-    const [buildSections, setBuildSections] = useState<BuildSection[]>([
-        { id: 1, sectionTitle: "", description: "", images: [] },
-    ]);
+    const [buildSections, setBuildSections] = useState<ProjectBuildStepObject[]>(() => {
+        // Generate the initial UUID only once during initialization
+        const initialId = uuidv4();
+        return [{ 
+            id: initialId, 
+            projectId: "", 
+            title: "", 
+            description: "", 
+            images: [],
+            order: 0 
+        }];
+    });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [activeSectionId, setActiveSectionId] = useState<number | null>(null);
+    const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
 
     // Handlers
     const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,10 +138,13 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     const handleImageUpload = () => {
         if (imageTitle && selectedFile) {
             const imageUrl = URL.createObjectURL(selectedFile);
-            const newImage: ImageType = {
-                id: Date.now(),
+            const newImage: ProjectImageObject = {
+                id: uuidv4(),
+                buildStepId: activeSectionId || "",
                 url: imageUrl,
-                title: imageTitle,
+                caption: imageTitle,
+                order: 0, // You might want to calculate this based on existing images
+                type: "progress"
             };
 
             if (activeSectionId) {
@@ -163,32 +176,36 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         }
     };
 
-    const addImageToSection = (sectionId: number) => {
+    const addImageToSection = (sectionId: string) => {
         setActiveSectionId(sectionId);
         setShowImageUpload(true);
     };
 
-    const removeSection = (sectionId: number) => {
+    const removeSection = (sectionId: string) => {
         if (buildSections.length > 1) {
             setBuildSections(buildSections.filter((section) => section.id !== sectionId));
         }
     };
 
     const addNewSection = () => {
-        setBuildSections([
-            ...buildSections,
+        // Generate new UUID only when actually adding a new section
+        const newId = uuidv4();
+        setBuildSections(prevSections => [
+            ...prevSections,
             {
-                id: Date.now(),
-                sectionTitle: "",
+                id: newId,
+                projectId: "",
+                title: "",
                 description: "",
                 images: [],
+                order: prevSections.length
             },
         ]);
     };
 
     const updateSectionField = (
-        sectionId: number,
-        field: keyof BuildSection,
+        sectionId: string,
+        field: keyof ProjectBuildStepObject,
         value: string
     ) => {
         setBuildSections(
@@ -201,7 +218,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         );
     };
 
-    const removeImage = (imageId: number) => {
+    const removeImage = (imageId: string) => {
         setImages(images.filter((img) => img.id !== imageId));
     };
 

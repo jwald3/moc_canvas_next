@@ -40,7 +40,7 @@ const NewProjectImageUpload = () => {
                         <div className="relative rounded-lg overflow-hidden border border-gray-200">
                             <img
                                 src={imagePreview.url}
-                                alt={imagePreview.title}
+                                alt={imagePreview.caption}
                                 className="w-full aspect-video object-cover"
                             />
                             <div className="absolute top-2 right-2 flex space-x-2">
@@ -83,7 +83,7 @@ const NewProjectImageUpload = () => {
                                 >
                                     <img
                                         src={image.url}
-                                        alt={image.title}
+                                        alt={image.caption}
                                         className="w-full aspect-square object-cover"
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">

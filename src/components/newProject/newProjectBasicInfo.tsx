@@ -1,7 +1,14 @@
 import React from "react";
 import { Tag, X } from "lucide-react";
-import { statusOptions } from "@/data/sample-data";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
+
+const statusOptions = [
+    { value: "planning", color: "bg-blue-100 text-blue-800" },
+    { value: "in progress", color: "bg-yellow-100 text-yellow-800" },
+    { value: "on hold", color: "bg-orange-100 text-orange-800" },
+    { value: "completed", color: "bg-green-100 text-green-800" },
+    { value: "cancelled", color: "bg-red-100 text-red-800" }
+] as const;
 
 const NewProjectBasicInfo = () => {
 
