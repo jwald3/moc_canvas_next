@@ -57,7 +57,6 @@ const ProjectContent = () => {
 };
 
 const ProjectDetailsPage = () => {
-    const router = useRouter();
     const params = useParams();
     const projectId = params?.id as string;
 
