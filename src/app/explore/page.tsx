@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -20,38 +20,37 @@ import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { projects, themes } from '@/data/sample-data';
 
-const ExplorePage = () => {
+// Add this mapping object near the top of the file, after the imports
+const iconMap = {
+    TrendingUp: <TrendingUp size={16} />,
+    Star: <Star size={16} />,
+    Gift: <Gift size={16} />,
+    Users: <Users size={16} />,
+    BookOpen: <BookOpen size={16} />,
+    Trophy: <Trophy size={16} />,
+};
+
+// Only keep the getAllTags helper function outside
+const getAllTags = () => {
+    const tagSet = new Set<string>();
+    projects.forEach(project => {
+        project.tags.forEach(tag => tagSet.add(tag));
+    });
+    return Array.from(tagSet).sort();
+};
+
+const allTags = getAllTags();
+
+const ExplorePageContent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const currentTheme = searchParams.get('theme') || 'all';
     
-    // State
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTags, setActiveTags] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-    // Add this mapping object near the top of the file, after the imports
-    const iconMap = {
-        TrendingUp: <TrendingUp size={16} />,
-        Star: <Star size={16} />,
-        Gift: <Gift size={16} />,
-        Users: <Users size={16} />,
-        BookOpen: <BookOpen size={16} />,
-        Trophy: <Trophy size={16} />,
-    };
-
-    // Get all unique tags
-    const getAllTags = () => {
-        const tagSet = new Set<string>();
-        projects.forEach(project => {
-            project.tags.forEach(tag => tagSet.add(tag));
-        });
-        return Array.from(tagSet).sort();
-    };
-
-    const allTags = getAllTags();
-
-    // Filter projects
+    // Move all handlers and filtering logic here
     const filteredProjects = projects.filter(project => {
         const matchesSearch = !searchQuery || 
             project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -74,7 +73,6 @@ const ExplorePage = () => {
         return matchesSearch && matchesTags && matchesTheme;
     });
 
-    // Handlers
     const clearSearch = () => {
         setSearchQuery('');
         setActiveTags([]);
@@ -273,6 +271,21 @@ const ExplorePage = () => {
                 )}
             </div>
         </div>
+    );
+};
+
+// Main page component with Suspense boundary
+const ExplorePage = () => {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
+                <div className="max-w-7xl mx-auto">
+                    Loading...
+                </div>
+            </div>
+        }>
+            <ExplorePageContent />
+        </Suspense>
     );
 };
 
