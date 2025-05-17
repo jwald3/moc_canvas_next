@@ -5,16 +5,15 @@ import {
     CheckSquare,
     Clock,
 } from "lucide-react";
-import { Project } from "@/data/sample-data";
+import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-interface ProjectProgressTabContentsProps {
-    project: Project;
-}
 
-const projectProgressTabContents = ({ project }: ProjectProgressTabContentsProps) => {
+const projectProgressTabContents = () => {
+    const { project } = useProjectHomeContext();
+
     return (
         <div className="space-y-6 pb-12">
-            {project.steps?.map((step) => (
+            {project?.steps?.map((step) => (
                 <div
                     key={step.id}
                     className="bg-white rounded-xl shadow-sm overflow-hidden"

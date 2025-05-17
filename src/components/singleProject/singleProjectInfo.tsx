@@ -1,18 +1,16 @@
 import React from "react";
-import { Project } from "@/data/sample-data";
 import { Users } from "lucide-react";
+import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-interface SingleProjectInfoProps {
-    project: Project;
-}
+const SingleProjectInfo = () => {
+    const { project } = useProjectHomeContext();
 
-const SingleProjectInfo = ({ project }: SingleProjectInfoProps) => {
     return (
         <div className="p-4">
             <div className="flex flex-col sm:flex-row justify-between gap-4">
                 {/* Description */}
                 <div className="flex-1">
-                    <p className="text-gray-600 mb-4">{project.description}</p>
+                    <p className="text-gray-600 mb-4">{project?.description}</p>
                 </div>
 
                 {/* Stats */}
@@ -21,11 +19,11 @@ const SingleProjectInfo = ({ project }: SingleProjectInfoProps) => {
                     <div className="w-full sm:w-64">
                         <div className="flex justify-between text-xs text-gray-500">
                             <span>
-                                {project.stats?.completedSteps} of{" "}
-                                {project.stats?.totalSteps} steps complete
+                                {project?.stats?.completedSteps} of{" "}
+                                {project?.stats?.totalSteps} steps complete
                             </span>
                             <span>
-                                {project.stats?.completedPieces} pieces used
+                                {project?.stats?.completedPieces} pieces used
                             </span>
                         </div>
                     </div>

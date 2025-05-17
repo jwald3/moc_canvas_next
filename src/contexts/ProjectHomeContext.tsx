@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { Project } from '@/types/project';
-import { projects, projectDetails } from "@/data/sample-data";
+import { Project, projects, projectDetails } from "@/data/sample-data";
 
 type RouterType = ReturnType<typeof useRouter>;
 

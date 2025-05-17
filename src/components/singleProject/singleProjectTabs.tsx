@@ -1,11 +1,9 @@
 import React, { useState } from "react";
+import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-interface SingleProjectTabsProps {
-    activeTab: string;
-    setActiveTab: (tab: string) => void;
-}
-
-const SingleProjectTabs = ({ activeTab, setActiveTab }: SingleProjectTabsProps) => {
+const SingleProjectTabs = () => {
+    const { activeTab, setActiveTab } = useProjectHomeContext();
+    
     return (
         <div className="border-b border-gray-200 mb-6">
             <nav className="-mb-px flex space-x-6 overflow-x-auto">

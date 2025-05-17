@@ -22,27 +22,24 @@ const ProjectContent = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <SingleProjectHeader project={project} />
+            <SingleProjectHeader />
 
             <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
-                    <SingleProjectHeroBanner project={project} />
-                    <SingleProjectInfo project={project} />
+                    <SingleProjectHeroBanner />
+                    <SingleProjectInfo />
                 </div>
 
-                <SingleProjectTabs
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                />
+                <SingleProjectTabs />
 
                 {activeTab === "progress" && (
-                    <ProjectProgressTabContents project={project} />
+                    <ProjectProgressTabContents />
                 )}
                 {activeTab === "gallery" && (
-                    <ProjectGalleryTabContents project={project} />
+                    <ProjectGalleryTabContents />
                 )}
                 {activeTab === "parts" && (
-                    <ProjectPartsTabContents project={project} />
+                    <ProjectPartsTabContents />
                 )}
                 {activeTab === "notes" && <ProjectNotesTabContents />}
             </div>

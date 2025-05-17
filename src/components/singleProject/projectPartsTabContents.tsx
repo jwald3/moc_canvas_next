@@ -1,12 +1,10 @@
-import { Project } from "@/data/sample-data";
 import { Search } from "lucide-react";
 import React from "react";
+import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-interface ProjectPartsTabContentsProps {
-    project: Project;
-}
+const projectPartsTabContents = () => {
+    const { project } = useProjectHomeContext();
 
-const projectPartsTabContents = ({ project }: ProjectPartsTabContentsProps) => {
     return (
         <div className="space-y-6 pb-12">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -34,7 +32,7 @@ const projectPartsTabContents = ({ project }: ProjectPartsTabContentsProps) => {
                                 Total Pieces
                             </p>
                             <p className="text-xl font-semibold">
-                                {project.stats?.totalPieces}
+                                {project?.stats?.totalPieces}
                             </p>
                         </div>
                         <div className="bg-white rounded-lg p-3 shadow-sm">
@@ -42,7 +40,7 @@ const projectPartsTabContents = ({ project }: ProjectPartsTabContentsProps) => {
                                 Confirmed Found
                             </p>
                             <p className="text-xl font-semibold">
-                                {project.stats?.completedPieces}
+                                {project?.stats?.completedPieces}
                             </p>
                         </div>
                         <div className="bg-white rounded-lg p-3 shadow-sm">

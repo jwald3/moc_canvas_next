@@ -1,14 +1,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, Bookmark, Share2 } from "lucide-react";
-import { Project } from "@/types/project";
+import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-interface SingleProjectHeaderProps {
-    project: Project;
-}
-
-const singleProjectHeader = ({ project }: SingleProjectHeaderProps) => {
+const singleProjectHeader = () => {
     const router = useRouter();
+    const { project } = useProjectHomeContext();
 
     return (
         <div className="bg-white shadow-sm">
@@ -22,7 +19,7 @@ const singleProjectHeader = ({ project }: SingleProjectHeaderProps) => {
                             <ChevronLeft size={20} className="text-gray-700" />
                         </button>
                         <h1 className="text-xl font-bold text-gray-800">
-                            {project.name}
+                            {project?.name}
                         </h1>
                     </div>
                     <div className="flex items-center space-x-2">
