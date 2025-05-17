@@ -26,6 +26,7 @@ interface NewProjectContextType {
     buildSections: BuildSection[];
     isSubmitting: boolean;
     tagSuggestions: string[];
+    selectedFile: File | null;
 
     // Setters
     setProjectName: (name: string) => void;
@@ -35,12 +36,14 @@ interface NewProjectContextType {
     setShowImageUpload: (show: boolean) => void;
     setImageTitle: (title: string) => void;
     setImagePreview: (preview: ImageType | null) => void;
+    setSelectedFile: (file: File | null) => void;
 
     // Handlers
     handleTagInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     addTag: (tag: string) => void;
     removeTag: (tag: string) => void;
     handleTagKeyPress: (e: React.KeyboardEvent) => void;
+    handleFileSelect: (file: File) => void;
     handleImageUpload: () => void;
     addImageToSection: (sectionId: number) => void;
     removeSection: (sectionId: number) => void;
@@ -74,6 +77,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         { id: 1, sectionTitle: "", description: "", images: [] },
     ]);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     // Handlers
     const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,12 +107,30 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         }
     };
 
+    const handleFileSelect = (file: File) => {
+        // Validate file type
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!validTypes.includes(file.type)) {
+            alert('Please upload a valid image file (PNG, JPG, or GIF)');
+            return;
+        }
+
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB');
+            return;
+        }
+
+        setSelectedFile(file);
+    };
+
     const handleImageUpload = () => {
-        if (imageTitle) {
-            const newImageUrl = `/api/placeholder/800/600?text=${encodeURIComponent(imageTitle)}`;
+        if (imageTitle && selectedFile) {
+            // Create a URL for the selected file
+            const imageUrl = URL.createObjectURL(selectedFile);
             const newImage: ImageType = {
                 id: Date.now(),
-                url: newImageUrl,
+                url: imageUrl,
                 title: imageTitle,
             };
 
@@ -119,6 +141,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
             }
 
             setImageTitle("");
+            setSelectedFile(null);
             setShowImageUpload(false);
         }
     };
@@ -214,6 +237,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         buildSections,
         isSubmitting,
         tagSuggestions,
+        selectedFile,
 
         // Setters
         setProjectName,
@@ -223,12 +247,14 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         setShowImageUpload,
         setImageTitle,
         setImagePreview,
+        setSelectedFile,
 
         // Handlers
         handleTagInputChange,
         addTag,
         removeTag,
         handleTagKeyPress,
+        handleFileSelect,
         handleImageUpload,
         addImageToSection,
         removeSection,

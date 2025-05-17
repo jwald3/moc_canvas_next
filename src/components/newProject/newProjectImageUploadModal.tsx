@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { X, Upload } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
-const newProjectImageUploadModal = () => {
-    
-    const { showImageUpload, setShowImageUpload, imageTitle, setImageTitle, handleImageUpload } = useNewProjectContext();
+const NewProjectImageUploadModal = () => {
+    const {
+        showImageUpload,
+        setShowImageUpload,
+        imageTitle,
+        setImageTitle,
+        handleImageUpload,
+        selectedFile,
+        handleFileSelect
+    } = useNewProjectContext();
+
+    const onDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            handleFileSelect(file);
+        }
+    }, [handleFileSelect]);
+
+    const onDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+    }, []);
+
+    const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            handleFileSelect(file);
+        }
+    };
 
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -49,18 +75,35 @@ const newProjectImageUploadModal = () => {
                             </label>
                             <div
                                 className="mt-1 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-yellow-500 transition-colors"
-                                onClick={handleImageUpload}
+                                onDrop={onDrop}
+                                onDragOver={onDragOver}
+                                onClick={() => document.getElementById('fileInput')?.click()}
                             >
+                                <input
+                                    type="file"
+                                    id="fileInput"
+                                    className="hidden"
+                                    accept="image/png,image/jpeg,image/gif"
+                                    onChange={onFileInputChange}
+                                />
                                 <div className="mx-auto h-12 w-12 text-gray-400">
                                     <Upload size={36} />
                                 </div>
                                 <div className="mt-2">
-                                    <p className="text-sm text-gray-500">
-                                        Click to upload or drag and drop
-                                    </p>
-                                    <p className="text-xs text-gray-400 mt-1">
-                                        PNG, JPG, GIF up to 5MB
-                                    </p>
+                                    {selectedFile ? (
+                                        <p className="text-sm text-gray-500">
+                                            Selected: {selectedFile.name}
+                                        </p>
+                                    ) : (
+                                        <>
+                                            <p className="text-sm text-gray-500">
+                                                Click to upload or drag and drop
+                                            </p>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                PNG, JPG, GIF up to 5MB
+                                            </p>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -77,7 +120,7 @@ const newProjectImageUploadModal = () => {
                                 type="button"
                                 className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
                                 onClick={handleImageUpload}
-                                disabled={!imageTitle}
+                                disabled={!imageTitle || !selectedFile}
                             >
                                 Add Image
                             </button>
@@ -89,4 +132,4 @@ const newProjectImageUploadModal = () => {
     );
 };
 
-export default newProjectImageUploadModal;
+export default NewProjectImageUploadModal;
