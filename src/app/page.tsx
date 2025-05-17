@@ -2,7 +2,7 @@
 import React from "react";
 import HomeHero from "@/components/home/HomeHero";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
-import ExploreThemes from "@/components/home/ExploreThemes";
+import ExploreThemesServer from "@/components/home/ExploreThemesServer";
 import CallToActionSection from "@/components/home/CallToActionSection";
 import { ProjectProvider } from "@/contexts/ProjectContext";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ const HomePage = () => {
                 <main>
                     <HomeHero />
                     <FeaturedProjects />
-                    <ExploreThemes />
+                    <ExploreThemesServer />
                     <CallToActionSection />
                 </main>
             </ProjectProvider>

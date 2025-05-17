@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import Link from "next/link";
 import {
@@ -8,7 +10,7 @@ import {
     LucideIcon
 } from "lucide-react";
 import ThemeTile from "@/components/home/ThemeTile";
-import { prisma } from "@/lib/prisma";
+import { HandSpunTheme } from "@prisma/client";
 
 // Theme configuration mapping
 const themeConfig: Record<string, { color: string, icon: LucideIcon }> = {
@@ -26,16 +28,25 @@ const themeConfig: Record<string, { color: string, icon: LucideIcon }> = {
     }
 };
 
-const ExploreThemes = async () => {
-    const themes = await prisma.handSpunTheme.findMany({
-        include: {
-            projects: true,
-        },
-    });
+interface ExploreThemesProps {
+    themes: (HandSpunTheme & {
+        projects: {
+            id: string;
+            description: string;
+            title: string;
+            tags: string[];
+            createdAt: Date;
+            updatedAt: Date;
+            status: string;
+            owner: string | null;
+            avatar: string | null;
+            themeId: string;
+            mainImageId: string | null;
+        }[];
+    })[];
+}
 
-    const popularThemes = themes.sort((a, b) => b.projects.length - a.projects.length).slice(0, 3);
-
-
+const ExploreThemes = ({ themes }: ExploreThemesProps) => {
     return (
         <section className="py-24 bg-white relative overflow-hidden">
             {/* Background decorative elements */}
@@ -60,7 +71,7 @@ const ExploreThemes = async () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {popularThemes.map((theme) => {
+                    {themes.map((theme) => {
                         const config = themeConfig[theme.name];
                         return (
                             <ThemeTile 

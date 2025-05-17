@@ -2,15 +2,7 @@ import React from "react";
 import Link from "next/link";
 import {
     ChevronRight,
-    Star,
-    TrendingUp,
-    Gift,
-    Users,
-    BookOpen,
-    Trophy,
-    Plus,
 } from "lucide-react";
-import { HandSpunTheme } from "@prisma/client";
 import { LucideIcon } from "lucide-react";
 
 interface ThemeTileProps {
@@ -34,16 +26,6 @@ const ThemeTile = ({ theme, color, Icon }: ThemeTileProps) => {
     const overlayStyle = {
         backgroundColor: color,
         opacity: 0.08,
-    };
-
-    const iconMap = {
-        TrendingUp: <TrendingUp size={16} />,
-        Star: <Star size={16} />,
-        Gift: <Gift size={16} />,
-        Users: <Users size={16} />,
-        BookOpen: <BookOpen size={16} />,
-        Trophy: <Trophy size={16} />,
-        Plus: <Plus size={16} />
     };
     
     return (
