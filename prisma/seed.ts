@@ -83,21 +83,13 @@ async function main() {
 
     // Finally, handle the main image if it exists
     if (project.mainImage) {
-      const mainImage = await prisma.handSpunProjectImage.create({
+      const mainImage = await prisma.handSpunProjectMainImage.create({
         data: {
           id: project.mainImage.id,
-          order: project.mainImage.order,
-          caption: project.mainImage.caption,
-          url: project.mainImage.url,
-          type: project.mainImage.type,
-          // Only connect to buildStep if buildStepId is not "main"
-          ...(project.mainImage.buildStepId !== "main" ? {
-            buildStep: { connect: { id: project.mainImage.buildStepId } }
-          } : {})
+          url: project.mainImage.url
         }
       });
       
-      // Update the project with the main image
       await prisma.handSpunProject.update({
         where: { id: project.id },
         data: { mainImageId: mainImage.id }

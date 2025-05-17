@@ -44,11 +44,8 @@ export const projects: ProjectObject[] = [
         tags: ["Star Wars", "Spaceships", "Custom Build", "Large Scale", "Build", "Sci-Fi"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Imperial Star Destroyer Main Image",
+            projectId: generateGuid(),
             url: "/images/star-destroyer-main.jpg",
-            type: "reference"
         },
         theme: themes[0], // Star Wars theme
         createdAt: new Date("2025-05-11T15:30:00Z"),
@@ -98,11 +95,8 @@ export const projects: ProjectObject[] = [
         tags: ["Architecture", "Landmarks", "Historical"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Taj Mahal Main Image",
+            projectId: generateGuid(),
             url: "/images/taj-mahal-main.jpg",
-            type: "reference"
         },
         theme: themes[1], // Architecture theme
         createdAt: new Date("2025-05-03T09:45:00Z"),
@@ -152,11 +146,8 @@ export const projects: ProjectObject[] = [
         tags: ["Marvel", "Superheroes", "Buildings"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Avengers Tower Main Image",
+            projectId: generateGuid(),
             url: "/images/avengers-tower-main.jpg",
-            type: "reference"
         },
         theme: themes[2], // Marvel theme
         createdAt: new Date("2025-04-10T11:20:00Z"),
@@ -206,11 +197,8 @@ export const projects: ProjectObject[] = [
         tags: ["Architecture", "Historical", "Large Scale"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Colosseum Main Image",
+            projectId: generateGuid(),
             url: "/images/colosseum.jpg",
-            type: "reference"
         },
         theme: themes[1], // Architecture theme
         createdAt: new Date("2025-04-04T16:15:00Z"),
@@ -260,11 +248,8 @@ export const projects: ProjectObject[] = [
         tags: ["Star Wars", "Spaceships", "Modified"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Millennium Falcon Main Image",
+            projectId: generateGuid(),
             url: "/images/millennium-falcon.jpg",
-            type: "reference"
         },
         theme: themes[0], // Star Wars theme
         createdAt: new Date("2025-02-25T14:30:00Z"),
@@ -314,11 +299,8 @@ export const projects: ProjectObject[] = [
         tags: ["Harry Potter", "Fantasy", "Architecture"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Hogwarts Castle Main Image",
+            projectId: generateGuid(),
             url: "/images/hogwarts-castle.jpg",
-            type: "reference"
         },
         theme: themes[1], // Architecture theme
         createdAt: new Date("2023-02-17T10:00:00Z"),
@@ -368,11 +350,8 @@ export const projects: ProjectObject[] = [
         tags: ["Movies", "Diorama", "Scenery"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Jurassic Park Gates Main Image",
+            projectId: generateGuid(),
             url: "/images/jurassic-park-gates.jpg",
-            type: "reference"
         },
         theme: themes[1], // Architecture theme
         createdAt: new Date("2025-04-16T08:20:00Z"),
@@ -422,11 +401,8 @@ export const projects: ProjectObject[] = [
         tags: ["Batman", "DC Comics", "Architecture"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Gotham City Skyline Main Image",
+            projectId: generateGuid(),
             url: "/images/gotham-skyline.jpg",
-            type: "reference"
         },
         theme: themes[1], // Architecture theme
         createdAt: new Date("2025-02-17T11:15:00Z"),
@@ -476,11 +452,8 @@ export const projects: ProjectObject[] = [
         tags: ["Star Trek", "Spaceships", "Sci-Fi"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "USS Enterprise Main Image",
+            projectId: generateGuid(),
             url: "/images/enterprise.jpg",
-            type: "reference"
         },
         theme: themes[0], // Star Wars theme (closest we have for sci-fi)
         createdAt: new Date("2025-04-04T09:30:00Z"),
@@ -530,11 +503,8 @@ export const projects: ProjectObject[] = [
         tags: ["Marvel", "Architecture", "Custom Design"],
         mainImage: {
             id: generateGuid(),
-            buildStepId: "main",
-            order: 0,
-            caption: "Stark Industries HQ Main Image",
+            projectId: generateGuid(),
             url: "/images/stark-industries.jpg",
-            type: "reference"
         },
         theme: themes[2], // Marvel theme
         createdAt: new Date("2025-04-10T13:45:00Z"),
@@ -578,31 +548,34 @@ export const projects: ProjectObject[] = [
         }
     }
 ].map(project => {
+    // Generate IDs once
     const projectId = generateGuid();
+    const stepIds = project.steps?.map(() => generateGuid()) || [];
+
     return {
         ...project,
         id: projectId,
         mainImage: {
             ...project.mainImage,
-            type: project.mainImage.type as "reference" | "progress"
+            id: generateGuid(),
         },
-        steps: project.steps?.map(step => {
-            const stepId = generateGuid();
+        steps: project.steps?.map((step, index) => {
+            const stepId = stepIds[index];
             return {
                 ...step,
                 id: stepId,
-                projectId: projectId,
+                projectId: projectId,  // Reference parent project
                 images: step.images.map(image => ({
                     ...image,
                     id: generateGuid(),
-                    buildStepId: stepId
+                    buildStepId: stepId  // Reference parent step
                 }))
             };
         }),
         stats: {
             ...project.stats,
             id: generateGuid(),
-            projectId: projectId
+            projectId: projectId  // Reference parent project
         }
     };
 }); 

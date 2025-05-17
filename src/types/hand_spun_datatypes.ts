@@ -11,7 +11,7 @@ export interface ProjectObject {
     avatar: string | null;
     steps: ProjectBuildStepObject[];
     stats: ProjectStatsObject;
-    mainImage?: ProjectImageObject;
+    mainImage?: ProjectMainImageObject;
 }
 
 // Using a union type for better type safety
@@ -38,6 +38,12 @@ export interface ProjectImageObject {
     caption: string;
     url: string;
     type?: "reference" | "progress"; // Optional type for image categorization
+}
+
+export interface ProjectMainImageObject {
+    id: string;
+    projectId: string;
+    url: string;
 }
 
 export interface ProjectThemeObject {
