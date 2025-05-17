@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { Project } from '@/types/project';
 import { projects, savedProjects } from "@/data/sample-data";
 
@@ -59,8 +59,8 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
     const [myProjectsStartIndex, setMyProjectsStartIndex] = useState(0);
     const [savedProjectsStartIndex, setSavedProjectsStartIndex] = useState(0);
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const currentView = searchParams.get('view') as 'my' | 'saved' || 'my';
+    const searchParams = useSearchParams();
+    const currentView = (searchParams?.get('view') as 'my' | 'saved') || 'my';
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
