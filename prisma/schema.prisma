@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  image       String
+  tags        String[]
+  lastUpdated DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  owner       String?
+  avatar      String?
+  progress    Float?
+  status      String?
+  
+  // Relations
+  stats       ProjectStats?
+  steps       BuildStep[]
+}
+
+model ProjectStats {
+  id              String  @id @default(cuid())
+  totalPieces     Int
+  completedPieces Int
+  totalSteps      Int
+  completedSteps  Int
+  
+  // Relation to Project
+  project         Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId       String  @unique
+}
+
+model BuildStep {
+  id          String        @id @default(cuid())
+  title       String
+  description String
+  completed   Boolean       @default(false)
+  
+  // Relations
+  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String
+  images      ProjectImage[]
+}
+
+model ProjectImage {
+  id          String    @id @default(cuid())
+  type        String    // "reference" or "progress"
+  url         String
+  title       String?
+  
+  // Relations
+  buildStep   BuildStep @relation(fields: [buildStepId], references: [id], onDelete: Cascade)
+  buildStepId String
+}
+
+// Optional: Additional models for featured builds, news items, etc. if you plan to store them in the database
+model FeaturedBuild {
+  id        String   @id @default(cuid())
+  name      String
+  creator   String
+  image     String
+  likes     Int      @default(0)
+  views     Int      @default(0)
+  tags      String[]
+}
+
+model NewsItem {
+  id           String   @id @default(cuid())
+  title        String
+  date         DateTime
+  image        String
+  excerpt      String
+  commentCount Int      @default(0)
+  category     String
+} 
