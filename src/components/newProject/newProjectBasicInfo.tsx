@@ -5,7 +5,8 @@ import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
 const newProjectBasicInfo = () => {
 
-    const { projectName, setProjectName, description, setDescription, selectedStatus, setSelectedStatus, tagInput, setTagInput, showTagSuggestions, handleTagInputChange, tags, addTag, removeTag, handleTagKeyPress, tagSuggestions } = useNewProjectContext();
+    const { projectName, setProjectName, description, setDescription, selectedStatus, setSelectedStatus, tagInput, showTagSuggestions, handleTagInputChange, tags, addTag, removeTag, handleTagKeyPress, tagSuggestions } = useNewProjectContext();
+    
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-gray-100 px-6 py-4">

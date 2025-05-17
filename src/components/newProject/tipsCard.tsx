@@ -20,7 +20,7 @@ const tipsCard = () => {
                         </span>
                         <p>
                             Organize your build into meaningful sections like
-                            "Engine Details" or "Custom Features"
+                            &ldquo;Engine Details&rdquo; or &ldquo;Custom Features&rdquo;
                         </p>
                     </li>
                     <li className="flex items-start">

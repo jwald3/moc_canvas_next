@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import React from "react";
+import { useRouter } from "next/navigation";
 import AllProjectsHeader from "@/components/projectsAll/allProjectsHeader";
 import AllProjectsControls from "@/components/projectsAll/allProjectsControls";
 import { AllProjectsProvider } from "@/contexts/AllProjectsContext";

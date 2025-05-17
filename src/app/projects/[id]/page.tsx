@@ -14,7 +14,7 @@ import ProjectProgressTabContents from "@/components/singleProject/projectProgre
 import { ProjectHomeProvider, useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 const ProjectContent = () => {
-    const { project, activeTab, setActiveTab, handleAddStep } = useProjectHomeContext();
+    const { project, activeTab, handleAddStep } = useProjectHomeContext();
 
     if (!project) {
         return <div>Project not found</div>;
