@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import ExploreHeader from '@/components/explore/exploreHeader';
 import ExploreThemeTray from '@/components/explore/exploreThemeTray';
@@ -49,9 +49,11 @@ const ExplorePage = () => {
     const router = useRouter();
 
     return (
-        <ExploreProjectsProvider router={router}>
-            <ExplorePageContent />
-        </ExploreProjectsProvider>
+        <Suspense fallback={<ExplorePageSkeleton />}>
+            <ExploreProjectsProvider router={router}>
+                <ExplorePageContent />
+            </ExploreProjectsProvider>
+        </Suspense>
     );
 };
 
