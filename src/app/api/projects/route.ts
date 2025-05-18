@@ -19,7 +19,7 @@ export async function GET() {
     
     // Transform the projects to match ProjectObject type
     const transformedProjects: ProjectObject[] = projects.map(project => {
-      console.log('Project main image:', project.mainImage);
+
       return ({
         ...project,
         status: project.status as ProjectStatus,

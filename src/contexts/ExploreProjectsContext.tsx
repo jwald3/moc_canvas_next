@@ -45,27 +45,41 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Add console logs to track state changes
+    useEffect(() => {
+        console.log('Loading state:', isLoading);
+        console.log('Projects:', projects);
+        console.log('Error:', error);
+    }, [isLoading, projects, error]);
+
     // Fetch projects from the API
     useEffect(() => {
         const fetchProjects = async () => {
+            console.log('Starting fetch...');
             try {
                 setIsLoading(true);
+                setError(null);
+                
+                console.log('Making API request...');
                 const response = await fetch('/api/projects');
+                
                 if (!response.ok) {
                     throw new Error('Failed to fetch projects');
                 }
+                
                 const data = await response.json();
+                console.log('Received data:', data);
+                
                 setProjects(data);
 
-                // Extract unique tags from the fetched projects
+                // Extract unique tags
                 const tagSet = new Set<string>();
                 data.forEach((project: ProjectWithRelations) => {
                     project.tags.forEach(tag => tagSet.add(tag));
                 });
                 setAllTags(Array.from(tagSet).sort());
-                
-                setError(null);
             } catch (err) {
+                console.error('Fetch error:', err);
                 setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
                 setIsLoading(false);
