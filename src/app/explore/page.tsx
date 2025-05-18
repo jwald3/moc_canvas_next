@@ -2,12 +2,6 @@
 
 import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import {
-    Search,
-    X,
-    Grid,
-    List,
-} from 'lucide-react';
 import { projects, themes } from '@/data/seed-data';
 import ExploreHeader from '@/components/explore/exploreHeader';
 import ExploreThemeTray from '@/components/explore/exploreThemeTray';
