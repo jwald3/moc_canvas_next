@@ -10,11 +10,17 @@ export async function GET() {
           include: {
             images: true
           }
-        }
+        },
+        theme: true
       }
     });
     
-    return NextResponse.json(projects);
+    const transformedProjects = projects.map(project => ({
+      ...project,
+      stats: project.stats || { views: 0, likes: 0, comments: 0, shares: 0, public: true }
+    }));
+    
+    return NextResponse.json(transformedProjects);
   } catch (error) {
     console.error('Error fetching projects:', error);
     return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
