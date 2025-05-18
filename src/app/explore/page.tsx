@@ -58,16 +58,7 @@ const ExplorePageContent = () => {
 
                 {/* This contains the search bar, clickable tags, and view mode buttons. I would like to eventually
                 make this also include a sort-by dropdown and use this component across the app. */}
-                <ExplorePageControls
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    clearSearch={clearSearch}
-                    allTags={allTags}
-                    activeTags={activeTags}
-                    handleTagClick={handleTagClick}
-                    viewMode={viewMode}
-                    setViewMode={setViewMode}
-                />
+                <ExplorePageControls />
 
                 {/* This contains the projects that match the search query, tags, and theme. It handles the 
                 display of the projects in a grid or list view and additionally handles responsive design internally

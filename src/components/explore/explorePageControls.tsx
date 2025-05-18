@@ -1,30 +1,21 @@
 import React from "react";
-import { Grid, List } from "lucide-react";
 import ExplorePageSearch from "./explorePageSearch";
 import ExplorePageTagTray from "./explorePageTagTray";
 import ExplorePageDisplayToggle from "./explorePageDisplayToggle";
+import { useExploreProjectsContext } from "@/contexts/ExploreProjectsContext";
 
-interface ExplorePageControlsProps {
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-    clearSearch: () => void;
-    allTags: string[];
-    activeTags: string[];
-    handleTagClick: (tag: string) => void;
-    viewMode: "grid" | "list";
-    setViewMode: (mode: "grid" | "list") => void;
-}
+const ExplorePageControls = () => {
+    const {
+        searchQuery,
+        setSearchQuery,
+        clearSearch,
+        allTags,
+        activeTags,
+        handleTagClick,
+        viewMode,
+        setViewMode,
+    } = useExploreProjectsContext();
 
-const ExplorePageControls = ({
-    searchQuery,
-    setSearchQuery,
-    clearSearch,
-    allTags,
-    activeTags,
-    handleTagClick,
-    viewMode,
-    setViewMode,
-}: ExplorePageControlsProps) => {
     return (
         <div className="mb-6">
             <ExplorePageSearch
