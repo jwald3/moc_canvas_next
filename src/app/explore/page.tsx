@@ -49,10 +49,15 @@ const ExplorePageContent = () => {
     return (
         <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
+                {/* This contains the header with the back button and the project count. */}
                 <ExploreHeader />
 
+                {/* This contains the clickable theme tiles users can click on to filter by theme. 
+                Subject to change as we add more themes to the database and the view becomes more dynamic. */}
                 <ExploreThemeTray />
 
+                {/* This contains the search bar, clickable tags, and view mode buttons. I would like to eventually
+                make this also include a sort-by dropdown and use this component across the app. */}
                 <ExplorePageControls
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
@@ -64,6 +69,9 @@ const ExplorePageContent = () => {
                     setViewMode={setViewMode}
                 />
 
+                {/* This contains the projects that match the search query, tags, and theme. It handles the 
+                display of the projects in a grid or list view and additionally handles responsive design internally
+                depending on the screen size. */}
                 <ExploreProjectsResultsTray 
                     filteredProjects={filteredProjects}
                     viewMode={viewMode}
