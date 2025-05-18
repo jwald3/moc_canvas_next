@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, List } from "lucide-react";
 import ExplorePageSearch from "./explorePageSearch";
+import ExplorePageTagTray from "./explorePageTagTray";
 
 interface ExplorePageControlsProps {
     searchQuery: string;
@@ -33,21 +34,11 @@ const ExplorePageControls = ({
 
             {/* Filters and View Toggle */}
             <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-3 sm:space-y-0">
-                <div className="flex flex-wrap gap-2 sm:max-w-[66%]">
-                    {allTags.map((tag) => (
-                        <button
-                            key={tag}
-                            className={`text-xs px-2 py-1 rounded-full transition-colors ${
-                                activeTags.includes(tag)
-                                    ? "bg-card-gradient text-white shadow-sm"
-                                    : "bg-white/90 border border-orange-300 text-orange-700 hover:bg-orange-500 hover:text-white"
-                            }`}
-                            onClick={() => handleTagClick(tag)}
-                        >
-                            {tag}
-                        </button>
-                    ))}
-                </div>
+                <ExplorePageTagTray
+                    allTags={allTags}
+                    activeTags={activeTags}
+                    handleTagClick={handleTagClick}
+                />
 
                 <div className="flex items-center flex-shrink-0 ml-4">
                     <div className="bg-white rounded-full shadow-sm border-2 border-orange-300 overflow-hidden flex">
