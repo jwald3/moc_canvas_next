@@ -1,7 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { themes } from '@/data/seed-data'; // We'll keep themes for now
 import { ProjectObject, ProjectThemeObject } from '@/types/hand_spun_datatypes';
 import { ProjectWithRelations } from '@/types/prisma';
 
@@ -41,6 +40,7 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
     const [activeTags, setActiveTags] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [projects, setProjects] = useState<ProjectObject[]>([]);
+    const [themes, setThemes] = useState<ProjectThemeObject[]>([]);
     const [allTags, setAllTags] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -80,6 +80,17 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
         };
 
         fetchProjects();
+    }, []);
+
+    // fetch themes from the API
+    useEffect(() => {
+        const fetchThemes = async () => {
+            const response = await fetch('/api/themes');
+            const data = await response.json();
+            setThemes(data);
+        };
+
+        fetchThemes();
     }, []);
 
     const filteredProjects = projects.filter(project => {
