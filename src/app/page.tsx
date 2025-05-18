@@ -1,11 +1,22 @@
 "use client";
-import React from "react";
+import React, { Suspense, useEffect } from "react";
 import HomeHero from "@/components/home/HomeHero";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
-import ExploreThemesServer from "@/components/home/ExploreThemesServer";
+import ExploreThemes from "@/components/home/ExploreThemes";
 import CallToActionSection from "@/components/home/CallToActionSection";
 import { ProjectProvider } from "@/contexts/ProjectContext";
 import { useRouter } from "next/navigation";
+import { useProjectContext } from "@/contexts/ProjectContext";
+
+const ThemesWrapper = () => {
+    const { themes, loadThemes } = useProjectContext();
+    
+    useEffect(() => {
+        loadThemes();
+    }, []);
+
+    return <ExploreThemes themes={themes} />;
+};
 
 const HomePage = () => {
     return (
@@ -14,7 +25,9 @@ const HomePage = () => {
                 <main>
                     <HomeHero />
                     <FeaturedProjects />
-                    <ExploreThemesServer />
+                    <Suspense fallback={<div>Loading themes...</div>}>
+                        <ThemesWrapper />
+                    </Suspense>
                     <CallToActionSection />
                 </main>
             </ProjectProvider>

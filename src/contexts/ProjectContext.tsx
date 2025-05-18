@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { projects } from "@/data/seed-data";
 import { useRouter } from 'next/navigation';
 import { ProjectObject } from '@/types/hand_spun_datatypes';
+import { HandSpunTheme } from '@prisma/client';
 
 type RouterType = ReturnType<typeof useRouter>;
 
@@ -34,6 +35,22 @@ interface ProjectContextType {
     filterProjects: (projectsList: ProjectObject[]) => ProjectObject[];
     filteredMyProjects: ProjectObject[];
     filteredSavedProjects: ProjectObject[];
+    themes: (HandSpunTheme & {
+        projects: {
+            id: string;
+            description: string;
+            title: string;
+            tags: string[];
+            createdAt: Date;
+            updatedAt: Date;
+            status: string;
+            owner: string | null;
+            avatar: string | null;
+            themeId: string;
+            mainImageId: string | null;
+        }[];
+    })[];
+    loadThemes: () => Promise<void>;
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -58,6 +75,21 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     const [myProjectsStartIndex, setMyProjectsStartIndex] = useState(0);
     const [savedProjectsStartIndex, setSavedProjectsStartIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [themes, setThemes] = useState<(HandSpunTheme & {
+        projects: {
+            id: string;
+            description: string;
+            title: string;
+            tags: string[];
+            createdAt: Date;
+            updatedAt: Date;
+            status: string;
+            owner: string | null;
+            avatar: string | null;
+            themeId: string;
+            mainImageId: string | null;
+        }[];
+    })[]>([]);
 
     // saved projects can just be the projects array for now
     const savedProjects = projects;
@@ -145,6 +177,12 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         });
     };
 
+    const loadThemes = async () => {
+        const response = await fetch('/api/themes');
+        const themes = await response.json();
+        setThemes(themes);
+    };
+
     const value = {
         searchQuery,
         setSearchQuery,
@@ -168,6 +206,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         filterProjects,
         filteredMyProjects: filterProjects(projects as unknown as ProjectObject[]),
         filteredSavedProjects: filterProjects(savedProjects as unknown as ProjectObject[]),
+        themes,
+        loadThemes,
     };
 
     return (
