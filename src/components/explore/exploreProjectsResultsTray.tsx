@@ -3,9 +3,9 @@ import {
     Search,
 } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
-import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { ProjectObject } from '@/types/hand_spun_datatypes';
 import ExploreNoProjectsFoundCard from './exploreNoProjectsFoundCard';
+import ExploreProjectsListTray from './exploreProjectsListTray';
 
 interface ExploreProjectsResultsTrayProps {
     filteredProjects: ProjectObject[];
@@ -41,17 +41,12 @@ const ExploreProjectsResultsTray = ({
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col space-y-4">
-                        {filteredProjects.map((project) => (
-                            <ProjectListItem
-                                key={project.id}
-                                project={project}
-                                onProjectClick={handleProjectClick}
-                                onTagClick={handleTagClick}
-                                activeTags={activeTags}
-                            />
-                        ))}
-                    </div>
+                    <ExploreProjectsListTray
+                        filteredProjects={filteredProjects}
+                        handleProjectClick={handleProjectClick}
+                        handleTagClick={handleTagClick}
+                        activeTags={activeTags}
+                    />
                 )
             ) : (
                 <ExploreNoProjectsFoundCard clearSearch={clearSearch} />
