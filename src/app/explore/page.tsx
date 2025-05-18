@@ -2,28 +2,16 @@
 
 import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import {
-    ChevronLeft,
     Search,
     X,
     Grid,
     List,
-    Star,
-    TrendingUp,
-    Gift,
-    Users,
-    BookOpen,
-    Trophy,
 } from 'lucide-react';
-import { ProjectCard } from '@/components/projects/ProjectCard';
-import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { projects, themes } from '@/data/seed-data';
 import ExploreHeader from '@/components/explore/exploreHeader';
 import ExploreThemeTray from '@/components/explore/exploreThemeTray';
 import ExploreProjectsResultsTray from '@/components/explore/exploreProjectsResultsTray';
-// Add this mapping object near the top of the file, after the imports
-
 
 // Only keep the getAllTags helper function outside
 const getAllTags = () => {      

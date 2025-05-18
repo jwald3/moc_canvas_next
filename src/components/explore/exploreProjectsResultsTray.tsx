@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-    Search,
-} from 'lucide-react';
-import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectObject } from '@/types/hand_spun_datatypes';
 import ExploreNoProjectsFoundCard from './exploreNoProjectsFoundCard';
 import ExploreProjectsListTray from './exploreProjectsListTray';
