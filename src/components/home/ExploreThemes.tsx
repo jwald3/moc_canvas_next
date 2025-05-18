@@ -50,14 +50,7 @@ const ExploreThemes = ({ themes }: ExploreThemesProps) => {
     return (
         <section className="py-24 bg-white relative overflow-hidden">
             {/* Background decorative elements */}
-            <div
-                className="absolute inset-0 opacity-[0.03]"
-                style={{
-                    backgroundImage: 'url("/grid.svg")',
-                    backgroundSize: "40px 40px",
-                    backgroundRepeat: "repeat",
-                }}
-            />
+            <div className="absolute inset-0 opacity-[0.03] bg-grid-slate-100" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <div className="text-center mb-16">
