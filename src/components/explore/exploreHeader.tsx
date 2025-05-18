@@ -3,13 +3,12 @@ import Link from 'next/link';
 import {
     ChevronLeft,
 } from 'lucide-react';
-import { ProjectObject } from '@/types/hand_spun_datatypes';
+import { useExploreProjectsContext } from '@/contexts/ExploreProjectsContext';
 
-interface ExploreHeaderProps {
-    filteredProjects: ProjectObject[];
-}
 
-const ExploreHeader = ({ filteredProjects }: ExploreHeaderProps) => {
+const ExploreHeader = () => {
+    const { filteredProjects } = useExploreProjectsContext();
+
     return (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
             <div className="flex items-center">
