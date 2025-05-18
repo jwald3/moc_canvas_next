@@ -14,11 +14,11 @@ const FeaturedProjects = () => {
     };
 
     return (
-        <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-[#fff7e6] to-white relative overflow-hidden">
-            {/* Decorative elements */}
+        <section className="py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
+            {/* Decorative elements - subtle version to match ExploreThemes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#ffd700]/10 via-[#da5249]/10 to-[#4a9eff]/10 rounded-full opacity-40 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-[#4a9eff]/10 via-[#da5249]/10 to-[#ffd700]/10 rounded-full opacity-40 blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#ffd700]/5 via-[#da5249]/5 to-[#4a9eff]/5 rounded-full opacity-40 blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-[#4a9eff]/5 via-[#da5249]/5 to-[#ffd700]/5 rounded-full opacity-40 blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">

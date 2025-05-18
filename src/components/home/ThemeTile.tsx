@@ -1,68 +1,32 @@
 import React from "react";
 import Link from "next/link";
-import {
-    ChevronRight,
-} from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import { HandSpunTheme } from "@prisma/client";
 
 interface ThemeTileProps {
-    theme: {
-        name: string;
-        id: string;
-        description: string;
-        iconType: string | null;
-        color: string | null;
+    theme: HandSpunTheme & {
+        projects: any[];
     };
-    color?: string;
-    Icon?: LucideIcon;
+    color: string;
+    gradient: string;
+    Icon: LucideIcon;
 }
 
-const ThemeTile = ({ theme, color, Icon }: ThemeTileProps) => {
-    // Convert color string to actual CSS style
-    const gradientStyle = {
-        background: `linear-gradient(to bottom right, ${color}, ${color}80)`,
-    };
-
-    const overlayStyle = {
-        backgroundColor: color,
-        opacity: 0.08,
-    };
-    
+const ThemeTile = ({ theme, color, gradient, Icon }: ThemeTileProps) => {
     return (
-        <Link
-            key={theme.id}
-            href={`/explore?theme=${theme.id}`}
-            className="relative group overflow-hidden rounded-2xl p-4 transition-all duration-300 bg-white hover:shadow-xl border border-gray-100"
+        <Link 
+            href={`/themes/${theme.id}`}
+            className="group block bg-gradient-to-br from-white to-slate-50/80 rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden"
         >
-            {/* Use style prop instead of Tailwind classes for dynamic colors */}
-            <div
-                className="absolute inset-0 group-hover:opacity-[0.12] transition-opacity"
-                style={overlayStyle}
-            />
-            <div className="relative p-4">
-                <div className="flex items-center gap-4">
-                    <div
-                        className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg"
-                        style={gradientStyle}
-                    >
-                        <div className="text-white">
-                            {Icon && <Icon size={24} />}
-                        </div>
-                    </div>
-                    <div>
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
-                            {theme.name}
-                        </h3>
-                        <p className="text-gray-500">10 projects</p>
-                    </div>
-                    <div className="ml-auto">
-                        <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0 -translate-x-4 transition-all duration-300"
-                            style={gradientStyle}
-                        >
-                            <ChevronRight size={16} />
-                        </div>
-                    </div>
+            <div className={`bg-gradient-to-br ${gradient} p-6 sm:p-8`}>
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform">
+                    <Icon style={{ color }} className="w-6 h-6 sm:w-7 sm:h-7" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-1">
+                    {theme.name}
+                </h3>
+                <div className="text-sm text-slate-600">
+                    {theme.projects.length} projects
                 </div>
             </div>
         </Link>
