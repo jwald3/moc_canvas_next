@@ -7,14 +7,8 @@ import {
     BookOpen,
     Trophy,
 } from "lucide-react";
-import { ProjectThemeObject } from "@/types/hand_spun_datatypes";
 import ExploreThemeTile from "./exploreThemeTile";
-
-interface ExploreThemeTrayProps {
-    themes: ProjectThemeObject[];
-    currentTheme: string;
-    handleThemeChange: (themeId: string) => void;
-}
+import { useExploreProjectsContext } from "@/contexts/ExploreProjectsContext";
 
 const iconMap = {
     TrendingUp: <TrendingUp size={16} />,
@@ -25,11 +19,9 @@ const iconMap = {
     Trophy: <Trophy size={16} />,
 };
 
-const ExploreThemeTray = ({
-    themes,
-    currentTheme,
-    handleThemeChange,
-}: ExploreThemeTrayProps) => {
+const ExploreThemeTray = () => {
+    const { themes, currentTheme, handleThemeChange } = useExploreProjectsContext();
+
     return (
         <div className="mb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

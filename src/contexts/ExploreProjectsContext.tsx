@@ -2,7 +2,7 @@ import { useSearchParams } from "next/navigation";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { themes } from '@/data/seed-data'; // We'll keep themes for now
-import { ProjectObject } from '@/types/hand_spun_datatypes';
+import { ProjectObject, ProjectThemeObject } from '@/types/hand_spun_datatypes';
 import { ProjectWithRelations } from '@/types/prisma';
 
 type RouterType = ReturnType<typeof useRouter>;
@@ -23,6 +23,7 @@ interface ExploreProjectsContextType {
     allTags: string[];
     isLoading: boolean;
     error: string | null;
+    themes: ProjectThemeObject[];
 }
 
 const ExploreProjectsContext = createContext<ExploreProjectsContextType | undefined>(undefined);
@@ -136,6 +137,7 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
         allTags,
         isLoading,
         error,
+        themes,
     };
 
     return (

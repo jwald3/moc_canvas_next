@@ -51,11 +51,7 @@ const ExplorePageContent = () => {
             <div className="max-w-7xl mx-auto">
                 <ExploreHeader />
 
-                <ExploreThemeTray 
-                    themes={themes} 
-                    currentTheme={currentTheme} 
-                    handleThemeChange={handleThemeChange} 
-                />
+                <ExploreThemeTray />
 
                 <ExplorePageControls
                     searchQuery={searchQuery}
