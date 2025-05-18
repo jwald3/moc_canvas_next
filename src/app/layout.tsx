@@ -54,8 +54,8 @@ export default function RootLayout({
                                     <div className="w-10 h-10 bg-white rounded-lg shadow-sm p-1.5 ring-1 ring-gray-200">
                                         <Image
                                             src="/images/logo.png"
-                                            width={32}
-                                            height={32}
+                                            width={48}
+                                            height={48}
                                             alt="MOC Canvas Logo"
                                             className="object-contain"
                                         />
