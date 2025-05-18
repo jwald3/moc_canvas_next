@@ -19,6 +19,7 @@ import {
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectListItem } from '@/components/projects/ProjectListItem';
 import { projects, themes } from '@/data/seed-data';
+import ExploreHeader from '@/components/explore/exploreHeader';
 
 // Add this mapping object near the top of the file, after the imports
 const iconMap = {
@@ -101,22 +102,7 @@ const ExplorePageContent = () => {
         <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-                    <div className="flex items-center">
-                        <Link
-                            href="/"
-                            className="mr-3 p-2 rounded-full hover:bg-white/20 transition-colors"
-                        >
-                            <ChevronLeft size={20} className="text-orange-800" />
-                        </Link>
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-800 mb-2">Explore Projects</h1>
-                            <p className="text-sm text-gray-600">
-                                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <ExploreHeader filteredProjects={filteredProjects} />
 
                 {/* Theme Selection */}
                 <div className="mb-8">
