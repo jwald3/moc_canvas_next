@@ -11,6 +11,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import "./globals.css";
+import { headers } from 'next/headers';
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -25,6 +26,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: "MOC Canvas",
     description: "Design and share your LEGO MOCs",
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_APP_URL || 
+        (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+    ),
 };
 
 export default function RootLayout({
