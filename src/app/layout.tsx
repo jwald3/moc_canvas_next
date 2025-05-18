@@ -51,13 +51,13 @@ export default function RootLayout({
                                     href="/" 
                                     className="flex items-center space-x-3 group relative"
                                 >
-                                    <div className="w-10 h-10 bg-white rounded-lg shadow-sm p-1.5 ring-1 ring-gray-200">
+                                    <div className="w-10 h-10 bg-white rounded-lg shadow-sm p-0.5 ring-1 ring-gray-200 flex items-center justify-center">
                                         <Image
                                             src="/images/logo.png"
-                                            width={48}
-                                            height={48}
+                                            width={32}
+                                            height={32}
                                             alt="MOC Canvas Logo"
-                                            className="object-contain"
+                                            className="w-full h-full object-contain"
                                         />
                                     </div>
                                     <span className="text-2xl font-bold text-gray-900 group-hover:text-[#E53E3E] transition-colors">
