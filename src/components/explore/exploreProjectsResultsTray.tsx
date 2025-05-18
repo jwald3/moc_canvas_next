@@ -6,6 +6,7 @@ import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectObject } from '@/types/hand_spun_datatypes';
 import ExploreNoProjectsFoundCard from './exploreNoProjectsFoundCard';
 import ExploreProjectsListTray from './exploreProjectsListTray';
+import ExploreProjectsGridTray from './exploreProjectsGridTray';
 
 interface ExploreProjectsResultsTrayProps {
     filteredProjects: ProjectObject[];
@@ -29,17 +30,12 @@ const ExploreProjectsResultsTray = ({
         <div>
             {filteredProjects.length > 0 ? (
                 viewMode === "grid" ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredProjects.map((project) => (
-                            <ProjectCard
-                                key={project.id}
-                                project={project}
-                                onProjectClick={handleProjectClick}
-                                onTagClick={handleTagClick}
-                                activeTags={activeTags}
-                            />
-                        ))}
-                    </div>
+                    <ExploreProjectsGridTray
+                        filteredProjects={filteredProjects}
+                        handleProjectClick={handleProjectClick}
+                        handleTagClick={handleTagClick}
+                        activeTags={activeTags}
+                    />
                 ) : (
                     <ExploreProjectsListTray
                         filteredProjects={filteredProjects}
