@@ -9,20 +9,20 @@ const ProjectDashboardHeader = ({
     handleCreateProject,
 }: ProjectDashboardHeaderProps) => {
     return (
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-            <div>
-                <h1 className="text-2xl font-bold text-gray-800 mb-1">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mb-6">
+            <div className="w-full sm:w-auto">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
                     Project Dashboard
                 </h1>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600/80">
                     Manage and track all your projects in one place
                 </p>
             </div>
             <button
-                className="mt-4 sm:mt-0 bg-card-gradient hover-gradient text-white px-4 py-2 rounded-full flex items-center transition-all shadow-md hover:shadow-lg font-semibold text-shadow"
+                className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full flex items-center justify-center transition-colors font-medium"
                 onClick={handleCreateProject}
             >
-                <Plus size={18} className="mr-2" />
+                <span className="text-xl font-normal mr-2">+</span>
                 Add New Project
             </button>
         </div>

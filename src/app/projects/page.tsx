@@ -19,8 +19,8 @@ export default function ProjectsPage() {
 
     return (
         <ProjectProvider router={router}>
-            <div className="min-h-screen bg-theme-gradient p-4 sm:p-6">
-                <div className="max-w-7xl mx-auto">
+            <div className="min-h-screen bg-theme-gradient">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
                     <ProjectDashboardHeader handleCreateProject={() => {}} />
                     <ProjectDashboardControls />
                     <MyProjects />
