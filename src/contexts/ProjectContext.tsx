@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { projects } from "@/data/seed-data";
 import { useRouter } from 'next/navigation';
 import { ProjectObject } from '@/types/hand_spun_datatypes';
 import { HandSpunTheme } from '@prisma/client';
@@ -90,9 +89,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
             mainImageId: string | null;
         }[];
     })[]>([]);
-
-    // saved projects can just be the projects array for now
-    const savedProjects = projects;
+    const [projects, setProjects] = useState<ProjectObject[]>([]);
+    const [savedProjects, setSavedProjects] = useState<ProjectObject[]>([]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -104,6 +102,21 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch('/api/projects');
+                const data = await response.json();
+                setProjects(data);
+                setSavedProjects(data); // For now, using same data for saved projects
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+            }
+        };
+
+        fetchProjects();
     }, []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,8 +217,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         onTagClick: handleTagClick,
         isMobile,
         filterProjects,
-        filteredMyProjects: filterProjects(projects as unknown as ProjectObject[]),
-        filteredSavedProjects: filterProjects(savedProjects as unknown as ProjectObject[]),
+        filteredMyProjects: filterProjects(projects),
+        filteredSavedProjects: filterProjects(savedProjects),
         themes,
         loadThemes,
     };
