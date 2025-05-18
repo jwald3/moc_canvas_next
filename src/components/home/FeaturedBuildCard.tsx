@@ -1,8 +1,7 @@
-import { Star, Users } from "lucide-react";
 import React from "react";
 import Image from "next/image";
+import { ArrowRight, User } from "lucide-react";
 import { ProjectObject } from "@/types/hand_spun_datatypes";
-
 
 interface FeaturedBuildCardProps {
     build: ProjectObject;
@@ -11,55 +10,35 @@ interface FeaturedBuildCardProps {
 
 const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) => {
     return (
-        <div
-            key={build.id}
-            className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-gray-100"
+        <div 
             onClick={() => handleViewBuild(build.id)}
+            className="group cursor-pointer bg-white rounded-2xl overflow-hidden border-2 border-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
             <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ffd700]/20 via-[#da5249]/20 to-[#4a9eff]/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
                 <Image
-                    src={build.mainImage?.url || "/images/app-image-demo.jpg"}
+                    src={build.mainImage?.url || ""}
                     alt={build.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="absolute bottom-4 left-4 right-4">
-                        <div className="flex items-center gap-2 text-white mb-2">
-                            <Star
-                                className="fill-amber-400 text-amber-400"
-                                size={16}
-                            />
-                            <span className="text-sm">{build.stats.likes} likes</span>
-                            <span className="text-sm">•</span>
-                            <span className="text-sm">{build.stats.views} views</span>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            {build.tags.map((tag: string) => (
-                                <span
-                                    key={tag}
-                                    className="text-xs bg-white/20 text-white px-2 py-1 rounded-full backdrop-blur-sm"
-                                >
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                        <Users size={14} className="text-gray-600" />
+            
+            <div className="p-5">
+                <div className="flex items-start justify-between gap-4">
+                    <div>
+                        <h3 className="font-bold text-slate-800 mb-2 group-hover:text-[#da5249] transition-colors">
+                            {build.title}
+                        </h3>
+                        <div className="flex items-center gap-2 text-slate-600 text-sm">
+                            <User size={14} />
+                            <span>{build.owner}</span>
+                        </div>
                     </div>
-                    <span className="text-gray-600 text-sm">
-                        {build.owner}
-                    </span>
+                    <div className="bg-slate-100 group-hover:bg-[#da5249] rounded-lg p-2 transition-colors">
+                        <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+                    </div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
-                    {build.title}
-                </h3>
             </div>
         </div>
     );
