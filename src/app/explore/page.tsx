@@ -27,18 +27,6 @@ const ErrorState = ({ error }: { error: string }) => (
 
 const ExplorePageContent = () => {
     const {
-        searchQuery,
-        setSearchQuery,
-        clearSearch,
-        allTags,
-        activeTags,
-        handleTagClick,
-        viewMode,
-        setViewMode,
-        currentTheme,
-        filteredProjects,
-        handleThemeChange,
-        handleProjectClick,
         isLoading,
         error
     } = useExploreProjectsContext();
@@ -63,14 +51,7 @@ const ExplorePageContent = () => {
                 {/* This contains the projects that match the search query, tags, and theme. It handles the 
                 display of the projects in a grid or list view and additionally handles responsive design internally
                 depending on the screen size. */}
-                <ExploreProjectsResultsTray 
-                    filteredProjects={filteredProjects}
-                    viewMode={viewMode}
-                    handleProjectClick={handleProjectClick}
-                    handleTagClick={handleTagClick}
-                    activeTags={activeTags}
-                    clearSearch={clearSearch}
-                />
+                <ExploreProjectsResultsTray />
             </div>
         </div>
     );
