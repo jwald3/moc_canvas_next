@@ -11,7 +11,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import "./globals.css";
-import { headers } from 'next/headers';
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
