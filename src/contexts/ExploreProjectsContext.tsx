@@ -45,13 +45,6 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // Add console logs to track state changes
-    useEffect(() => {
-        console.log('Loading state:', isLoading);
-        console.log('Projects:', projects);
-        console.log('Error:', error);
-    }, [isLoading, projects, error]);
-
     // Fetch projects from the API
     useEffect(() => {
         const fetchProjects = async () => {

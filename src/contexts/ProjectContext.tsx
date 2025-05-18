@@ -34,6 +34,8 @@ interface ProjectContextType {
     filterProjects: (projectsList: ProjectObject[]) => ProjectObject[];
     filteredMyProjects: ProjectObject[];
     filteredSavedProjects: ProjectObject[];
+    isLoading: boolean;
+    error: string | null;
     themes: (HandSpunTheme & {
         projects: {
             id: string;
@@ -91,6 +93,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     })[]>([]);
     const [projects, setProjects] = useState<ProjectObject[]>([]);
     const [savedProjects, setSavedProjects] = useState<ProjectObject[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -107,12 +111,19 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
+                setIsLoading(true);
+                setError(null);
+
                 const response = await fetch('/api/projects');
                 const data = await response.json();
                 setProjects(data);
                 setSavedProjects(data); // For now, using same data for saved projects
+                
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching projects:', error);
+                setError('Failed to fetch projects');
+                setIsLoading(false);
             }
         };
 
@@ -221,6 +232,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         filteredSavedProjects: filterProjects(savedProjects),
         themes,
         loadThemes,
+        isLoading,
+        error,
     };
 
     return (
