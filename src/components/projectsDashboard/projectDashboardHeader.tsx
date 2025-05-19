@@ -1,12 +1,15 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 
-interface ProjectDashboardHeaderProps {
-    handleCreateProject: (e: React.MouseEvent | number) => void;
-}
 
-const ProjectDashboardHeader = ({
-    handleCreateProject,
-}: ProjectDashboardHeaderProps) => {
+const ProjectDashboardHeader = () => {
+
+    const router = useRouter();
+
+    const handleCreateProject = () => {
+        router.push('/projects/new');
+    }
+
     return (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mb-6">
             <div className="w-full sm:w-auto">

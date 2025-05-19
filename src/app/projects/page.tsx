@@ -38,7 +38,7 @@ const ProjectsDashboardContent = () => {
                     <ErrorState error={error} />
                 ) : (
                     <>
-                        <ProjectDashboardHeader handleCreateProject={() => {}} />
+                        <ProjectDashboardHeader />
                         <ProjectDashboardControls />
                         <MyProjects />
                         <SavedProjects />
