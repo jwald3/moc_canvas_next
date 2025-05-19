@@ -28,13 +28,13 @@ const HomeHero = () => {
                             <Star size={14} className="fill-[#da5249] lg:size-[20px] animate-pulse" />
                             <span>The Ultimate LEGO® Building Platform</span>
                         </div>
-                        <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-slate-800 mb-2 lg:mb-6 leading-tight">
+                        <h1 className="text-3xl md:text-4xl lg:text-6xl font-black text-slate-800 mb-2 lg:mb-6 leading-tight">
                             Build Something
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#ffd700] via-[#da5249] to-[#4a9eff] mt-0.5 lg:mt-2 animate-gradient bg-300">
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#ffd700] via-[#da5249] to-[#4a9eff] mt-1 lg:mt-2 animate-gradient bg-300">
                                 Extraordinary!
                             </span>
                         </h1>
-                        <p className="text-sm lg:text-lg text-slate-600 mb-4 lg:mb-8">
+                        <p className="text-base lg:text-lg text-slate-600 mb-4 lg:mb-8">
                             Join our incredible community of master builders! Document your creations, 
                             share your masterpieces, and connect with fellow LEGO® enthusiasts.
                         </p>

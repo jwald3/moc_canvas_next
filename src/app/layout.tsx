@@ -182,26 +182,26 @@ export default function RootLayout({
                         {children}
                     </main>
 
-                    <footer className="bg-white/80 backdrop-blur-sm border-t border-orange-100">
+                    <footer className="bg-white/80 backdrop-blur-sm border-t border-[#da5249]/10">
                         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-[#da5249] uppercase tracking-wider">
                                         Company
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/about" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/about" className="text-gray-600 hover:text-[#da5249]">
                                                 About Us
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/careers" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/careers" className="text-gray-600 hover:text-[#da5249]">
                                                 Careers
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/blog" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/blog" className="text-gray-600 hover:text-[#da5249]">
                                                 Blog
                                             </Link>
                                         </li>
@@ -209,22 +209,22 @@ export default function RootLayout({
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-[#da5249] uppercase tracking-wider">
                                         Resources
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/docs" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/docs" className="text-gray-600 hover:text-[#da5249]">
                                                 Documentation
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/tutorials" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/tutorials" className="text-gray-600 hover:text-[#da5249]">
                                                 Tutorials
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/support" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/support" className="text-gray-600 hover:text-[#da5249]">
                                                 Support
                                             </Link>
                                         </li>
@@ -232,22 +232,22 @@ export default function RootLayout({
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-[#da5249] uppercase tracking-wider">
                                         Legal
                                     </h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <Link href="/privacy" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/privacy" className="text-gray-600 hover:text-[#da5249]">
                                                 Privacy Policy
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/terms" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/terms" className="text-gray-600 hover:text-[#da5249]">
                                                 Terms of Service
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/cookies" className="text-gray-600 hover:text-orange-600">
+                                            <Link href="/cookies" className="text-gray-600 hover:text-[#da5249]">
                                                 Cookie Policy
                                             </Link>
                                         </li>
@@ -255,24 +255,24 @@ export default function RootLayout({
                                 </div>
 
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-orange-600 uppercase tracking-wider">
+                                    <h3 className="text-sm font-bold text-[#da5249] uppercase tracking-wider">
                                         Connect
                                     </h3>
                                     <div className="flex space-x-6">
-                                        <a href="https://github.com" className="text-gray-400 hover:text-orange-600 transition-colors">
+                                        <a href="https://github.com" className="text-gray-400 hover:text-[#da5249] transition-colors">
                                             <Github className="h-6 w-6" />
                                         </a>
-                                        <a href="https://twitter.com" className="text-gray-400 hover:text-orange-600 transition-colors">
+                                        <a href="https://twitter.com" className="text-gray-400 hover:text-[#da5249] transition-colors">
                                             <Twitter className="h-6 w-6" />
                                         </a>
-                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-orange-600 transition-colors">
+                                        <a href="https://linkedin.com" className="text-gray-400 hover:text-[#da5249] transition-colors">
                                             <Linkedin className="h-6 w-6" />
                                         </a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="mt-12 pt-8 border-t border-orange-100">
+                            <div className="mt-12 pt-8 border-t border-[#da5249]/10">
                                 <p className="text-sm text-gray-400 text-center">
                                     © {new Date().getFullYear()} MOC Canvas. All rights reserved.
                                 </p>
