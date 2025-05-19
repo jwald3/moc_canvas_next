@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import ThemeTile from "@/components/home/ThemeTile";
 import { HandSpunTheme } from "@prisma/client";
+import { ProjectThemeObject, ProjectBuildStepObject, ProjectStatsObject, ProjectStatus } from "@/types/hand_spun_datatypes";
 
 // Theme configuration mapping
 const themeConfig: Record<string, { color: string, gradient: string, icon: LucideIcon }> = {
@@ -41,11 +42,14 @@ interface ExploreThemesProps {
             tags: string[];
             createdAt: Date;
             updatedAt: Date;
-            status: string;
+            status: ProjectStatus;
             owner: string | null;
             avatar: string | null;
             themeId: string;
             mainImageId: string | null;
+            theme: ProjectThemeObject;
+            steps: ProjectBuildStepObject[];
+            stats: ProjectStatsObject;
         }[];
     })[];
 }

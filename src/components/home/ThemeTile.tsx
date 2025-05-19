@@ -2,10 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { LucideIcon } from "lucide-react";
 import { HandSpunTheme } from "@prisma/client";
-
+import { ProjectObject } from "@/types/hand_spun_datatypes";
+        
 interface ThemeTileProps {
     theme: HandSpunTheme & {
-        projects: any[];
+        projects: ProjectObject[];
     };
     color: string;
     gradient: string;

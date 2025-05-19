@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProjectObject } from '@/types/hand_spun_datatypes';
 import { HandSpunTheme } from '@prisma/client';
+import { ProjectStatus, ProjectThemeObject, ProjectBuildStepObject, ProjectStatsObject } from '@/types/hand_spun_datatypes';
 
 type RouterType = ReturnType<typeof useRouter>;
 
@@ -44,11 +45,14 @@ interface ProjectContextType {
             tags: string[];
             createdAt: Date;
             updatedAt: Date;
-            status: string;
+            status: ProjectStatus;
             owner: string | null;
             avatar: string | null;
             themeId: string;
             mainImageId: string | null;
+            theme: ProjectThemeObject;
+            steps: ProjectBuildStepObject[];
+            stats: ProjectStatsObject;
         }[];
     })[];
     loadThemes: () => Promise<void>;
@@ -84,11 +88,14 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
             tags: string[];
             createdAt: Date;
             updatedAt: Date;
-            status: string;
+            status: ProjectStatus;
             owner: string | null;
             avatar: string | null;
             themeId: string;
             mainImageId: string | null;
+            theme: ProjectThemeObject;
+            steps: ProjectBuildStepObject[];
+            stats: ProjectStatsObject;
         }[];
     })[]>([]);
     const [projects, setProjects] = useState<ProjectObject[]>([]);
