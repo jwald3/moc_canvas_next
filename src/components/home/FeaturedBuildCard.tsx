@@ -17,7 +17,7 @@ const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) =
             <div className="relative aspect-[4/3] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ffd700]/20 via-[#da5249]/20 to-[#4a9eff]/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
                 <Image
-                    src={build?.mainImage?.url || ""}
+                    src={build?.mainImage?.url || "/images/app-image-demo.png"}
                     alt={build?.title || ""}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
