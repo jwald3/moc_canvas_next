@@ -19,7 +19,7 @@ const ExplorePageTagTray = ({
                     className={`text-xs px-2 py-1 rounded-full transition-colors ${
                         activeTags.includes(tag)
                             ? "bg-card-gradient text-white shadow-sm"
-                            : "bg-white/90 border border-orange-300 text-orange-700 hover:bg-orange-500 hover:text-white"
+                            : "bg-white/90 border border-[#da5249] text-[#da5249] hover:bg-[#da5249] hover:text-white"
                     }`}
                     onClick={() => handleTagClick(tag)}
                 >

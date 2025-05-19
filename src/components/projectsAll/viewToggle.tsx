@@ -8,8 +8,8 @@ const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
             <button
                 className={`transition-colors ${
                     currentView === 'my'
-                        ? 'text-orange-600 font-medium'
-                        : 'text-gray-500 hover:text-orange-600'
+                        ? 'text-[#da5249] font-medium'
+                        : 'text-gray-500 hover:text-[#da5249]'
                 }`}
                 onClick={() => router.push('/projects/all?view=my')}
             >
@@ -19,8 +19,8 @@ const ViewToggle = ({ currentView }: { currentView: 'my' | 'saved' }) => {
             <button
                 className={`transition-colors ${
                     currentView === 'saved'
-                        ? 'text-orange-600 font-medium'
-                        : 'text-gray-500 hover:text-orange-600'
+                        ? 'text-[#da5249] font-medium'
+                        : 'text-gray-500 hover:text-[#da5249]'
                 }`}
                 onClick={() => router.push('/projects/all?view=saved')}
             >

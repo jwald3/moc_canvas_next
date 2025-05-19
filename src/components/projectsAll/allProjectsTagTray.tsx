@@ -18,7 +18,7 @@ const AllProjectsTagTray = () => {
                         className={`text-xs px-2 py-1 rounded-full transition-colors ${
                             activeTags.includes(tag)
                                 ? "bg-card-gradient text-white shadow-sm"
-                                : "bg-white/90 border border-orange-300 text-orange-700 hover:bg-orange-500 hover:text-white"
+                                : "bg-white/90 border border-[#da5249] text-[#da5249] hover:bg-[#da5249] hover:text-white"
                         }`}
                         onClick={() => handleTagClick(tag)}
                     >
@@ -28,12 +28,12 @@ const AllProjectsTagTray = () => {
             </div>
 
             <div className="flex items-center flex-shrink-0 ml-4">
-                <div className="bg-white rounded-full shadow-sm border-2 border-orange-300 overflow-hidden flex">
+                <div className="bg-white rounded-full shadow-sm border-2 border-[#da5249] overflow-hidden flex">
                     <button
                         className={`px-3 py-1.5 text-sm relative ${
                             viewMode === "grid"
                                 ? "bg-card-gradient text-white before:absolute before:inset-[-1px] before:bg-card-gradient"
-                                : "text-orange-700 hover:bg-orange-50"
+                                : "text-[#da5249] hover:bg-[#da5249] hover:text-white"
                         }`}
                         onClick={() => setViewMode("grid")}
                     >
@@ -43,7 +43,7 @@ const AllProjectsTagTray = () => {
                         className={`px-3 py-1.5 text-sm relative ${
                             viewMode === "list"
                                 ? "bg-card-gradient text-white before:absolute before:inset-[-1px] before:bg-card-gradient"
-                                : "text-orange-700 hover:bg-orange-50"
+                                : "text-[#da5249] hover:bg-[#da5249] hover:text-white"
                         }`}
                         onClick={() => setViewMode("list")}
                     >

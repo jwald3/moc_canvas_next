@@ -20,7 +20,7 @@ const ExplorePageSearch = ({
             <input
                 type="text"
                 placeholder="Search projects by name or tag..."
-                className="w-full pl-10 pr-10 py-2.5 border-2 border-orange-400 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white shadow-sm"
+                className="w-full pl-10 pr-10 py-2.5 border-2 border-[#da5249] rounded-full focus:outline-none focus:ring-2 focus:ring-[#da5249] focus:border-[#da5249] bg-white shadow-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />

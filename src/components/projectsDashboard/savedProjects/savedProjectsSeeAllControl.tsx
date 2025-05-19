@@ -8,7 +8,7 @@ const SavedProjectsSeeAllControl = () => {
     return (
         <Link
             href="/projects/all?view=saved"
-            className="text-orange-600 hover:text-orange-800 font-medium flex items-center group"
+            className="text-[#da5249] hover:text-[#c4483f] font-medium flex items-center group"
         >
             See All
             <ChevronRight

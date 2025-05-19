@@ -17,8 +17,8 @@ const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) =
             <div className="relative aspect-[4/3] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ffd700]/20 via-[#da5249]/20 to-[#4a9eff]/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
                 <Image
-                    src={build.mainImage?.url || ""}
-                    alt={build.title}
+                    src={build?.mainImage?.url || ""}
+                    alt={build?.title || ""}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -28,11 +28,11 @@ const FeaturedBuildCard = ({ build, handleViewBuild }: FeaturedBuildCardProps) =
                 <div className="flex items-start justify-between gap-4">
                     <div>
                         <h3 className="font-bold text-slate-800 mb-2 group-hover:text-[#da5249] transition-colors">
-                            {build.title}
+                            {build?.title || ""}
                         </h3>
                         <div className="flex items-center gap-2 text-slate-600 text-sm">
                             <User size={14} />
-                            <span>{build.owner}</span>
+                            <span>{build?.owner || ""}</span>
                         </div>
                     </div>
                     <div className="bg-slate-100 group-hover:bg-[#da5249] rounded-lg p-2 transition-colors">

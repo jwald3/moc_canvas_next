@@ -4,17 +4,17 @@
   --background: #ffffff;
   --foreground: #171717;
   
-  /* Custom theme colors */
-  --color-primary: #ff6b00;     /* Vibrant orange */
-  --color-primary-light: #ff8533;
-  --color-primary-dark: #e65c00;
-  --color-secondary: #ffd700;   /* LEGO yellow */
-  --color-accent: #ff3d00;      /* Deep orange accent */
+  /* Updated theme colors to match brand */
+  --color-primary: #da5249;     /* Brand red */
+  --color-primary-light: #e47670;
+  --color-primary-dark: #c4483f;
+  --color-secondary: #f8d7d5;   /* Light brand red */
+  --color-accent: #8f3631;      /* Dark brand red */
   
-  /* Background gradients */
-  --gradient-background: linear-gradient(135deg, #fff6e5 0%, #fff9ec 50%, #fff6e5 100%);
-  --gradient-card: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%);
-  --gradient-hover: linear-gradient(135deg, #ff8500 0%, #ff5500 100%);
+  /* Updated background gradients */
+  --gradient-background: linear-gradient(135deg, #fff5f4 0%, #fff9f9 50%, #fff5f4 100%);
+  --gradient-card: linear-gradient(135deg, #e47670 0%, #da5249 100%);
+  --gradient-hover: linear-gradient(135deg, #da5249 0%, #c4483f 100%);
 }
 
 @theme inline {
@@ -82,13 +82,13 @@ body {
 }
 
 .card-shadow {
-  box-shadow: 0 4px 6px -1px rgba(255, 107, 0, 0.1), 
-              0 2px 4px -1px rgba(255, 107, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(218, 82, 73, 0.1), 
+              0 2px 4px -1px rgba(218, 82, 73, 0.06);
 }
 
 .card-shadow-hover:hover {
-  box-shadow: 0 10px 15px -3px rgba(255, 107, 0, 0.1), 
-              0 4px 6px -2px rgba(255, 107, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(218, 82, 73, 0.1), 
+              0 4px 6px -2px rgba(218, 82, 73, 0.05);
 }
 
 /* Add to your utility classes */

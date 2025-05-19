@@ -13,7 +13,7 @@ const ProjectTagTray = () => {
                     className={`text-xs px-3 py-1.5 rounded-full transition-all ${
                         activeTags.includes(tag)
                             ? "bg-card-gradient text-white shadow-md"
-                            : "bg-white border-2 border-orange-400 text-orange-700 hover:bg-orange-500 hover:text-white"
+                            : "bg-white border-2 border-[#da5249] text-[#da5249] hover:bg-[#da5249] hover:text-white"
                     }`}
                     onClick={() => handleTagClick(tag)}
                 >

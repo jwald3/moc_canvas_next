@@ -63,102 +63,91 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
     return (
         <div
-            className="relative flex flex-col w-full rounded-lg overflow-hidden bg-white hover:shadow-xl cursor-pointer transition-all group border-2 border-orange-300 card-shadow card-shadow-hover"
+            className="group cursor-pointer bg-white rounded-2xl overflow-hidden border-2 border-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             onClick={(e) => {
-                console.log("ProjectCard clicked", project.id);
-
-                
                 e.preventDefault();
                 onProjectClick(project.id);
             }}
         >
-            {onSaveToggle && (
-                <button
-                    className="absolute top-2 right-2 z-20 p-2 transition-all hover:scale-110 group/star"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onSaveToggle(project.id);
-                    }}
-                    title={isSaved ? "Unsave Project" : "Save Project"}
-                >
-                    <Star 
-                        size={24} 
-                        className={`
-                            transition-all drop-shadow-md
-                            ${isSaved 
-                                ? 'fill-orange-500 text-orange-500' 
-                                : 'fill-transparent text-white group-hover/star:text-orange-500'
-                            }
-                        `}
-                    />
-                </button>
-            )}
-
-            <div className="relative aspect-[3/2] w-full overflow-hidden">
+            <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ffd700]/20 via-[#da5249]/20 to-[#4a9eff]/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
                 <Image
                     src={project.mainImage?.url || "/images/app-image-demo.jpg"}
                     alt={project.title}
                     fill
-                    className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
                         const img = e.target as HTMLImageElement;
                         img.src = "/images/app-image-demo.jpg";
                     }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/20 to-black/80 p-4 flex flex-col justify-between">
-                    <h3 className="text-white font-bold text-xl drop-shadow-md">
-                        {project.title}
-                    </h3>
-
-                    <div className="flex flex-wrap">
-                        {visibleTags.map((tag, index) => (
-                            <span
-                                key={index}
-                                className={`${
-                                    activeTags.includes(tag)
-                                        ? "bg-card-gradient text-white shadow-md"
-                                        : "bg-white/90 text-orange-700 hover:bg-orange-500 hover:text-white"
-                                } text-xs px-2 py-1 rounded-full mr-1 mb-1 cursor-pointer transition-all`}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onTagClick(tag);
-                                }}
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                        {hiddenCount > 0 && (
-                            <span
-                                className="bg-black/40 text-white text-xs px-2 py-1 rounded-full mr-1 mb-1 cursor-pointer hover:bg-orange-500 transition-all backdrop-blur-sm"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    alert(`Additional tags: ${project.tags.slice(visibleTags.length).join(', ')}`);
-                                }}
-                            >
-                                +{hiddenCount}
-                            </span>
-                        )}
+                {onSaveToggle && (
+                    <button
+                        className="absolute top-4 right-4 z-20 p-2 transition-all hover:scale-110 group/star"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onSaveToggle(project.id);
+                        }}
+                        title={isSaved ? "Unsave Project" : "Save Project"}
+                    >
+                        <Star 
+                            size={24} 
+                            className={`
+                                transition-all drop-shadow-md
+                                ${isSaved 
+                                    ? 'fill-[#da5249] text-[#da5249]' 
+                                    : 'fill-transparent text-white group-hover/star:text-[#da5249]'
+                                }
+                            `}
+                        />
+                    </button>
+                )}
+            </div>
+            
+            <div className="p-5">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                    <div>
+                        <h3 className="font-bold text-slate-800 mb-2 group-hover:text-[#da5249] transition-colors">
+                            {project.title}
+                        </h3>
+                        <div className="flex items-center gap-2 text-slate-600 text-sm">
+                            {isSaved && <p className="text-sm text-gray-700">{project.owner}</p>}
+                            <p className="text-xs text-gray-500">
+                                Updated {formatRelativeTime(project.updatedAt)}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="px-4 py-3 flex justify-between items-center bg-gradient-to-br from-white to-orange-50">
-                <div>
-                    {isSaved && <p className="text-sm mb-1 text-gray-700">{project.owner}</p>}
-                    <p className="text-xs text-gray-500">
-                        Updated {formatRelativeTime(project.updatedAt)}
-                    </p>
+                <div className="flex flex-wrap gap-1">
+                    {visibleTags.map((tag, index) => (
+                        <span
+                            key={index}
+                            className={`${
+                                activeTags.includes(tag)
+                                    ? "bg-[#da5249] text-white"
+                                    : "bg-slate-100 text-slate-600 hover:bg-[#da5249] hover:text-white"
+                            } text-xs px-2 py-1 rounded-full cursor-pointer transition-all`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onTagClick(tag);
+                            }}
+                        >
+                            {tag}
+                        </span>
+                    ))}
+                    {hiddenCount > 0 && (
+                        <span
+                            className="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-full cursor-pointer hover:bg-[#da5249] hover:text-white transition-all"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                alert(`Additional tags: ${project.tags.slice(visibleTags.length).join(', ')}`);
+                            }}
+                        >
+                            +{hiddenCount}
+                        </span>
+                    )}
                 </div>
-                <button
-                    className="py-1.5 px-4 bg-card-gradient hover-gradient text-white rounded-full transition-all shadow-sm hover:shadow-md flex items-center space-x-1 group"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onProjectClick(project.id);
-                    }}
-                >
-                    <span className="text-xs font-medium">View</span>
-                </button>
             </div>
         </div>
     );

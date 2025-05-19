@@ -7,13 +7,13 @@ const NewProjectCard = () => {
     return (
         <div
             onClick={() => router.push("/projects/new")}
-            className="cursor-pointer w-full md:w-1/2 lg:w-1/3 border-2 border-dashed border-orange-400 rounded-xl py-12 my-8 hover:border-orange-500 transition-all group bg-white hover:bg-orange-50 card-shadow-hover"
+            className="cursor-pointer w-full md:w-1/2 lg:w-1/3 border-2 border-dashed border-[#da5249] rounded-xl py-12 my-8 hover:border-[#da5249] transition-all duration-300 group bg-white hover:bg-[#da5249] card-shadow-hover hover:scale-[1.02]"
         >
             <div className="flex flex-col items-center justify-center gap-4">
-                <div className="bg-card-gradient rounded-full p-4 group-hover:bg-gradient-hover transition-all">
+                <div className="bg-card-gradient rounded-full p-4 group-hover:bg-gradient-hover transition-all duration-300">
                     <Plus size={24} className="text-white" />
                 </div>
-                <span className="text-orange-700 font-medium text-lg">
+                <span className="text-[#da5249] font-medium text-lg group-hover:text-white transition-colors duration-300">
                     Create New Project
                 </span>
             </div>

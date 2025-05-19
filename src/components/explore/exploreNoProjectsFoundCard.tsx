@@ -19,7 +19,7 @@ const ExploreNoProjectsFoundCard = ({ clearSearch }: ExploreNoProjectsFoundCardP
                 looking for.
             </p>
             <button
-                className="text-orange-600 font-medium hover:text-orange-800"
+                className="text-[#da5249] font-medium hover:text-[#da5249]"
                 onClick={clearSearch}
             >
                 Clear search and filters

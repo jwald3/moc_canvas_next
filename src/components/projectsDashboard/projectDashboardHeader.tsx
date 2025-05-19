@@ -18,7 +18,7 @@ const ProjectDashboardHeader = ({
                 </p>
             </div>
             <button
-                className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full flex items-center justify-center transition-colors font-medium"
+                className="w-full sm:w-auto bg-[#da5249] hover:bg-[#c4483f] text-white px-6 py-2.5 rounded-full flex items-center justify-center transition-colors font-medium"
                 onClick={handleCreateProject}
             >
                 <span className="text-xl font-normal mr-2">+</span>

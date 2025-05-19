@@ -45,7 +45,7 @@ const SavedProjectsDesktopView = () => {
         <div className="relative mb-6">
             {showNavigation && (
                 <button
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-[#da5249] transition-all border border-[#f8d7d5]"
                     onClick={handlePrev}
                 >
                     <ChevronLeft size={20} />
@@ -69,7 +69,7 @@ const SavedProjectsDesktopView = () => {
 
             {showNavigation && (
                 <button
-                    className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-orange-600 transition-all border border-orange-200"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-gray-100 text-[#da5249] transition-all border border-[#f8d7d5]"
                     onClick={handleNext}
                 >
                     <ChevronRight size={20} />

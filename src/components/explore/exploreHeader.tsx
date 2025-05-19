@@ -16,7 +16,7 @@ const ExploreHeader = () => {
                     href="/"
                     className="mr-3 p-2 rounded-full hover:bg-white/20 transition-colors"
                 >
-                    <ChevronLeft size={20} className="text-orange-800" />
+                    <ChevronLeft size={20} className="text-[#da5249]" />
                 </Link>
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800 mb-2">

@@ -21,7 +21,7 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
 }) => {
     return (
         <div 
-            className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden flex border border-orange-200 hover:border-orange-300"
+            className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden flex border border-[#da5249] hover:border-[#da5249]"
             onClick={() => onProjectClick(project.id)}
         >
             <div className="w-40 h-28 flex-shrink-0 relative overflow-hidden">
@@ -63,7 +63,7 @@ export const ProjectListItem: React.FC<ProjectListItemProps> = ({
                                 className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
                                     activeTags.includes(tag)
                                         ? 'bg-card-gradient text-white shadow-sm'
-                                        : 'bg-orange-50 text-orange-700 hover:bg-orange-100'
+                                        : 'bg-[#da5249] text-white hover:bg-[#da5249]'
                                 }`}
                             >
                                 {tag}
