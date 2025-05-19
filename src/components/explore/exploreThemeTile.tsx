@@ -1,49 +1,45 @@
 import React from "react";
 import { ProjectThemeObject } from '@/types/hand_spun_datatypes';
+import { LucideIcon } from "lucide-react";
 
 interface ExploreThemeTileProps {
     theme: ProjectThemeObject;
     currentTheme: string;
     handleThemeChange: (themeId: string) => void;
-    iconMap: Record<string, React.ReactNode>;
+    config: {
+        color: string;
+        gradient: string;
+        icon: LucideIcon;
+    };
 }
 
-const ExploreThemeTile = ({ theme, currentTheme, handleThemeChange, iconMap }: ExploreThemeTileProps) => {
+const ExploreThemeTile = ({ theme, currentTheme, handleThemeChange, config }: ExploreThemeTileProps) => {
+    const Icon = config.icon;
+    const isSelected = currentTheme === theme.id;
+    
     return (
         <button
-            key={theme.id}
             onClick={() => handleThemeChange(theme.id)}
-            className={`relative group overflow-hidden rounded-xl p-4 transition-all ${
-                currentTheme === theme.id
-                    ? "bg-gradient-to-br " +
-                      theme.color +
-                      " text-white shadow-lg scale-[1.02]"
-                    : "bg-white hover:bg-gray-50 text-gray-800 shadow"
-            }`}
+            className="group relative overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-md transition-all"
         >
-            <div className="flex items-center gap-3">
-                <div
-                    className={`p-2 rounded-lg ${
-                        currentTheme === theme.id
-                            ? "bg-white/20"
-                            : "bg-gray-100"
-                    }`}
-                >
-                    {iconMap[theme.iconType as keyof typeof iconMap]}
-                </div>
-                <div className="text-left">
-                    <h3 className="font-semibold">{theme.name}</h3>
-                    <p
-                        className={`text-sm ${
-                            currentTheme === theme.id
-                                ? "text-white/80"
-                                : "text-gray-500"
-                        }`}
-                    >
-                        {theme.description}
-                    </p>
+            <div className="relative z-10 p-6">
+                <div className="flex items-start gap-4">
+                    <div className={`p-3 rounded-xl bg-gradient-to-br ${config.gradient}`}>
+                        <Icon size={24} className="text-slate-700" />
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-slate-800 text-left">
+                            {theme.name}
+                        </h3>
+                        <p className="text-sm text-slate-600 text-left">
+                            {theme.description}
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            {/* Background decoration */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
         </button>
     );
 };
