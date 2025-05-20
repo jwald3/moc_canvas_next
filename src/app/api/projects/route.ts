@@ -27,7 +27,7 @@ export async function GET() {
           ...step,
           images: step.images.map(image => ({
             ...image,
-            url: image.url.startsWith('/') ? image.url : `/${image.url}`,
+            url: image.url,
             type: image.type as "reference" | "progress" | undefined
           }))
         })),
@@ -48,7 +48,7 @@ export async function GET() {
         mainImage: project.mainImage ? {
           id: project.mainImage.id,
           projectId: project.id,
-          url: project.mainImage.url.startsWith('/') ? project.mainImage.url : `/${project.mainImage.url}`
+          url: project.mainImage.url
         } : undefined
       });
     });
