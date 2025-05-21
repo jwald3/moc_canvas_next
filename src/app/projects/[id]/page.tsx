@@ -12,12 +12,13 @@ import ProjectPartsTabContents from "@/components/singleProject/projectPartsTabC
 import ProjectGalleryTabContents from "@/components/singleProject/projectGalleryTabContents";
 import ProjectProgressTabContents from "@/components/singleProject/projectProgressTabContents";
 import { ProjectHomeProvider, useProjectHomeContext } from "@/contexts/ProjectHomeContext";
+import ProjectDetailsSkeleton from "@/components/singleProject/projectDetailsSkeleton";
 
 const ProjectContent = () => {
     const { project, activeTab, handleAddStep } = useProjectHomeContext();
 
     if (!project) {
-        return <div>Project not found</div>;
+        return <ProjectDetailsSkeleton />;
     }
 
     return (
@@ -61,7 +62,7 @@ const ProjectDetailsPage = () => {
     const projectId = params?.id as string;
 
     if (!projectId) {
-        return <div>Loading...</div>;
+        return <ProjectDetailsSkeleton />;
     }
 
     return (
