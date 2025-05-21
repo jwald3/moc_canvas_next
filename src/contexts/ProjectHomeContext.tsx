@@ -4,10 +4,32 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import { getProjectById } from '@/actions/project-actions'
 import type { HandSpunProject, HandSpunBuildStep, HandSpunProjectImage } from '@prisma/client'
 
+type ProjectMainImage = {
+  id: string;
+  url: string;
+}
+
 type ProjectWithRelations = HandSpunProject & {
+  mainImage?: ProjectMainImage | null;
   steps?: (HandSpunBuildStep & {
     images: HandSpunProjectImage[]
-  })[]
+  })[] | null;
+  theme?: {
+    name: string;
+    id: string;
+    description: string;
+    iconType: string | null;
+    color: string | null;
+  };
+  stats?: {
+    id: string;
+    projectId: string;
+    views: number;
+    likes: number;
+    comments: number;
+    shares: number;
+    public: boolean;
+  } | null;
 }
 
 interface ProjectHomeContextType {
@@ -17,6 +39,7 @@ interface ProjectHomeContextType {
     activeTab: string;
     setActiveTab: (tab: string) => void;
     handleAddStep: () => void;
+    handleMainImageUpload: (imageUrl: string) => Promise<void>;
 }
 
 const ProjectHomeContext = createContext<ProjectHomeContextType | undefined>(undefined);
@@ -53,6 +76,33 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         console.log("Adding new step");
     };
 
+    const handleMainImageUpload = async (imageUrl: string) => {
+        try {
+            setIsLoading(true);
+            
+            // Update the project with the new main image
+            const response = await fetch(`/api/projects/${projectId}/main-image`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ imageUrl }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update main image');
+            }
+
+            // Refresh the project data
+            const updatedProject = await getProjectById(projectId);
+            setProject(updatedProject);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to upload image');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const value = {
         project,
         isLoading,
@@ -60,6 +110,7 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         activeTab,
         setActiveTab,
         handleAddStep,
+        handleMainImageUpload,
     };
 
     return (
