@@ -8,7 +8,7 @@ import {
     UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Github, Twitter, Linkedin, Plus } from "lucide-react";
+import { Github, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import "./globals.css";
 import Image from "next/image";

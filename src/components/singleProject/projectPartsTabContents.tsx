@@ -1,26 +1,8 @@
 import { Search } from "lucide-react";
 import React from "react";
 import Image from "next/image";
-import { useState } from "react";
 
 const ProjectPartsTabContents = () => {
-    const [imageSources, setImageSources] = useState<{ [key: number]: string }>(
-        // Initialize with placeholder URLs from placehold.co
-        Object.fromEntries(
-            [1, 2, 3, 4, 5, 6, 7, 8].map(num => [
-                num,
-                `https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW690TOSpxjk3SLOE68zIZhl2wBsMRXiyngvFfW`
-            ])
-        )
-    );
-
-    const handleImageError = (num: number) => {
-        setImageSources(prev => ({
-            ...prev,
-            [num]: "https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW690TOSpxjk3SLOE68zIZhl2wBsMRXiyngvFfW"
-        }));
-    };
-
     return (
         <div className="space-y-6 pb-12">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -101,7 +83,6 @@ const ProjectPartsTabContents = () => {
                                         alt="Part"
                                         width={48}
                                         height={48}
-                                        onError={() => handleImageError(num)}
                                         unoptimized
                                     />
                                 </div>
