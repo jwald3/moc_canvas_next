@@ -13,7 +13,6 @@ import UsageStats from "@/components/home/UsageStats";
 const HomeHero = () => {
     return (
         <section className="relative min-h-[unset] lg:min-h-[45vh] flex items-center bg-gradient-to-br from-[#fff7e6] via-white to-[#ffebe6] py-6 lg:py-0">
-            {/* Fun decorative elements - make them smaller on mobile */}
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute top-0 right-0 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-gradient-to-br from-[#ffd700]/30 via-[#da5249]/20 to-[#4a9eff]/20 rounded-full opacity-40 blur-3xl transform translate-x-1/3 -translate-y-1/3 animate-float-slow"></div>
                 <div className="absolute -top-10 left-20 lg:-top-20 lg:left-40 w-16 lg:w-32 h-16 lg:h-32 bg-[#ffd700]/20 rounded-xl rotate-12 animate-float"></div>
@@ -92,7 +91,7 @@ const HomeHero = () => {
                     <div className="relative hidden md:block group">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#ffd700]/30 via-[#da5249]/30 to-[#4a9eff]/30 rounded-3xl transform rotate-6 scale-105 group-hover:rotate-3 transition-transform"></div>
                         <Image
-                            src="/images/millennium-falcon.jpg"
+                            src="https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW6xfpVgsPkZljIRdyGQzMpn0cwmDxtfKTUqrCE"
                             alt="Featured LEGO build"
                             width={500}
                             height={375}
