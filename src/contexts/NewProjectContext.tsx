@@ -225,24 +225,51 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         setImages(images.filter((img) => img.id !== imageId));
     };
 
-    const handleSubmit = (e?: React.FormEvent) => {
+    const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
         setIsSubmitting(true);
 
-        setTimeout(() => {
-            console.log({
-                name: projectName,
+        try {
+            // Prepare the project data
+            const projectData = {
+                title: projectName,
                 description,
                 status: selectedStatus,
                 tags,
                 mainImage: imagePreview,
-                additionalImages: images,
-                buildSections: buildSections,
+                buildSections: buildSections.map(section => ({
+                    title: section.title,
+                    description: section.description,
+                    images: section.images
+                }))
+            };
+
+            // Make the API call
+            const response = await fetch('/api/projects', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(projectData),
             });
 
-            setIsSubmitting(false);
+            if (!response.ok) {
+                throw new Error('Failed to create project');
+            }
+
+            const createdProject = await response.json();
+            
+            // Show success message
             alert("Project created successfully!");
-        }, 1500);
+            
+            // Optional: Redirect to the new project page
+            window.location.href = `/projects/${createdProject.id}`;
+        } catch (error) {
+            console.error('Error creating project:', error);
+            alert("Failed to create project. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const value = {

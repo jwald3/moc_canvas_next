@@ -93,10 +93,21 @@ const ProjectPreviewCard = () => {
                 <button
                     type="button"
                     onClick={handleSubmit}
-                    className="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white py-2 rounded-lg font-medium transition-colors"
+                    className={`w-full ${
+                        isSubmitting 
+                            ? 'bg-gray-400 cursor-not-allowed' 
+                            : 'bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600'
+                    } text-white py-2 rounded-lg font-medium transition-colors`}
                     disabled={isSubmitting}
                 >
-                    {isSubmitting ? "Creating Project..." : "Create Project"}
+                    {isSubmitting ? (
+                        <div className="flex items-center justify-center">
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                            Creating Project...
+                        </div>
+                    ) : (
+                        'Create Project'
+                    )}
                 </button>
             </div>
         </div>
