@@ -3,13 +3,19 @@ import Image from "next/image";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import { UploadButton } from "@/components/ui/UploadThing";
 
+// Keep this simplified type
+type ImageUploadResponse = Array<{
+    url: string;
+    name: string;
+    size: number;
+}>;
+
 const SingleProjectHeroBanner = () => {
     const { project, isLoading, handleMainImageUpload } = useProjectHomeContext();
     const [showModal, setShowModal] = useState(false);
 
-    const handleUploadComplete = (res: any) => {
+    const handleUploadComplete = (res: ImageUploadResponse) => {
         console.log("Upload complete:", res);
-        // The URL is in the first item of the response array
         if (res && res.length > 0) {
             handleMainImageUpload(res[0].url);
             setShowModal(false);
@@ -61,7 +67,11 @@ const SingleProjectHeroBanner = () => {
     return (
         <div className="w-full h-64 relative bg-gray-200">
             {/* Banner Image or Placeholder */}
-            {project?.mainImage ? (
+            {isLoading ? (
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </div>
+            ) : project?.mainImage ? (
                 <Image
                     src={project.mainImage.url}
                     alt={project.title || "Project image"}
@@ -97,10 +107,10 @@ const SingleProjectHeroBanner = () => {
                 <div className="flex justify-between items-end">
                     <div>
                         <h1 className="text-2xl font-bold text-white mb-2">
-                            {project?.title}
+                            {isLoading ? "Loading..." : project?.title}
                         </h1>
                         <div className="flex flex-wrap gap-2 mb-2">
-                            {project?.tags?.map((tag, index) => (
+                            {!isLoading && project?.tags?.map((tag, index) => (
                                 <span
                                     key={index}
                                     className="bg-black/40 text-white text-xs px-2 py-1 rounded"
@@ -111,7 +121,7 @@ const SingleProjectHeroBanner = () => {
                         </div>
                     </div>
                     <div className="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-medium pointer-events-auto">
-                        {project?.status}
+                        {isLoading ? "..." : project?.status}
                     </div>
                 </div>
             </div>

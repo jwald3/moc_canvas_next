@@ -1,9 +1,5 @@
 'use server'
 
-import { UTApi } from "uploadthing/server";
-
-const utapi = new UTApi();
-
 export async function uploadImage(file: File): Promise<string> {
   try {
     // Create a FormData object
