@@ -8,7 +8,7 @@ import {
     UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Plus } from "lucide-react";
 import Link from "next/link";
 import "./globals.css";
 import Image from "next/image";
@@ -141,6 +141,26 @@ export default function RootLayout({
                                             />
                                         </svg>
                                         <span>Learn</span>
+                                    </Link>
+                                    {/* link to /projects/new */}
+                                    <Link 
+                                        href="/projects/new" 
+                                        className="px-4 py-2 rounded-md text-gray-700 hover:text-[#E53E3E] hover:bg-red-50 font-medium transition-all relative group flex items-center space-x-2"
+                                    >
+                                        <svg 
+                                            className="w-4 h-4" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path 
+                                                strokeLinecap="round" 
+                                                strokeLinejoin="round" 
+                                                strokeWidth={2} 
+                                                d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                                            />
+                                        </svg>
+                                        <span>Create</span>
                                     </Link>
                                 </nav>
 
