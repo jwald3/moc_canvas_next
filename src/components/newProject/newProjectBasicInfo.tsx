@@ -3,17 +3,30 @@ import { Tag, X } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 
 const statusOptions = [
-    { value: "planning", color: "bg-blue-100 text-blue-800" },
-    { value: "in progress", color: "bg-yellow-100 text-yellow-800" },
-    { value: "on hold", color: "bg-orange-100 text-orange-800" },
-    { value: "completed", color: "bg-green-100 text-green-800" },
-    { value: "cancelled", color: "bg-red-100 text-red-800" }
+    { value: "Planning", color: "bg-blue-100 text-blue-800" },
+    { value: "In Progress", color: "bg-yellow-100 text-yellow-800" },
+    { value: "On Hold", color: "bg-orange-100 text-orange-800" },
+    { value: "Completed", color: "bg-green-100 text-green-800" },
 ] as const;
 
 const NewProjectBasicInfo = () => {
+    const {
+        projectName,
+        setProjectName,
+        description,
+        setDescription,
+        selectedStatus,
+        setSelectedStatus,
+        tagInput,
+        showTagSuggestions,
+        handleTagInputChange,
+        tags,
+        addTag,
+        removeTag,
+        handleTagKeyPress,
+        tagSuggestions,
+    } = useNewProjectContext();
 
-    const { projectName, setProjectName, description, setDescription, selectedStatus, setSelectedStatus, tagInput, showTagSuggestions, handleTagInputChange, tags, addTag, removeTag, handleTagKeyPress, tagSuggestions } = useNewProjectContext();
-    
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-gray-100 px-6 py-4">

@@ -7,10 +7,11 @@ const ProjectPreviewCard = () => {
     const { imagePreview, projectName, tags, selectedStatus, description, isSubmitting, handleSubmit } = useNewProjectContext();
 
     const statusOptions = [
-        { value: "draft", color: "bg-gray-100 text-gray-700" },
-        { value: "published", color: "bg-green-100 text-green-700" },
-        { value: "archived", color: "bg-red-100 text-red-700" },
-    ];
+        { value: "Planning", color: "bg-blue-100 text-blue-800" },
+        { value: "In Progress", color: "bg-yellow-100 text-yellow-800" },
+        { value: "On Hold", color: "bg-orange-100 text-orange-800" },
+        { value: "Completed", color: "bg-green-100 text-green-800" },
+    ] as const;
 
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden sticky top-6">
@@ -65,9 +66,9 @@ const ProjectPreviewCard = () => {
 
                 <div className="mb-4">
                     <span
-                        className={`text-xs px-2 py-1 rounded-full ${
+                        className={`text-xs px-3 py-1.5 rounded-full ${
                             statusOptions.find(
-                                (s: { value: string; color: string }) => s.value === selectedStatus
+                                (status) => status.value === selectedStatus
                             )?.color || "bg-gray-100 text-gray-700"
                         }`}
                     >
