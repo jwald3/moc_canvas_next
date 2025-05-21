@@ -53,7 +53,7 @@ export default function RootLayout({
                                 >
                                     <div className="w-10 h-10 bg-white rounded-lg shadow-sm p-0.5 ring-1 ring-gray-200 flex items-center justify-center">
                                         <Image
-                                            src="/images/logo.png"
+                                            src="https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW6cyboMtQ2PyODvCq8FZQp3W7TwXVha1df0zUB"
                                             width={32}
                                             height={32}
                                             alt="MOC Canvas Logo"
