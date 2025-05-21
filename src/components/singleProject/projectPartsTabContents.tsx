@@ -1,8 +1,26 @@
 import { Search } from "lucide-react";
 import React from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 const ProjectPartsTabContents = () => {
+    const [imageSources, setImageSources] = useState<{ [key: number]: string }>(
+        // Initialize with placeholder URLs from placehold.co
+        Object.fromEntries(
+            [1, 2, 3, 4, 5, 6, 7, 8].map(num => [
+                num,
+                `https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW690TOSpxjk3SLOE68zIZhl2wBsMRXiyngvFfW`
+            ])
+        )
+    );
+
+    const handleImageError = (num: number) => {
+        setImageSources(prev => ({
+            ...prev,
+            [num]: "https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW690TOSpxjk3SLOE68zIZhl2wBsMRXiyngvFfW"
+        }));
+    };
+
     return (
         <div className="space-y-6 pb-12">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -79,12 +97,12 @@ const ProjectPartsTabContents = () => {
                             <div key={num} className="text-center">
                                 <div className="h-16 w-16 mx-auto bg-gray-100 rounded flex items-center justify-center">
                                     <Image
-                                        src={`/api/placeholder/64/64?text=${num}x${
-                                            num + 1
-                                        }`}
+                                        src={"https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW690TOSpxjk3SLOE68zIZhl2wBsMRXiyngvFfW"}
                                         alt="Part"
                                         width={48}
                                         height={48}
+                                        onError={() => handleImageError(num)}
+                                        unoptimized
                                     />
                                 </div>
                                 <p className="text-xs mt-1">
