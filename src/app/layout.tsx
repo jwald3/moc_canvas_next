@@ -104,7 +104,7 @@ export default function RootLayout({
                                         </svg>
                                         <span>Explore</span>
                                     </Link>
-                                    <Link 
+                                    {/* <Link 
                                         href="/community" 
                                         className="px-4 py-2 rounded-md text-gray-700 hover:text-[#E53E3E] hover:bg-red-50 font-medium transition-all relative group flex items-center space-x-2"
                                     >
@@ -122,7 +122,7 @@ export default function RootLayout({
                                             />
                                         </svg>
                                         <span>Community</span>
-                                    </Link>
+                                    </Link> */}
                                     <Link 
                                         href="/learn" 
                                         className="px-4 py-2 rounded-md text-gray-700 hover:text-[#E53E3E] hover:bg-red-50 font-medium transition-all relative group flex items-center space-x-2"
