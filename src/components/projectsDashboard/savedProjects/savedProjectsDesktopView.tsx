@@ -53,9 +53,9 @@ const SavedProjectsDesktopView = () => {
             )}
 
             <div className="overflow-hidden px-2">
-                <div className="grid grid-cols-3 gap-4">
+                <div className="flex gap-4">
                     {visibleProjects.map((project) => (
-                        <div key={project?.id} className="w-full">
+                        <div key={project?.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0">
                             <ProjectCard
                                 project={project}
                                 onProjectClick={handleProjectClick}
