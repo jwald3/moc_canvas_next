@@ -62,14 +62,51 @@ const ProjectSettingsTabContents = () => {
         }
     };
 
+    const handleEditToggle = () => {
+        if (isEditing) {
+            handleSaveChanges();
+        }
+        setIsEditing(!isEditing);
+    };
+
+    const handleSaveChanges = async () => {
+        try {
+            const response = await fetch(`/api/projects/${project?.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    title, 
+                    description 
+                }),
+            });
+
+            if (!response.ok) throw new Error('Failed to update project');
+            
+            // Update the project in context would be ideal here
+            // For now, we'll just exit edit mode
+        } catch (error) {
+            console.error('Error updating project:', error);
+        }
+    };
+
     return (
         <div className="space-y-6 pb-12 max-w-3xl mx-auto">
             {/* Project Details */}
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                 <div className="border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                    <div className="flex items-center gap-2">
-                        <FileText className="w-5 h-5 text-gray-600" />
-                        <h3 className="text-lg font-medium text-gray-900">Project Details</h3>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <FileText className="w-5 h-5 text-gray-600" />
+                            <h3 className="text-lg font-medium text-gray-900">Project Details</h3>
+                        </div>
+                        <Button
+                            variant="outline"
+                            onClick={handleEditToggle}
+                        >
+                            {isEditing ? "Save Changes" : "Edit Details"}
+                        </Button>
                     </div>
                 </div>
                 
