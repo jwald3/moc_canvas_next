@@ -12,24 +12,34 @@ type ImageUploadResponse = Array<{
 
 const SingleProjectHeroBanner = () => {
     const { project, isLoading, handleMainImageUpload } = useProjectHomeContext();
-    const [showModal, setShowModal] = useState(false);
+    const [showUploadModal, setShowUploadModal] = useState(false);
+    const [showPreviewModal, setShowPreviewModal] = useState(false);
 
     const handleUploadComplete = (res: ImageUploadResponse) => {
         console.log("Upload complete:", res);
         if (res && res.length > 0) {
             handleMainImageUpload(res[0].url);
-            setShowModal(false);
+            setShowUploadModal(false);
         }
     };
 
-    const openModal = useCallback(() => {
-        console.log("Opening modal");
-        setShowModal(true);
+    const openUploadModal = useCallback(() => {
+        console.log("Opening upload modal");
+        setShowUploadModal(true);
     }, []);
 
-    const closeModal = useCallback(() => {
-        console.log("Closing modal");
-        setShowModal(false);
+    const closeUploadModal = useCallback(() => {
+        console.log("Closing upload modal");
+        setShowUploadModal(false);
+    }, []);
+
+    // New handlers for preview modal
+    const openPreviewModal = useCallback(() => {
+        setShowPreviewModal(true);
+    }, []);
+
+    const closePreviewModal = useCallback(() => {
+        setShowPreviewModal(false);
     }, []);
 
     // Separate component for the upload modal to ensure it renders properly
@@ -54,12 +64,41 @@ const SingleProjectHeroBanner = () => {
                 <div className="flex justify-end">
                     <button 
                         className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-                        onClick={closeModal}
+                        onClick={closeUploadModal}
                         type="button"
                     >
                         Cancel
                     </button>
                 </div>
+            </div>
+        </div>
+    );
+
+    // New ImagePreviewModal component
+    const ImagePreviewModal = () => (
+        <div 
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]"
+            onClick={closePreviewModal}
+        >
+            <div className="relative max-w-[90vw] max-h-[90vh]">
+                <Image
+                    src={project?.mainImage?.url || ''}
+                    alt={project?.title || "Project image"}
+                    width={1920}
+                    height={1080}
+                    className="object-contain max-h-[90vh]"
+                    onClick={(e) => e.stopPropagation()}
+                />
+                <button 
+                    className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                    onClick={closePreviewModal}
+                    type="button"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
         </div>
     );
@@ -72,17 +111,19 @@ const SingleProjectHeroBanner = () => {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                 </div>
             ) : project?.mainImage ? (
-                <Image
-                    src={project.mainImage.url}
-                    alt={project.title || "Project image"}
-                    fill
-                    className="object-cover"
-                    priority
-                />
+                <div className="relative w-full h-full cursor-pointer" onClick={openPreviewModal}>
+                    <Image
+                        src={project.mainImage.url}
+                        alt={project.title || "Project image"}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                </div>
             ) : (
                 <button 
                     className="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-200 hover:bg-gray-300 transition-colors border-none"
-                    onClick={openModal}
+                    onClick={openUploadModal}
                     type="button"
                 >
                     <span className="text-gray-500 flex items-center gap-2">
@@ -96,8 +137,9 @@ const SingleProjectHeroBanner = () => {
                 </button>
             )}
 
-            {/* Modal for Image Upload */}
-            {showModal && <UploadModal />}
+            {/* Modals */}
+            {showUploadModal && <UploadModal />}
+            {showPreviewModal && <ImagePreviewModal />}
 
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent pointer-events-none"></div>
@@ -130,7 +172,7 @@ const SingleProjectHeroBanner = () => {
             {project?.mainImage && (
                 <button 
                     className="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
-                    onClick={openModal}
+                    onClick={openUploadModal}
                     type="button"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
