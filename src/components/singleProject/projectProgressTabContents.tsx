@@ -1,13 +1,51 @@
 import React from "react";
 import {
     Image as LucideImage,
+    Plus,
 } from "lucide-react";
 import Image from "next/image";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
-
 const ProjectProgressTabContents = () => {
-    const { project } = useProjectHomeContext();
+    const { project, isLoading } = useProjectHomeContext();
+    
+    console.log('ProjectProgressTabContents:', { isLoading, hasSteps: project?.steps?.length });
+
+    if (isLoading) {
+        return (
+            <div className="space-y-6 pb-12 animate-pulse">
+                <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div className="p-4 border-b border-gray-100">
+                        <div className="h-6 bg-gray-200 rounded w-1/3 mb-2"></div>
+                        <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                    <div className="p-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="aspect-square bg-gray-200 rounded-lg"></div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (!project?.steps?.length) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 px-4">
+                <div className="bg-gray-50 rounded-full p-4 mb-4">
+                    <Plus className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No build progress yet
+                </h3>
+                <p className="text-sm text-gray-500 text-center max-w-sm">
+                    Document your build journey by adding progress steps. Each step can include photos and descriptions of your work.
+                </p>
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6 pb-12">
