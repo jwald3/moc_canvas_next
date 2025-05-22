@@ -26,21 +26,8 @@ const ProjectSettingsTabContents = () => {
         );
     }
 
-    const handleVisibilityChange = async () => {
-        try {
-            const response = await fetch(`/api/projects/${project?.id}/visibility`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ isPublic: !isPublic }),
-            });
-
-            if (!response.ok) throw new Error('Failed to update visibility');
-            setIsPublic(!isPublic);
-        } catch (error) {
-            console.error('Error updating project visibility:', error);
-        }
+    const handleVisibilityChange = () => {
+        setIsPublic(!isPublic);
     };
 
     const handleDeleteProject = async () => {
@@ -150,23 +137,36 @@ const ProjectSettingsTabContents = () => {
                 </div>
                 
                 <div className="p-6">
-                    <div className="flex items-center justify-between py-3">
+                    {/* Visibility Toggle */}
+                    <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-lg border border-gray-100">
                         <div className="space-y-1">
                             <div className="flex items-center gap-2">
                                 {isPublic ? (
-                                    <Globe className="w-4 h-4 text-gray-600" />
+                                    <Globe className="w-5 h-5 text-blue-500" />
                                 ) : (
-                                    <Lock className="w-4 h-4 text-gray-600" />
+                                    <Lock className="w-5 h-5 text-gray-600" />
                                 )}
                                 <h4 className="font-medium text-gray-900">Project Visibility</h4>
                             </div>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-600">
                                 {isPublic 
-                                    ? "Your project is visible to everyone" 
-                                    : "Only you can see this project"}
+                                    ? "Anyone can view this project" 
+                                    : "Only you can view this project"}
                             </p>
                         </div>
-                        <Switch checked={isPublic} onCheckedChange={handleVisibilityChange} />
+                        <div className="flex items-center gap-3">
+                            <span className={`text-sm ${!isPublic ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                                Private
+                            </span>
+                            <Switch 
+                                checked={isPublic} 
+                                onCheckedChange={handleVisibilityChange}
+                                className="data-[state=checked]:bg-blue-500"
+                            />
+                            <span className={`text-sm ${isPublic ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                                Public
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
