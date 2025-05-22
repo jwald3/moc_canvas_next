@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Image from "next/image";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
-import { UploadButton } from "@/components/ui/UploadThing";
+import { UploadDropzone } from "@/utils/uploadthing";
 
 // Keep this simplified type
 type ImageUploadResponse = Array<{
@@ -52,20 +52,21 @@ const SingleProjectHeroBanner = () => {
 
     // Separate component for the upload modal to ensure it renders properly
     const UploadModal = () => (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]" style={{zIndex: 9999}}>
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                <h3 className="text-lg font-medium mb-4">Add Project Cover Image</h3>
-                <div className="mb-6 flex flex-col items-center">
-                    <UploadButton
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                <h3 className="text-lg font-medium mb-6">Add Project Cover Image</h3>
+                <div className="mb-8">
+                    <UploadDropzone
                         endpoint="imageUploader"
                         onClientUploadComplete={handleUploadComplete}
                         onUploadError={(error: Error) => {
                             console.error("Upload error:", error);
                         }}
                         appearance={{
-                            button: "bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded",
-                            container: "w-full flex flex-col items-center gap-4",
+                            container: "w-full flex flex-col items-center gap-6 py-8",
                             allowedContent: "text-gray-500 text-sm",
+                            button: "ut-ready:bg-indigo-600 ut-ready:hover:bg-indigo-700",
+                            uploadIcon: "text-indigo-600 w-12 h-12",
                         }}
                     />
                 </div>
