@@ -13,7 +13,7 @@ import ProjectGalleryTabContents from "@/components/singleProject/projectGallery
 import ProjectProgressTabContents from "@/components/singleProject/projectProgressTabContents";
 import { ProjectHomeProvider, useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import ProjectDetailsSkeleton from "@/components/singleProject/projectDetailsSkeleton";
-
+import ProjectSettingsTabContents from "@/components/singleProject/projectSettingsTabContents";
 const ProjectContent = () => {
     const { project, activeTab, handleAddStep } = useProjectHomeContext();
 
@@ -43,6 +43,7 @@ const ProjectContent = () => {
                     <ProjectPartsTabContents />
                 )}
                 {activeTab === "notes" && <ProjectNotesTabContents />}
+                {activeTab === "settings" && <ProjectSettingsTabContents />}
             </div>
 
             <div className="fixed bottom-6 right-6">
