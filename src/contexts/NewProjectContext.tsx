@@ -54,6 +54,7 @@ interface NewProjectContextType {
     updateSectionField: (sectionId: string, field: keyof ProjectBuildStepObject, value: string) => void;
     removeImage: (imageId: string) => void;
     handleSubmit: (e?: React.FormEvent) => void;
+    addImage: (image: ProjectImageObject) => void;
 }
 
 const NewProjectContext = createContext<NewProjectContextType | undefined>(undefined);
@@ -272,6 +273,10 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         }
     };
 
+    const addImage = (image: ProjectImageObject) => {
+        setImages(prev => [...prev, image]);
+    };
+
     const value = {
         // State
         projectName,
@@ -315,6 +320,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
         updateSectionField,
         removeImage,
         handleSubmit,
+        addImage,
     };
 
     return (

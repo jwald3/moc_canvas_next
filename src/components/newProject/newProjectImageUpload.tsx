@@ -2,9 +2,10 @@ import React from "react";
 import { Image as ImageIcon, Trash2, Plus } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 import Image from "next/image";
+import { UploadDropzone } from "@/utils/uploadthing";
 
 const NewProjectImageUpload = () => {
-    const { imagePreview, setImagePreview, setShowImageUpload, images, removeImage } = useNewProjectContext();
+    const { imagePreview, setImagePreview, setShowImageUpload, images, removeImage, addImage } = useNewProjectContext();
 
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -21,22 +22,25 @@ const NewProjectImageUpload = () => {
                     </h3>
 
                     {!imagePreview ? (
-                        <div
-                            className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-yellow-500 transition-colors"
-                            onClick={() => setShowImageUpload(true)}
-                        >
-                            <div className="mx-auto h-12 w-12 text-gray-400">
-                                <ImageIcon size={48} />
-                            </div>
-                            <div className="mt-2">
-                                <p className="text-sm text-gray-500">
-                                    Click to upload your main project image
-                                </p>
-                                <p className="text-xs text-gray-400 mt-1">
-                                    PNG, JPG, GIF up to 5MB
-                                </p>
-                            </div>
-                        </div>
+                        <UploadDropzone
+                            endpoint="imageUploader"
+                            onClientUploadComplete={(res) => {
+                                if (res?.[0]) {
+                                    setImagePreview({
+                                        url: res[0].url,
+                                        id: res[0].key,
+                                        caption: "",
+                                        buildStepId: "",
+                                        order: 0
+                                    });
+                                }
+                            }}
+                            onUploadError={(error: Error) => {
+                                console.error(error);
+                                alert("Upload failed");
+                            }}
+                            className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-yellow-500 transition-colors ut-upload-icon:text-gray-400"
+                        />
                     ) : (
                         <div className="relative rounded-lg overflow-hidden border border-gray-200">
                             <Image
@@ -68,13 +72,28 @@ const NewProjectImageUpload = () => {
                         <h3 className="text-sm font-medium text-gray-700">
                             Additional Images
                         </h3>
-                        <button
-                            type="button"
-                            className="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center"
-                            onClick={() => setShowImageUpload(true)}
-                        >
-                            <Plus size={16} className="mr-1" /> Add Image
-                        </button>
+                        <UploadDropzone
+                            endpoint="imageUploader"
+                            onClientUploadComplete={(res) => {
+                                if (res?.[0]) {
+                                    const newImage = {
+                                        url: res[0].url,
+                                        id: res[0].key,
+                                        caption: "",
+                                        buildStepId: "",
+                                        order: images.length
+                                    };
+                                    if (typeof addImage === 'function') {
+                                        addImage(newImage);
+                                    }
+                                }
+                            }}
+                            onUploadError={(error: Error) => {
+                                console.error(error);
+                                alert("Upload failed");
+                            }}
+                            className="w-auto"
+                        />
                     </div>
 
                     {images.length > 0 ? (
