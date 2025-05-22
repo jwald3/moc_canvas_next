@@ -138,7 +138,7 @@ const ProjectSettingsTabContents = () => {
                 
                 <div className="p-6">
                     {/* Visibility Toggle */}
-                    <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-lg border border-gray-100">
+                    <div className="flex items-center justify-between">
                         <div className="space-y-1">
                             <div className="flex items-center gap-2">
                                 {isPublic ? (
