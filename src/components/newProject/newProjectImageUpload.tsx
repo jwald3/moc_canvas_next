@@ -1,11 +1,11 @@
 import React from "react";
-import { Image as ImageIcon, Trash2, Plus } from "lucide-react";
+import { Image as Trash2 } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 import Image from "next/image";
 import { UploadDropzone } from "@/utils/uploadthing";
 
 const NewProjectImageUpload = () => {
-    const { imagePreview, setImagePreview, setShowImageUpload, images, removeImage, addImage } = useNewProjectContext();
+    const { imagePreview, setImagePreview, images, removeImage, addImage } = useNewProjectContext();
 
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
