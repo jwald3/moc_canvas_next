@@ -4,11 +4,11 @@ import { type NextRequest } from "next/server";
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { projectId: string } }
+    { params }: { params: Promise<{ projectId: string }> }
 ) {
     try {
         const { imageUrl } = await request.json();
-        const { projectId } = params;
+        const { projectId } = await params;
 
         // Create new main image
         const mainImage = await prisma.handSpunProjectMainImage.create({
@@ -36,4 +36,4 @@ export async function PUT(
             { status: 500 }
         );
     }
-} 
+}
