@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Trash2, Globe, Lock, Pencil, Check, Settings2, FileText } from "lucide-react";
+import { AlertCircle, Trash2, Globe, Lock, Settings2, FileText } from "lucide-react";
 
 const ProjectSettingsTabContents = () => {
     const { project, isLoading } = useProjectHomeContext();
@@ -59,21 +59,6 @@ const ProjectSettingsTabContents = () => {
         } catch (error) {
             console.error('Error deleting project:', error);
             setIsDeleting(false);
-        }
-    };
-
-    const handleSaveDetails = async () => {
-        try {
-            const response = await fetch(`/api/projects/${project?.id}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, description }),
-            });
-
-            if (!response.ok) throw new Error('Failed to update project');
-            setIsEditing(false);
-        } catch (error) {
-            console.error('Error updating project:', error);
         }
     };
 
