@@ -15,6 +15,14 @@ const SingleProjectHeroBanner = () => {
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [showPreviewModal, setShowPreviewModal] = useState(false);
 
+    // Add this new function to format the status text
+    const formatStatus = (status: string) => {
+        return status
+            .split('_')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    };
+
     const handleUploadComplete = (res: ImageUploadResponse) => {
         console.log("Upload complete:", res);
         if (res && res.length > 0) {
@@ -162,8 +170,8 @@ const SingleProjectHeroBanner = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-medium pointer-events-auto">
-                        {isLoading ? "..." : project?.status}
+                    <div className="bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-medium pointer-events-auto">
+                        {isLoading ? "..." : formatStatus(project?.status || '')}
                     </div>
                 </div>
             </div>
