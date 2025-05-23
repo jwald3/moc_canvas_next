@@ -12,7 +12,10 @@ import { ProjectImageObject } from "@/types/hand_spun_datatypes";
 const NewProjectImageUpload = () => {
     const { imagePreview, setImagePreview, images, removeImage, addImage } = useNewProjectContext();
 
-    const handleAdditionalImageUpload = (res: any) => {
+    const handleAdditionalImageUpload = (res: {
+        url: string;
+        key: string;
+    }[]) => {
         if (res?.[0]) {
             const newImage: ProjectImageObject = {
                 url: res[0].url,
@@ -45,7 +48,10 @@ const NewProjectImageUpload = () => {
                         <div className="ut-button:bg-yellow-500 ut-button:text-white ut-button:rounded-md ut-button:px-4 ut-button:py-2 ut-button:hover:bg-yellow-600">
                             <UploadDropzone
                                 endpoint="imageUploader"
-                                onClientUploadComplete={(res) => {
+                                onClientUploadComplete={(res: {
+                                    url: string;
+                                    key: string;
+                                }[]) => {
                                     console.log("res", res);
 
                                     if (res?.[0]) {

@@ -65,8 +65,3 @@ export interface ProjectStatsObject {
     shares: number;
     public: boolean;
 }
-
-interface ProjectWithRelations extends ProjectObject {
-    images: ProjectImageObject[];
-    // ... other fields
-}
