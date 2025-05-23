@@ -4,7 +4,7 @@ import React from "react";
 import { Image as Trash2 } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 import Image from "next/image";
-import { UploadDropzone } from "@/utils/uploadthing";
+import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
 import { ProjectImageObject } from "@/types/hand_spun_datatypes";
 
@@ -33,63 +33,54 @@ const NewProjectImageUpload = () => {
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="border-b border-gray-100 px-6 py-4">
-                <h2 className="text-lg font-medium text-gray-800">
-                    Project Images
-                </h2>
+                <h2 className="text-lg font-medium text-gray-800">Project Images</h2>
+                <p className="text-sm text-gray-500 mt-1">Add photos to showcase your project</p>
             </div>
-            <div className="p-6">
+            <div className="p-6 space-y-8">
                 {/* Main Project Image */}
-                <div className="mb-6">
-                    <h3 className="text-sm font-medium text-gray-700 mb-2">
-                        Main Project Image
-                    </h3>
+                <div>
+                    <div className="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-700">Main Project Image</h3>
+                            <p className="text-xs text-gray-500 mt-1">This will be your project's cover image</p>
+                        </div>
+                    </div>
 
                     {!imagePreview ? (
-                        <div className="ut-button:bg-yellow-500 ut-button:text-white ut-button:rounded-md ut-button:px-4 ut-button:py-2 ut-button:hover:bg-yellow-600">
-                            <UploadDropzone
-                                endpoint="imageUploader"
-                                onClientUploadComplete={(res: {
-                                    url: string;
-                                    key: string;
-                                }[]) => {
-                                    console.log("res", res);
-
-                                    if (res?.[0]) {
-                                        setImagePreview({
-                                            url: res[0].url,
-                                            id: res[0].key,
-                                            caption: "",
-                                            buildStepId: "",
-                                            order: 0
-                                        });
-                                    }
-                                }}
-                                onUploadError={(error: Error) => {
-                                    console.error(error);
-                                    alert("Upload failed");
-                                }}
-                                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-yellow-500 transition-colors ut-upload-icon:text-gray-400"
-                            />
-                        </div>
+                        <UploadDropzone
+                            endpoint="imageUploader"
+                            onClientUploadComplete={(res: { url: string; key: string; }[]) => {
+                                if (res?.[0]) {
+                                    setImagePreview({
+                                        url: res[0].url,
+                                        id: res[0].key,
+                                        caption: "",
+                                        buildStepId: "",
+                                        order: 0
+                                    });
+                                }
+                            }}
+                            onUploadError={(error: Error) => {
+                                console.error(error);
+                                alert("Upload failed");
+                            }}
+                        />
                     ) : (
-                        <div className="relative rounded-lg overflow-hidden border border-gray-200">
+                        <div className="relative rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group">
                             <Image
                                 src={imagePreview.url}
                                 alt={imagePreview.caption || "Main project image"}
+                                width={1200}
+                                height={675}
                                 className="w-full aspect-video object-cover"
-                                width={800}
-                                height={450}
                             />
-                            <div className="absolute top-2 right-2 flex space-x-2">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-all duration-200">
                                 <button
                                     type="button"
-                                    className="p-1.5 bg-white rounded-full shadow-md hover:bg-gray-100"
                                     onClick={() => setImagePreview(null)}
+                                    className="absolute bottom-3 right-3 p-2.5 bg-white/90 rounded-full shadow-lg hover:bg-white transition-colors group/btn"
                                 >
-                                    <Trash2
-                                        size={16}
-                                        className="text-red-500"
-                                    />
+                                    <Trash2 size={18} className="text-gray-400 group-hover/btn:text-red-500 transition-colors" />
                                 </button>
                             </div>
                         </div>
@@ -98,56 +89,59 @@ const NewProjectImageUpload = () => {
 
                 {/* Additional Images */}
                 <div>
-                    <div className="flex justify-between items-center mb-3">
-                        <h3 className="text-sm font-medium text-gray-700">
-                            Additional Project Images
-                        </h3>
-                        <UploadDropzone
+                    <div className="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-700">Additional Images</h3>
+                            <p className="text-xs text-gray-500 mt-1">
+                                {images.length}/10 images • Add more details to your project
+                            </p>
+                        </div>
+                        <UploadButton
                             endpoint="imageUploader"
                             onClientUploadComplete={handleAdditionalImageUpload}
                             onUploadError={(error: Error) => {
                                 console.error(error);
                                 alert("Upload failed");
                             }}
-                            className="w-auto"
+                            className="ut-button:bg-yellow-500 ut-button:text-white ut-button:rounded-lg ut-button:px-4 ut-button:py-2.5 ut-button:hover:bg-yellow-600 ut-button:transition-colors ut-button:shadow-sm"
                         />
                     </div>
 
                     {images.length > 0 ? (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                             {images.map((image) => (
                                 <div
                                     key={image.id}
-                                    className="relative rounded-lg overflow-hidden border border-gray-200"
+                                    className="group relative rounded-xl overflow-hidden bg-gray-50 border border-gray-200 aspect-square hover:border-yellow-500 transition-colors"
                                 >
                                     <Image
                                         src={image.url}
                                         alt={image.caption || "Project image"}
-                                        className="w-full aspect-square object-cover"
+                                        className="w-full h-full object-cover"
                                         width={400}
                                         height={400}
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-200">
                                         <button
                                             type="button"
-                                            className="p-1.5 bg-white rounded-full shadow-md hover:bg-gray-100"
-                                            onClick={() =>
-                                                removeImage(image.id)
-                                            }
+                                            onClick={() => removeImage(image.id)}
+                                            className="absolute bottom-3 right-3 p-2.5 bg-white/90 rounded-full shadow-lg hover:bg-white transition-colors group/btn"
                                         >
-                                            <Trash2
-                                                size={16}
-                                                className="text-red-500"
-                                            />
+                                            <Trash2 size={18} className="text-gray-400 group-hover/btn:text-red-500 transition-colors" />
                                         </button>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <p className="text-sm text-gray-500 italic">
-                            No additional images added yet
-                        </p>
+                        <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+                            <div className="max-w-sm mx-auto">
+                                <p className="text-sm text-gray-600 font-medium">No additional images yet</p>
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Add more images to show different angles or details of your project
+                                </p>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
