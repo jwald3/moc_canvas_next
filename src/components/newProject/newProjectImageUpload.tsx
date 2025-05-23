@@ -4,7 +4,7 @@ import React from "react";
 import { Image as Trash2 } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 import Image from "next/image";
-import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
+import { UploadDropzone } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
 
 
