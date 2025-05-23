@@ -47,15 +47,13 @@ const NewProjectBuildSections = () => {
                             <h3 className="font-medium text-gray-800">
                                 {section.title || `Section ${index + 1}`}
                             </h3>
-                            {buildSections.length > 1 && (
-                                <button
-                                    type="button"
-                                    className="text-gray-400 hover:text-red-500"
-                                    onClick={() => removeSection(section.id)}
-                                >
-                                    <Trash2 size={16} />
-                                </button>
-                            )}
+                            <button
+                                type="button"
+                                className="text-gray-400 hover:text-red-500"
+                                onClick={() => removeSection(section.id)}
+                            >
+                                <Trash2 size={16} />
+                            </button>
                         </div>
 
                         <div className="space-y-4">
@@ -155,13 +153,22 @@ const NewProjectBuildSections = () => {
                     </div>
                 ))}
 
+                {buildSections.length === 0 ? (
+                    <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+                        <p className="text-sm text-gray-600 font-medium">No build sections yet</p>
+                        <p className="text-xs text-gray-500 mt-1">
+                            Add sections to showcase different aspects of your build
+                        </p>
+                    </div>
+                ) : null}
+
                 <button
                     type="button"
                     className="w-full border border-dashed border-yellow-300 hover:border-yellow-500 rounded-lg p-3 flex items-center justify-center text-yellow-600 hover:text-yellow-800 hover:bg-yellow-50 transition-colors"
                     onClick={addNewSection}
                 >
                     <Plus size={18} className="mr-2" />
-                    Add Another Section
+                    Add {buildSections.length === 0 ? 'First' : 'Another'} Section
                 </button>
             </div>
         </div>

@@ -78,17 +78,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     const [images, setImages] = useState<ProjectImageObject[]>([]);
     const [imagePreview, setImagePreview] = useState<ProjectImageObject | null>(null);
     const [imageTitle, setImageTitle] = useState("");
-    const [buildSections, setBuildSections] = useState<ProjectBuildStepObject[]>(() => {
-        // Use deterministic ID for initial section
-        return [{
-            id: generateDeterministicId(0),
-            projectId: "",
-            title: "",
-            description: "",
-            images: [],
-            order: 0
-        }];
-    });
+    const [buildSections, setBuildSections] = useState<ProjectBuildStepObject[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
@@ -185,9 +175,14 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     };
 
     const removeSection = (sectionId: string) => {
-        if (buildSections.length > 1) {
-            setBuildSections(buildSections.filter((section) => section.id !== sectionId));
-        }
+        setBuildSections(prevSections => {
+            const updatedSections = prevSections.filter(section => section.id !== sectionId);
+            // Update the order of remaining sections
+            return updatedSections.map((section, index) => ({
+                ...section,
+                order: index
+            }));
+        });
     };
 
     const addNewSection = () => {
