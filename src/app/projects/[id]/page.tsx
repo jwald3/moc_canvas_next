@@ -14,6 +14,7 @@ import ProjectProgressTabContents from "@/components/singleProject/projectProgre
 import { ProjectHomeProvider, useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import ProjectDetailsSkeleton from "@/components/singleProject/projectDetailsSkeleton";
 import ProjectSettingsTabContents from "@/components/singleProject/projectSettingsTabContents";
+
 const ProjectContent = () => {
     const { project, activeTab, handleAddStep } = useProjectHomeContext();
 

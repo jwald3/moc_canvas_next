@@ -6,10 +6,26 @@ import { useNewProjectContext } from "@/contexts/NewProjectContext";
 import Image from "next/image";
 import { UploadDropzone } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
+import { ProjectImageObject } from "@/types/hand_spun_datatypes";
 
 
 const NewProjectImageUpload = () => {
     const { imagePreview, setImagePreview, images, removeImage, addImage } = useNewProjectContext();
+
+    const handleAdditionalImageUpload = (res: any) => {
+        if (res?.[0]) {
+            const newImage: ProjectImageObject = {
+                url: res[0].url,
+                id: res[0].key,
+                caption: "",
+                type: "standalone" as const,
+                order: images.length
+            };
+            if (typeof addImage === 'function') {
+                addImage(newImage);
+            }
+        }
+    };
 
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -78,24 +94,11 @@ const NewProjectImageUpload = () => {
                 <div>
                     <div className="flex justify-between items-center mb-3">
                         <h3 className="text-sm font-medium text-gray-700">
-                            Additional Images
+                            Additional Project Images
                         </h3>
                         <UploadDropzone
                             endpoint="imageUploader"
-                            onClientUploadComplete={(res) => {
-                                if (res?.[0]) {
-                                    const newImage = {
-                                        url: res[0].url,
-                                        id: res[0].key,
-                                        caption: "",
-                                        buildStepId: "",
-                                        order: images.length
-                                    };
-                                    if (typeof addImage === 'function') {
-                                        addImage(newImage);
-                                    }
-                                }
-                            }}
+                            onClientUploadComplete={handleAdditionalImageUpload}
                             onUploadError={(error: Error) => {
                                 console.error(error);
                                 alert("Upload failed");

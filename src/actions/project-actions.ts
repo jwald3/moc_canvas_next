@@ -20,6 +20,7 @@ export async function getProjectById(id: string) {
         },
         stats: true,
         mainImage: true,
+        images: true,
       },
     })
     

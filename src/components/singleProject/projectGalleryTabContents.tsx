@@ -2,11 +2,15 @@ import React from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
+import { ProjectObject } from "@/types/hand_spun_datatypes";
 
 const ProjectGalleryTabContents = () => {
     const { project, isLoading } = useProjectHomeContext();
     
-    const allImages = (project?.steps || []).flatMap((step) => step.images);
+    const allImages = [
+        ...(project?.steps || []).flatMap((step) => step.images),
+        ...((project as unknown as ProjectObject)?.images || [])
+    ];
 
     if (isLoading) {
         return (
@@ -59,9 +63,8 @@ const ProjectGalleryTabContents = () => {
                                 fill
                             />
                             <div className="absolute top-0 left-0 bg-black/60 text-white px-2 py-1 text-xs">
-                                {image.type === "reference"
-                                    ? "Reference"
-                                    : "My Build"}
+                                {image.type === "reference" ? "Reference" : 
+                                 image.type === "standalone" ? "Additional" : "My Build"}
                             </div>
                         </div>
                     ))}

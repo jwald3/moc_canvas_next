@@ -26,6 +26,7 @@ model HandSpunProject {
   stats       HandSpunProjectStats?
   mainImage   HandSpunProjectMainImage? @relation(fields: [mainImageId], references: [id])
   mainImageId String? @unique
+  images      HandSpunProjectImage[]
 }
 
 model HandSpunTheme {
@@ -63,9 +64,11 @@ model HandSpunProjectImage {
   order       Int
   caption     String
   url         String
-  type        String?  // "reference" or "progress" only
-  buildStep   HandSpunBuildStep @relation(fields: [buildStepId], references: [id], onDelete: Cascade)
-  buildStepId String
+  type        String?  // "reference" or "progress" or "standalone" only
+  buildStep   HandSpunBuildStep? @relation(fields: [buildStepId], references: [id], onDelete: Cascade)
+  buildStepId String?  // Making this optional
+  project     HandSpunProject?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String?  // New field for standalone images
 }
 
 model HandSpunProjectStats {

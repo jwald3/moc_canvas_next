@@ -238,6 +238,7 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
                 status: selectedStatus,
                 tags,
                 mainImage: imagePreview,
+                images: images,
                 buildSections: buildSections.map(section => ({
                     title: section.title,
                     description: section.description,
@@ -260,10 +261,8 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
 
             const createdProject = await response.json();
             
-            // Show success message
             alert("Project created successfully!");
             
-            // Optional: Redirect to the new project page
             window.location.href = `/projects/${createdProject.id}`;
         } catch (error) {
             console.error('Error creating project:', error);

@@ -14,6 +14,7 @@ export async function GET() {
                 },
                 theme: true,
                 mainImage: true,
+                images: true,
             },
         });
 
@@ -22,15 +23,19 @@ export async function GET() {
             return {
                 ...project,
                 status: project.status as ProjectStatus,
+                images: project.images.map(image => ({
+                    ...image,
+                    buildStepId: image.buildStepId ?? undefined,
+                    projectId: image.projectId ?? undefined,
+                    type: image.type as "reference" | "progress" | "standalone" | undefined,
+                })),
                 steps: project.steps.map((step) => ({
                     ...step,
                     images: step.images.map((image) => ({
                         ...image,
-                        url: image.url,
-                        type: image.type as
-                            | "reference"
-                            | "progress"
-                            | undefined,
+                        buildStepId: image.buildStepId ?? undefined,
+                        projectId: image.projectId ?? undefined,
+                        type: image.type as "reference" | "progress" | "standalone" | undefined,
                     })),
                 })),
                 theme: {
@@ -71,7 +76,6 @@ export async function POST(request: Request) {
     try {
         const data = await request.json();
 
-        // Create the project with a transaction to ensure all related records are created
         const project = await prisma.$transaction(async (tx) => {
             // First create the theme
             const theme = await tx.handSpunTheme.create({
@@ -100,6 +104,17 @@ export async function POST(request: Request) {
                     status: data.status,
                     themeId: theme.id,
                     mainImageId: mainImage?.id,
+                    // Add standalone images
+                    images: {
+                        create: data.images?.map(
+                            (image: ProjectImageObject, imageIndex: number) => ({
+                                url: image.url,
+                                caption: image.caption || "",
+                                type: "standalone",
+                                order: imageIndex,
+                            })
+                        ) || [],
+                    },
                     // Create stats
                     stats: {
                         create: {
@@ -117,7 +132,6 @@ export async function POST(request: Request) {
                                 title: section.title,
                                 description: section.description,
                                 order: index,
-                                // Create images for each step
                                 images: {
                                     create: section.images.map(
                                         (image: ProjectImageObject, imageIndex: number) => ({
@@ -141,6 +155,7 @@ export async function POST(request: Request) {
                         },
                     },
                     mainImage: true,
+                    images: true, // Include standalone images in response
                 },
             });
 
