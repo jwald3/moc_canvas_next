@@ -42,7 +42,7 @@ const NewProjectImageUpload = () => {
                     <div className="flex items-center justify-between mb-4">
                         <div>
                             <h3 className="text-sm font-medium text-gray-700">Main Project Image</h3>
-                            <p className="text-xs text-gray-500 mt-1">This will be your project's cover image</p>
+                            <p className="text-xs text-gray-500 mt-1">This will be your project&apos;s cover image</p>
                         </div>
                     </div>
 
