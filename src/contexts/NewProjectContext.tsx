@@ -136,8 +136,9 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
                 buildStepId: activeSectionId || "",
                 url: imageUrl,
                 caption: imageTitle,
-                order: 0, // You might want to calculate this based on existing images
-                type: "progress"
+                order: 0,
+                // Set type based on whether it's a section image or standalone
+                type: activeSectionId ? "progress" : "standalone"
             };
 
             if (activeSectionId) {
@@ -155,6 +156,13 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
                 );
                 setActiveSectionId(null);
             } else {
+                // Check additional images limit for standalone images
+                const standaloneImageCount = images.filter(img => img.type === "standalone").length;
+                if (standaloneImageCount >= 10) {
+                    alert("You can only add up to 10 additional project images");
+                    return;
+                }
+                
                 // Add image to main project images
                 if (imagePreview) {
                     setImages([...images, newImage]);
@@ -268,6 +276,14 @@ export const NewProjectProvider = ({ children }: NewProjectProviderProps) => {
     };
 
     const addImage = (image: ProjectImageObject) => {
+        // Count only standalone images (not progress images in sections)
+        const standaloneImageCount = images.filter(img => img.type === "standalone").length;
+        
+        if (standaloneImageCount >= 10) {
+            alert("You can only add up to 10 additional project images");
+            return;
+        }
+        
         setImages(prev => [...prev, image]);
     };
 
