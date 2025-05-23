@@ -1,5 +1,7 @@
+import { withUt } from "uploadthing/tw";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = withUt({
     theme: {
         extend: {
             colors: {
@@ -13,4 +15,4 @@ module.exports = {
             }
         }
     }
-}; 
+}); 

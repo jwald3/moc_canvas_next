@@ -1,8 +1,12 @@
+'use client'
+
 import React from "react";
 import { Image as Trash2 } from "lucide-react";
 import { useNewProjectContext } from "@/contexts/NewProjectContext";
 import Image from "next/image";
-import { UploadDropzone } from "@/utils/uploadthing";
+import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
+import "@uploadthing/react/styles.css";
+
 
 const NewProjectImageUpload = () => {
     const { imagePreview, setImagePreview, images, removeImage, addImage } = useNewProjectContext();
@@ -22,25 +26,29 @@ const NewProjectImageUpload = () => {
                     </h3>
 
                     {!imagePreview ? (
-                        <UploadDropzone
-                            endpoint="imageUploader"
-                            onClientUploadComplete={(res) => {
-                                if (res?.[0]) {
-                                    setImagePreview({
-                                        url: res[0].url,
-                                        id: res[0].key,
-                                        caption: "",
-                                        buildStepId: "",
-                                        order: 0
-                                    });
-                                }
-                            }}
-                            onUploadError={(error: Error) => {
-                                console.error(error);
-                                alert("Upload failed");
-                            }}
-                            className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-yellow-500 transition-colors ut-upload-icon:text-gray-400"
-                        />
+                        <div className="ut-button:bg-yellow-500 ut-button:text-white ut-button:rounded-md ut-button:px-4 ut-button:py-2 ut-button:hover:bg-yellow-600">
+                            <UploadDropzone
+                                endpoint="imageUploader"
+                                onClientUploadComplete={(res) => {
+                                    console.log("res", res);
+
+                                    if (res?.[0]) {
+                                        setImagePreview({
+                                            url: res[0].url,
+                                            id: res[0].key,
+                                            caption: "",
+                                            buildStepId: "",
+                                            order: 0
+                                        });
+                                    }
+                                }}
+                                onUploadError={(error: Error) => {
+                                    console.error(error);
+                                    alert("Upload failed");
+                                }}
+                                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-yellow-500 transition-colors ut-upload-icon:text-gray-400"
+                            />
+                        </div>
                     ) : (
                         <div className="relative rounded-lg overflow-hidden border border-gray-200">
                             <Image
