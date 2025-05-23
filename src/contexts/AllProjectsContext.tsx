@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import AllProjectsSkeleton from '@/components/projectsAll/allProjectsSkeleton';
 
 type RouterType = ReturnType<typeof useRouter>;
 
@@ -213,7 +214,7 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
     };
 
     if (loading) {
-        return <LoadingSpinner />;
+        return <AllProjectsSkeleton />;
     }
 
     if (error) {
