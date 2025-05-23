@@ -12,7 +12,7 @@ export interface ProjectObject {
     steps: ProjectBuildStepObject[];
     stats: ProjectStatsObject;
     mainImage?: ProjectMainImageObject;
-    images: ProjectImageObject[];
+    images?: ProjectImageObject[];
 }
 
 // Using a union type for better type safety
