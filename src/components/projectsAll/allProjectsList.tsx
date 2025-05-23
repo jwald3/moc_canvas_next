@@ -3,12 +3,11 @@ import { ProjectListItem } from "../projects/ProjectListItem";
 import { useAllProjectsContext } from "@/contexts/AllProjectsContext";
 
 const AllProjectsList = () => {
-
-    const { filteredProjects, currentView, handleProjectClick, handleTagClick, activeTags } = useAllProjectsContext();
+    const { paginatedProjects, currentView, handleProjectClick, handleTagClick, activeTags } = useAllProjectsContext();
 
     return (
         <div className="flex flex-col space-y-4">
-            {filteredProjects.map((project) => (
+            {paginatedProjects.map((project) => (
                 <ProjectListItem 
                     key={project.id}
                     project={project}

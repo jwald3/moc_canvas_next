@@ -36,6 +36,11 @@ interface AllProjectsContextType {
     error: string | null;
     projects: ProjectObject[];
     savedProjects: ProjectObject[];
+    currentPage: number;
+    setCurrentPage: (page: number) => void;
+    itemsPerPage: number;
+    totalPages: number;
+    paginatedProjects: ProjectObject[];
 }
 
 const AllProjectsContext = createContext<AllProjectsContextType | undefined>(undefined);
@@ -65,6 +70,8 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
     const [currentSort, setCurrentSort] = useState<SortOption>(sortOptions[0]);
     const [myProjectsStartIndex, setMyProjectsStartIndex] = useState(0);
     const [savedProjectsStartIndex, setSavedProjectsStartIndex] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 9; // Show 9 items per page for grid view
 
     const searchParams = useSearchParams();
     const currentView = (searchParams?.get('view') as 'my' | 'saved') || 'my';
@@ -90,6 +97,10 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
 
         fetchProjects();
     }, []);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, activeTags]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
@@ -157,6 +168,14 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
 
     const filteredProjects = filterProjects(currentView === 'saved' ? savedProjects : projects);
 
+    // Add pagination calculation
+    const paginatedProjects = filteredProjects.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+
     const value = {
         activeTags,
         setActiveTags,
@@ -186,6 +205,11 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         error,
         projects,
         savedProjects,
+        currentPage,
+        setCurrentPage,
+        itemsPerPage,
+        totalPages,
+        paginatedProjects,
     };
 
     if (loading) {
