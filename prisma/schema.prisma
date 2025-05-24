@@ -27,6 +27,7 @@ model HandSpunProject {
   mainImage   HandSpunProjectMainImage? @relation(fields: [mainImageId], references: [id])
   mainImageId String? @unique
   images      HandSpunProjectImage[]
+  notes       HandSpunProjectNote[]
 }
 
 model HandSpunTheme {
@@ -82,4 +83,15 @@ model HandSpunProjectStats {
   // Relations
   project     HandSpunProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String         @unique
+}
+
+model HandSpunProjectNote {
+  id          String   @id @default(cuid())
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  project     HandSpunProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String
 } 

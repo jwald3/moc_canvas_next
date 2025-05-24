@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { getProjectById } from '@/actions/project-actions'
-import type { HandSpunProject, HandSpunBuildStep, HandSpunProjectImage } from '@prisma/client'
+import type { HandSpunProject, HandSpunBuildStep, HandSpunProjectImage, HandSpunProjectNote } from '@prisma/client'
 
 type ProjectMainImage = {
   id: string;
@@ -30,6 +30,8 @@ type ProjectWithRelations = HandSpunProject & {
     shares: number;
     public: boolean;
   } | null;
+  images: HandSpunProjectImage[];
+  notes?: HandSpunProjectNote[];
 }
 
 interface ProjectHomeContextType {
@@ -40,6 +42,8 @@ interface ProjectHomeContextType {
     setActiveTab: (tab: string) => void;
     handleAddStep: () => void;
     handleMainImageUpload: (imageUrl: string) => Promise<void>;
+    handleAddNote: (content: string) => Promise<void>;
+    handleDeleteNote: (noteId: string) => Promise<void>;
 }
 
 const ProjectHomeContext = createContext<ProjectHomeContextType | undefined>(undefined);
@@ -103,6 +107,34 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         }
     };
 
+    const handleAddNote = async (content: string) => {
+        try {
+            const response = await fetch(`/api/projects/${projectId}/notes`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content }),
+            });
+            if (!response.ok) throw new Error('Failed to add note');
+            const updatedProject = await getProjectById(projectId);
+            setProject(updatedProject);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to add note');
+        }
+    };
+
+    const handleDeleteNote = async (noteId: string) => {
+        try {
+            const response = await fetch(`/api/projects/${projectId}/notes/${noteId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) throw new Error('Failed to delete note');
+            const updatedProject = await getProjectById(projectId);
+            setProject(updatedProject);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to delete note');
+        }
+    };
+
     const value = {
         project,
         isLoading,
@@ -111,6 +143,8 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         setActiveTab,
         handleAddStep,
         handleMainImageUpload,
+        handleAddNote,
+        handleDeleteNote,
     };
 
     return (

@@ -13,6 +13,7 @@ export interface ProjectObject {
     stats: ProjectStatsObject;
     mainImage?: ProjectMainImageObject;
     images?: ProjectImageObject[];
+    notes: ProjectNoteObject[];
 }
 
 // Using a union type for better type safety
@@ -64,4 +65,12 @@ export interface ProjectStatsObject {
     comments: number;
     shares: number;
     public: boolean;
+}
+
+export interface ProjectNoteObject {
+    id: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
 }
