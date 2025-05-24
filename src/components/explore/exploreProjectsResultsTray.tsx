@@ -2,36 +2,47 @@ import React from 'react';
 import ExploreNoProjectsFoundCard from './exploreNoProjectsFoundCard';
 import ExploreProjectsListTray from './exploreProjectsListTray';
 import ExploreProjectsGridTray from './exploreProjectsGridTray';
+import ExplorePagination from './explorePagination';
 import { useExploreProjectsContext } from '@/contexts/ExploreProjectsContext';
 
 const ExploreProjectsResultsTray = () => {
     const {
-        filteredProjects,
+        paginatedProjects,
         viewMode,
         handleProjectClick,
         handleTagClick,
         activeTags,
         clearSearch,
+        currentPage,
+        setCurrentPage,
+        totalPages,
     } = useExploreProjectsContext();
 
     return (
         <div>
-            {filteredProjects.length > 0 ? (
-                viewMode === "grid" ? (
-                    <ExploreProjectsGridTray
-                        filteredProjects={filteredProjects}
-                        handleProjectClick={handleProjectClick}
-                        handleTagClick={handleTagClick}
-                        activeTags={activeTags}
+            {paginatedProjects.length > 0 ? (
+                <>
+                    {viewMode === "grid" ? (
+                        <ExploreProjectsGridTray
+                            filteredProjects={paginatedProjects}
+                            handleProjectClick={handleProjectClick}
+                            handleTagClick={handleTagClick}
+                            activeTags={activeTags}
+                        />
+                    ) : (
+                        <ExploreProjectsListTray
+                            filteredProjects={paginatedProjects}
+                            handleProjectClick={handleProjectClick}
+                            handleTagClick={handleTagClick}
+                            activeTags={activeTags}
+                        />
+                    )}
+                    <ExplorePagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
                     />
-                ) : (
-                    <ExploreProjectsListTray
-                        filteredProjects={filteredProjects}
-                        handleProjectClick={handleProjectClick}
-                        handleTagClick={handleTagClick}
-                        activeTags={activeTags}
-                    />
-                )
+                </>
             ) : (
                 <ExploreNoProjectsFoundCard clearSearch={clearSearch} />
             )}

@@ -7,7 +7,9 @@ import { useExploreProjectsContext } from '@/contexts/ExploreProjectsContext';
 
 
 const ExploreHeader = () => {
-    const { filteredProjects } = useExploreProjectsContext();
+    const { filteredProjects, currentPage, projectsPerPage } = useExploreProjectsContext();
+    const startIndex = (currentPage - 1) * projectsPerPage + 1;
+    const endIndex = Math.min(currentPage * projectsPerPage, filteredProjects.length);
 
     return (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
@@ -23,8 +25,14 @@ const ExploreHeader = () => {
                         Explore Projects
                     </h1>
                     <p className="text-sm text-gray-600">
-                        {filteredProjects.length} project
-                        {filteredProjects.length !== 1 ? "s" : ""} found
+                        {filteredProjects.length > 0 ? (
+                            <>
+                                Showing {startIndex}-{endIndex} of {filteredProjects.length} project
+                                {filteredProjects.length !== 1 ? "s" : ""}
+                            </>
+                        ) : (
+                            "No projects found"
+                        )}
                     </p>
                 </div>
             </div>

@@ -23,6 +23,11 @@ interface ExploreProjectsContextType {
     isLoading: boolean;
     error: string | null;
     themes: ProjectThemeObject[];
+    currentPage: number;
+    setCurrentPage: (page: number) => void;
+    projectsPerPage: number;
+    totalPages: number;
+    paginatedProjects: ProjectObject[];
 }
 
 const ExploreProjectsContext = createContext<ExploreProjectsContextType | undefined>(undefined);
@@ -44,6 +49,8 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
     const [allTags, setAllTags] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const projectsPerPage = 9; // Show 9 projects per page in grid view
 
     // Fetch projects from the API
     useEffect(() => {
@@ -115,6 +122,20 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
         return matchesSearch && matchesTags && matchesTheme;
     });
 
+    // Calculate total pages
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+
+    // Get current projects for page
+    const paginatedProjects = filteredProjects.slice(
+        (currentPage - 1) * projectsPerPage,
+        currentPage * projectsPerPage
+    );
+
+    // Reset to first page when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, activeTags, currentTheme]);
+
     const clearSearch = () => {
         setSearchQuery('');
         setActiveTags([]);
@@ -156,6 +177,11 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
         isLoading,
         error,
         themes,
+        currentPage,
+        setCurrentPage,
+        projectsPerPage,
+        totalPages,
+        paginatedProjects,
     };
 
     return (
