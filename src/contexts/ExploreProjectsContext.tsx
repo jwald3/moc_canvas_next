@@ -153,7 +153,12 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
     };
 
     const handleThemeChange = (themeId: string) => {
-        router.push(`/explore?theme=${themeId}`);
+        // If clicking the currently selected theme, clear it
+        if (currentTheme === themeId) {
+            router.push('/explore');
+        } else {
+            router.push(`/explore?theme=${themeId}`);
+        }
     };
 
     const handleProjectClick = (id: string) => {

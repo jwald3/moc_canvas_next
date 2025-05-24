@@ -20,10 +20,10 @@ const ExploreThemeTile = ({ theme, currentTheme, handleThemeChange, config }: Ex
     return (
         <button
             onClick={() => handleThemeChange(theme.id)}
-            className={`group relative overflow-hidden rounded-2xl transition-all ${
+            className={`group relative overflow-hidden rounded-2xl transition-all duration-200 ${
                 isSelected 
-                    ? `bg-gradient-to-br ${config.gradient} shadow-lg scale-[1.02]` 
-                    : 'bg-white hover:shadow-md shadow-sm hover:scale-[1.01]'
+                    ? `bg-gradient-to-br ${config.gradient} shadow-lg scale-[1.02] border-2 border-[#da5249]/20` 
+                    : 'bg-white hover:shadow-md shadow-sm hover:scale-[1.01] border border-gray-100'
             }`}
         >
             <div className="relative z-10 p-6">
