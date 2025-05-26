@@ -40,7 +40,7 @@ interface ProjectHomeContextType {
     error: string | null;
     activeTab: string;
     setActiveTab: (tab: string) => void;
-    handleAddStep: () => void;
+    handleAddStep: (stepData: { title: string; description: string; images: string[] }) => Promise<void>;
     handleMainImageUpload: (imageUrl: string) => Promise<void>;
     handleAddNote: (content: string) => Promise<void>;
     handleDeleteNote: (noteId: string) => Promise<void>;
@@ -90,9 +90,27 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         loadProject();
     }, [projectId]);
 
-    const handleAddStep = () => {
-        // TODO: Implement add step functionality
-        console.log("Adding new step");
+    const handleAddStep = async (stepData: { title: string; description: string; images: string[] }) => {
+        try {
+            const response = await fetch(`/api/projects/${projectId}/steps`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(stepData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add step');
+            }
+
+            // Refresh the project data
+            const updatedProject = await getProjectById(projectId);
+            setProject(updatedProject);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to add step');
+            throw err;
+        }
     };
 
     const handleMainImageUpload = async (imageUrl: string) => {
