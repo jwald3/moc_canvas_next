@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function DELETE(
-    _request: Request,
-    context: { params: { projectId: string; noteId: string } }
+    _: Request,
+    { params }: { params: { projectId: string; noteId: string } }
 ) {
-    const { noteId } = context.params;
+    const { noteId } = params;
     
     try {
         await prisma.handSpunProjectNote.delete({
