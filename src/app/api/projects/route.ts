@@ -7,11 +7,18 @@ export async function GET() {
     try {
         const { userId } = await auth();
         
-        // Only show public projects, unless user is viewing their own projects
+        // Show public projects AND user's own projects (if authenticated)
+        const whereClause = userId 
+            ? {
+                OR: [
+                    { public: true },
+                    { userId: userId }
+                ]
+            }
+            : { public: true };
+
         const projects = await prisma.handSpunProject.findMany({
-            where: {
-                public: true // Much simpler query
-            },
+            where: whereClause,
             include: {
                 stats: true,
                 steps: {
