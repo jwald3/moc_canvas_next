@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, Trash2, Globe, Lock, Settings2, FileText } from "lucide-react";
 
 const ProjectSettingsTabContents = () => {
-    const { project, isLoading } = useProjectHomeContext();
+    const { project, isLoading, updateProject } = useProjectHomeContext();
     const [isPublic, setIsPublic] = useState(project?.stats?.public ?? false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -49,9 +49,9 @@ const ProjectSettingsTabContents = () => {
         }
     };
 
-    const handleEditToggle = () => {
+    const handleEditToggle = async () => {
         if (isEditing) {
-            handleSaveChanges();
+            await handleSaveChanges();
         }
         setIsEditing(!isEditing);
     };
@@ -71,8 +71,9 @@ const ProjectSettingsTabContents = () => {
 
             if (!response.ok) throw new Error('Failed to update project');
             
-            // Update the project in context would be ideal here
-            // For now, we'll just exit edit mode
+            const updatedProject = await response.json();
+            updateProject(updatedProject);
+            setIsEditing(false);
         } catch (error) {
             console.error('Error updating project:', error);
         }
@@ -89,15 +90,34 @@ const ProjectSettingsTabContents = () => {
                             <h3 className="text-lg font-medium text-gray-900">Project Details</h3>
                         </div>
                         <Button
-                            variant="outline"
+                            variant={isEditing ? "default" : "outline"}
                             onClick={handleEditToggle}
+                            className={`gap-2 py-2 px-4 ${
+                                isEditing 
+                                    ? "bg-indigo-600 hover:bg-indigo-700 text-white" 
+                                    : "border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50"
+                            }`}
                         >
-                            {isEditing ? "Save Changes" : "Edit Details"}
+                            {isEditing ? (
+                                <>
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Save Changes
+                                </>
+                            ) : (
+                                <>
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                    Edit Details
+                                </>
+                            )}
                         </Button>
                     </div>
                 </div>
                 
-                <div className="p-6 space-y-6">
+                <div className={`p-6 space-y-6 transition-colors ${isEditing ? "bg-blue-50/20" : ""}`}>
                     <div className="space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -108,7 +128,12 @@ const ProjectSettingsTabContents = () => {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 disabled={!isEditing}
-                                className="w-full px-3 py-2 border rounded-md bg-white disabled:bg-gray-50/50"
+                                className={`w-full px-3 py-2 border rounded-md transition-colors
+                                    ${isEditing 
+                                        ? "bg-white border-indigo-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" 
+                                        : "bg-gray-50 border-gray-200"
+                                    }
+                                `}
                             />
                         </div>
                         <div>
@@ -120,10 +145,24 @@ const ProjectSettingsTabContents = () => {
                                 onChange={(e) => setDescription(e.target.value)}
                                 disabled={!isEditing}
                                 rows={3}
-                                className="w-full px-3 py-2 border rounded-md bg-white disabled:bg-gray-50/50"
+                                className={`w-full px-3 py-2 border rounded-md transition-colors
+                                    ${isEditing 
+                                        ? "bg-white border-indigo-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" 
+                                        : "bg-gray-50 border-gray-200"
+                                    }
+                                `}
                             />
                         </div>
                     </div>
+
+                    {isEditing && (
+                        <div className="flex items-center gap-2 pt-2 text-sm text-gray-600">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Click 'Save Changes' when you're done editing
+                        </div>
+                    )}
                 </div>
             </div>
 

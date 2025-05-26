@@ -44,6 +44,7 @@ interface ProjectHomeContextType {
     handleMainImageUpload: (imageUrl: string) => Promise<void>;
     handleAddNote: (content: string) => Promise<void>;
     handleDeleteNote: (noteId: string) => Promise<void>;
+    updateProject: (updatedProject: ProjectWithRelations) => void;
 }
 
 const ProjectHomeContext = createContext<ProjectHomeContextType | undefined>(undefined);
@@ -135,6 +136,10 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         }
     };
 
+    const updateProject = (updatedProject: ProjectWithRelations) => {
+        setProject(updatedProject);
+    };
+
     const value = {
         project,
         isLoading,
@@ -145,6 +150,7 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         handleMainImageUpload,
         handleAddNote,
         handleDeleteNote,
+        updateProject,
     };
 
     return (
