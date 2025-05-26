@@ -4,9 +4,9 @@ import { type NextRequest } from "next/server";
 
 export async function DELETE(
     _request: NextRequest,
-    { params }: { params: { projectId: string; noteId: string } }
+    { params }: { params: Promise<{ projectId: string; noteId: string }> }
 ) {
-    const { noteId } = params;
+    const { noteId } = (await params);
     
     try {
         await prisma.handSpunProjectNote.delete({
@@ -20,4 +20,4 @@ export async function DELETE(
             { status: 500 }
         );
     }
-} 
+}
