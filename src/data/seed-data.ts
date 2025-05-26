@@ -51,6 +51,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: null,
         avatar: null,
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -84,8 +86,7 @@ export const projects: ProjectObject[] = [
             views: 1250,
             likes: 342,
             comments: 45,
-            shares: 67,
-            public: true
+            shares: 67
         }
     },
     {
@@ -104,6 +105,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Sarah Johnson",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -135,8 +138,7 @@ export const projects: ProjectObject[] = [
             views: 892,
             likes: 245,
             comments: 32,
-            shares: 41,
-            public: true
+            shares: 41
         }
     },
     {
@@ -155,6 +157,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Tony Stark",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -186,8 +190,7 @@ export const projects: ProjectObject[] = [
             views: 1567,
             likes: 423,
             comments: 89,
-            shares: 112,
-            public: true
+            shares: 112
         }
     },
     {
@@ -206,6 +209,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Marcus Augustus",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -237,8 +242,7 @@ export const projects: ProjectObject[] = [
             views: 2341,
             likes: 567,
             comments: 89,
-            shares: 123,
-            public: true
+            shares: 123
         }
     },
     {
@@ -257,6 +261,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Han Solo",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -288,8 +294,7 @@ export const projects: ProjectObject[] = [
             views: 3456,
             likes: 892,
             comments: 156,
-            shares: 234,
-            public: true
+            shares: 234
         }
     },
     {
@@ -307,7 +312,9 @@ export const projects: ProjectObject[] = [
         updatedAt: new Date("2023-02-17T10:00:00Z"),
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Albus Dumbledore",
-        avatar: "/api/placeholder/50/50",
+            avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -339,8 +346,7 @@ export const projects: ProjectObject[] = [
             views: 4567,
             likes: 1234,
             comments: 321,
-            shares: 167,
-            public: true
+            shares: 167
         }
     },
     {
@@ -359,6 +365,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Sarah Johnson",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -390,8 +398,7 @@ export const projects: ProjectObject[] = [
             views: 1876,
             likes: 432,
             comments: 67,
-            shares: 89,
-            public: true
+            shares: 89
         }
     },
     {
@@ -410,6 +417,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "David Kim",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -441,8 +450,7 @@ export const projects: ProjectObject[] = [
             views: 2345,
             likes: 567,
             comments: 98,
-            shares: 145,
-            public: true
+            shares: 145
         }
     },
     {
@@ -461,6 +469,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Elena Rodriguez",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -492,8 +502,7 @@ export const projects: ProjectObject[] = [
             views: 3456,
             likes: 789,
             comments: 234,
-            shares: 167,
-            public: true
+            shares: 167
         }
     },
     {
@@ -512,6 +521,8 @@ export const projects: ProjectObject[] = [
         status: "IN_PROGRESS" as ProjectStatus,
         owner: "Michael Chen",
         avatar: "/api/placeholder/50/50",
+        userId: "unknown",
+        public: true,
         steps: [
             {
                 id: generateGuid(),
@@ -543,8 +554,7 @@ export const projects: ProjectObject[] = [
             views: 1987,
             likes: 456,
             comments: 78,
-            shares: 92,
-            public: true
+            shares: 92
         }
     }
 ].map(project => {
