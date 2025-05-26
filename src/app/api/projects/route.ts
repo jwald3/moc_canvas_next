@@ -15,6 +15,7 @@ export async function GET() {
                 theme: true,
                 mainImage: true,
                 images: true,
+                notes: true,
             },
         });
 
@@ -22,6 +23,7 @@ export async function GET() {
         const transformedProjects: ProjectObject[] = projects.map((project) => {
             return {
                 ...project,
+                notes: project.notes,
                 status: project.status as ProjectStatus,
                 images: project.images.map(image => ({
                     ...image,
