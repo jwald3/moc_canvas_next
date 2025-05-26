@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 import { ProjectObject, ProjectStatus, ProjectBuildStepObject, ProjectImageObject } from "@/types/hand_spun_datatypes";
 
 export async function GET() {
     try {
+        // Remove authentication restrictions - show all projects
         const projects = await prisma.handSpunProject.findMany({
             include: {
                 stats: true,
@@ -76,6 +78,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
+        const { userId } = await auth();
+        
+        // Allow project creation without authentication for now, but use userId if available
         const data = await request.json();
 
         const project = await prisma.$transaction(async (tx) => {
@@ -97,13 +102,15 @@ export async function POST(request: Request) {
                 });
             }
 
-            // Create the project
+            // Create the project with user association if available
             const project = await tx.handSpunProject.create({
                 data: {
                     title: data.title,
                     description: data.description,
                     tags: data.tags,
                     status: data.status,
+                    userId: userId || "anonymous", // Use userId if available, otherwise "anonymous"
+                    owner: userId || null, // Keep this for backward compatibility
                     themeId: theme.id,
                     mainImageId: mainImage?.id,
                     // Add standalone images
@@ -157,7 +164,7 @@ export async function POST(request: Request) {
                         },
                     },
                     mainImage: true,
-                    images: true, // Include standalone images in response
+                    images: true,
                 },
             });
 

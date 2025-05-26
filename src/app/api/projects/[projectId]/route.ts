@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 import { type NextRequest } from "next/server";
 
 export async function PUT(
@@ -7,8 +8,37 @@ export async function PUT(
     { params }: { params: Promise<{ projectId: string }> }
 ) {
     try {
+        const { userId } = await auth();
         const { title, description } = await request.json();
         const { projectId } = await params;
+
+        // Only require authentication for editing
+        if (!userId) {
+            return NextResponse.json(
+                { error: "Authentication required to edit projects" },
+                { status: 401 }
+            );
+        }
+
+        // Check if the user owns this project
+        const existingProject = await prisma.handSpunProject.findUnique({
+            where: { id: projectId },
+            select: { userId: true },
+        });
+
+        if (!existingProject) {
+            return NextResponse.json(
+                { error: "Project not found" },
+                { status: 404 }
+            );
+        }
+
+        if (existingProject.userId !== userId) {
+            return NextResponse.json(
+                { error: "You can only edit your own projects" },
+                { status: 403 }
+            );
+        }
 
         const updatedProject = await prisma.handSpunProject.update({
             where: { id: projectId },
@@ -45,10 +75,41 @@ export async function DELETE(
     { params }: { params: Promise<{ projectId: string }> }
 ) {
     try {
+        const { userId } = await auth();
         const { projectId } = await params;
+
+        // Only require authentication for deleting
+        if (!userId) {
+            return NextResponse.json(
+                { error: "Authentication required to delete projects" },
+                { status: 401 }
+            );
+        }
+
+        // Check if the user owns this project
+        const existingProject = await prisma.handSpunProject.findUnique({
+            where: { id: projectId },
+            select: { userId: true },
+        });
+
+        if (!existingProject) {
+            return NextResponse.json(
+                { error: "Project not found" },
+                { status: 404 }
+            );
+        }
+
+        if (existingProject.userId !== userId) {
+            return NextResponse.json(
+                { error: "You can only delete your own projects" },
+                { status: 403 }
+            );
+        }
+
         await prisma.handSpunProject.delete({
             where: { id: projectId },
         });
+        
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Error deleting project:", error);
