@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { getProjectById } from '@/actions/project-actions'
+import { useUser } from '@clerk/nextjs'
 import type { HandSpunProject, HandSpunBuildStep, HandSpunProjectImage, HandSpunProjectNote } from '@prisma/client'
 
 type ProjectMainImage = {
@@ -44,6 +45,8 @@ interface ProjectHomeContextType {
     handleAddNote: (content: string) => Promise<void>;
     handleDeleteNote: (noteId: string) => Promise<void>;
     updateProject: (updatedProject: ProjectWithRelations) => void;
+    handleVisibilityUpdate: (isPublic: boolean) => Promise<void>;
+    isOwner: boolean;
 }
 
 const ProjectHomeContext = createContext<ProjectHomeContextType | undefined>(undefined);
@@ -54,10 +57,22 @@ interface ProjectHomeProviderProps {
 }
 
 export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProviderProps) => {
+    const { user } = useUser();
     const [project, setProject] = useState<ProjectWithRelations | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState("progress");
+
+    // Check if current user owns this project
+    const isOwner = user?.id === project?.userId;
+
+    // Enhanced setActiveTab that prevents non-owners from accessing settings
+    const setActiveTabSafe = (tab: string) => {
+        if (tab === "settings" && !isOwner) {
+            return; // Don't allow non-owners to access settings
+        }
+        setActiveTab(tab);
+    };
 
     useEffect(() => {
         async function loadProject() {
@@ -139,17 +154,51 @@ export const ProjectHomeProvider = ({ children, projectId }: ProjectHomeProvider
         setProject(updatedProject);
     };
 
+    const handleVisibilityUpdate = async (isPublic: boolean) => {
+        try {
+            const response = await fetch(`/api/projects/${projectId}/visibility`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ public: isPublic }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `HTTP ${response.status}: Failed to update project visibility`);
+            }
+
+            const result = await response.json();
+            
+            // Update the project with the new visibility
+            if (project) {
+                setProject({
+                    ...project,
+                    public: result.public
+                });
+            }
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to update visibility';
+            setError(errorMessage);
+            console.error('Visibility update error:', errorMessage);
+            throw err; // Re-throw so the component can handle the error
+        }
+    };
+
     const value = {
         project,
         isLoading,
         error,
         activeTab,
-        setActiveTab,
+        setActiveTab: setActiveTabSafe,
         handleAddStep,
         handleMainImageUpload,
         handleAddNote,
         handleDeleteNote,
         updateProject,
+        handleVisibilityUpdate,
+        isOwner,
     };
 
     return (

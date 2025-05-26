@@ -2,7 +2,7 @@ import React from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 const SingleProjectTabs = () => {
-    const { activeTab, setActiveTab } = useProjectHomeContext();
+    const { activeTab, setActiveTab, isOwner } = useProjectHomeContext();
     
     return (
         <div className="border-b border-gray-200 mb-6">
@@ -47,16 +47,18 @@ const SingleProjectTabs = () => {
                 >
                     Notes
                 </button>
-                <button
-                    className={`pb-4 px-1 whitespace-nowrap ${
-                        activeTab === "settings"
-                            ? "border-b-2 border-indigo-600 text-indigo-600"
-                            : "text-gray-500 hover:text-gray-700"
-                    } font-medium`}
-                    onClick={() => setActiveTab("settings")}
-                >
-                    Settings
-                </button>
+                {isOwner && (
+                    <button
+                        className={`pb-4 px-1 whitespace-nowrap ${
+                            activeTab === "settings"
+                                ? "border-b-2 border-indigo-600 text-indigo-600"
+                                : "text-gray-500 hover:text-gray-700"
+                        } font-medium`}
+                        onClick={() => setActiveTab("settings")}
+                    >
+                        Settings
+                    </button>
+                )}
             </nav>
         </div>
     );

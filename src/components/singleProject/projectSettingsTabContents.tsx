@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Trash2, Globe, Lock, Settings2, FileText } from "lucide-react";
 
 const ProjectSettingsTabContents = () => {
-    const { project, isLoading, updateProject } = useProjectHomeContext();
+    const { project, isLoading, updateProject, handleVisibilityUpdate, error } = useProjectHomeContext();
     const [isPublic, setIsPublic] = useState(project?.public ?? false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(project?.title || "");
     const [description, setDescription] = useState(project?.description || "");
+    const [isUpdatingVisibility, setIsUpdatingVisibility] = useState(false);
+
+    // Sync local state with project data when it changes
+    useEffect(() => {
+        if (project) {
+            setIsPublic(project.public ?? false);
+            setTitle(project.title || "");
+            setDescription(project.description || "");
+        }
+    }, [project]);
 
     if (isLoading) {
         return (
@@ -26,8 +36,22 @@ const ProjectSettingsTabContents = () => {
         );
     }
 
-    const handleVisibilityChange = () => {
-        setIsPublic(!isPublic);
+    const handleVisibilityChange = async () => {
+        if (!project) return;
+        
+        try {
+            setIsUpdatingVisibility(true);
+            const newVisibility = !isPublic;
+            
+            await handleVisibilityUpdate(newVisibility);
+            setIsPublic(newVisibility);
+        } catch (error) {
+            console.error('Error updating project visibility:', error);
+            // Show an alert with the error message
+            alert(`Failed to update visibility: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        } finally {
+            setIsUpdatingVisibility(false);
+        }
     };
 
     const handleDeleteProject = async () => {
@@ -200,11 +224,15 @@ const ProjectSettingsTabContents = () => {
                             <Switch 
                                 checked={isPublic} 
                                 onCheckedChange={handleVisibilityChange}
+                                disabled={isUpdatingVisibility}
                                 className="data-[state=checked]:bg-blue-500"
                             />
                             <span className={`text-sm ${isPublic ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
                                 Public
                             </span>
+                            {isUpdatingVisibility && (
+                                <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                            )}
                         </div>
                     </div>
                 </div>
