@@ -79,7 +79,7 @@ const ProjectPartsTabContents = () => {
                             <div key={num} className="text-center">
                                 <div className="h-16 w-16 mx-auto bg-gray-100 rounded flex items-center justify-center">
                                     <Image
-                                        src={"https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW690TOSpxjk3SLOE68zIZhl2wBsMRXiyngvFfW"}
+                                        src={"https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW6R4yHIFUVXuE3ZH0COAIBJyGoUNcV1jbzRWql"}
                                         alt="Part"
                                         width={48}
                                         height={48}

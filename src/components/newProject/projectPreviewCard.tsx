@@ -33,7 +33,7 @@ const ProjectPreviewCard = () => {
                     ) : (
                         <div className="w-full aspect-video bg-gray-100 flex items-center justify-center">
                             <Image 
-                                src="/images/app-image-demo.jpg"
+                                src="https://k4dys96b1y.ufs.sh/f/hEcHYuoY4CW6R4yHIFUVXuE3ZH0COAIBJyGoUNcV1jbzRWql"
                                 alt="Default Preview"
                                 className="w-full h-full object-cover"
                                 width={800}
