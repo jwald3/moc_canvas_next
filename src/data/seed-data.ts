@@ -555,6 +555,7 @@ export const projects: ProjectObject[] = [
     return {
         ...project,
         id: projectId, // Use existing ID if present
+        notes: [], // Add this line to include empty notes array
         mainImage: {
             ...project.mainImage,
             id: generateGuid(),
