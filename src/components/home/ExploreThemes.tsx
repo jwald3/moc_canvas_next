@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import ThemeTile from "@/components/home/ThemeTile";
 import { HandSpunTheme } from "@prisma/client";
-import { ProjectThemeObject, ProjectBuildStepObject, ProjectStatsObject, ProjectStatus } from "@/types/hand_spun_datatypes";
+import { ProjectObject } from "@/types/hand_spun_datatypes";
 
 // Theme configuration mapping
 const themeConfig: Record<string, { color: string, gradient: string, icon: LucideIcon }> = {
@@ -35,23 +35,8 @@ const themeConfig: Record<string, { color: string, gradient: string, icon: Lucid
 
 interface ExploreThemesProps {
     themes: (HandSpunTheme & {
-        projects: {
-            id: string;
-            description: string;
-            title: string;
-            tags: string[];
-            createdAt: Date;
-            updatedAt: Date;
-            status: ProjectStatus;
-            owner: string | null;
-            avatar: string | null;
-            themeId: string;
-            mainImageId: string | null;
-            theme: ProjectThemeObject;
-            steps: ProjectBuildStepObject[];
-            stats: ProjectStatsObject;
-            notes: { content: string }[];
-        }[];
+        projects: ProjectObject[];
+        userId?: string;
     })[];
 }
 

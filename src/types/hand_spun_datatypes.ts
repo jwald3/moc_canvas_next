@@ -9,7 +9,7 @@ export interface ProjectObject {
     status: ProjectStatus;
     owner: string | null;
     avatar: string | null;
-    userId: string;
+    userId?: string;
     steps: ProjectBuildStepObject[];
     stats: ProjectStatsObject;
     mainImage?: ProjectMainImageObject;

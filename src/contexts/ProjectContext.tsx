@@ -213,19 +213,7 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     const loadThemes = async () => {
         const response = await fetch('/api/themes');
         const data = await response.json();
-        setThemes(data.map((theme: HandSpunTheme & { projects: ProjectObject[] }) => ({
-            ...theme,
-            projects: theme.projects.map((project: ProjectObject) => ({
-                ...project,
-                notes: (project.notes || []).map((note: ProjectNoteObject) => ({
-                    id: crypto.randomUUID(),
-                    content: note.content,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    projectId: project.id
-                }))
-            }))
-        })));
+        setThemes(data); // No transformation needed since API returns correct format
     };
 
     const value = {
