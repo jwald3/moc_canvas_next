@@ -40,6 +40,8 @@ async function main() {
         status: project.status,
         owner: project.owner,
         avatar: project.avatar,
+        userId: project.userId,
+        public: project.public,
         themeId: project.theme.id,
         
         // Create stats
@@ -49,7 +51,6 @@ async function main() {
             likes: project.stats.likes,
             comments: project.stats.comments,
             shares: project.stats.shares,
-            public: project.stats.public
           }
         },
 
