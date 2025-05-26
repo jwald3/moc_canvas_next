@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, Trash2, Globe, Lock, Settings2, FileText } from "lucide-react";
 
 const ProjectSettingsTabContents = () => {
-    const { project, isLoading, updateProject, handleVisibilityUpdate, error } = useProjectHomeContext();
+    const { project, isLoading, updateProject, handleVisibilityUpdate } = useProjectHomeContext();
     const [isPublic, setIsPublic] = useState(project?.public ?? false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
