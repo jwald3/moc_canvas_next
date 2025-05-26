@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProjectObject } from '@/types/hand_spun_datatypes';
+import { ProjectObject, ProjectNoteObject } from '@/types/hand_spun_datatypes';
 import { HandSpunTheme } from '@prisma/client';
 import { ProjectStatus, ProjectThemeObject, ProjectBuildStepObject, ProjectStatsObject } from '@/types/hand_spun_datatypes';
 
@@ -213,13 +213,13 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     const loadThemes = async () => {
         const response = await fetch('/api/themes');
         const data = await response.json();
-        setThemes(data.map((theme: any) => ({
+        setThemes(data.map((theme: HandSpunTheme & { projects: ProjectObject[] }) => ({
             ...theme,
-            projects: theme.projects.map((project: any) => ({
+            projects: theme.projects.map((project: ProjectObject) => ({
                 ...project,
-                notes: (project.notes || []).map((note: string) => ({
+                notes: (project.notes || []).map((note: ProjectNoteObject) => ({
                     id: crypto.randomUUID(),
-                    content: note,
+                    content: note.content,
                     createdAt: new Date(),
                     updatedAt: new Date(),
                     projectId: project.id
