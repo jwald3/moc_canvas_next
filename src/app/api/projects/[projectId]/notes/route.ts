@@ -3,9 +3,9 @@ import prisma from "@/lib/prisma";
 
 export async function POST(
     request: Request,
-    context: { params: { projectId: string } }
+    context: { params: Promise<{ projectId: string }> }
 ) {
-    const { projectId } = context.params;
+    const { projectId } = await context.params;
     
     try {
         const { content } = await request.json();
@@ -25,4 +25,4 @@ export async function POST(
             { status: 500 }
         );
     }
-} 
+}
