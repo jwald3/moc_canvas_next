@@ -21,6 +21,7 @@ model HandSpunProject {
 
   // New user relationship with default
   userId      String   @default("unknown") // Provide a default value
+  public      Boolean  @default(false) // Move public field here
   
   // Relations
   theme       HandSpunTheme        @relation(fields: [themeId], references: [id])
@@ -33,6 +34,7 @@ model HandSpunProject {
   notes       HandSpunProjectNote[]
 
   @@index([userId])
+  @@index([public]) // Add index for public queries
 }
 
 model HandSpunTheme {
@@ -83,7 +85,6 @@ model HandSpunProjectStats {
   likes       Int     @default(0)
   comments    Int     @default(0)
   shares      Int     @default(0)
-  public      Boolean @default(true)
   
   // Relations
   project     HandSpunProject @relation(fields: [projectId], references: [id], onDelete: Cascade)

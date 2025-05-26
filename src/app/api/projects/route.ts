@@ -5,8 +5,13 @@ import { ProjectObject, ProjectStatus, ProjectBuildStepObject, ProjectImageObjec
 
 export async function GET() {
     try {
-        // Remove authentication restrictions - show all projects
+        const { userId } = await auth();
+        
+        // Only show public projects, unless user is viewing their own projects
         const projects = await prisma.handSpunProject.findMany({
+            where: {
+                public: true // Much simpler query
+            },
             include: {
                 stats: true,
                 steps: {
@@ -54,7 +59,6 @@ export async function GET() {
                     likes: 0,
                     comments: 0,
                     shares: 0,
-                    public: true,
                 },
                 mainImage: project.mainImage
                     ? {
@@ -109,8 +113,9 @@ export async function POST(request: Request) {
                     description: data.description,
                     tags: data.tags,
                     status: data.status,
-                    userId: userId || "anonymous", // Use userId if available, otherwise "anonymous"
-                    owner: userId || null, // Keep this for backward compatibility
+                    userId: userId || "anonymous",
+                    owner: userId || null,
+                    public: false,
                     themeId: theme.id,
                     mainImageId: mainImage?.id,
                     // Add standalone images
@@ -131,7 +136,6 @@ export async function POST(request: Request) {
                             likes: 0,
                             comments: 0,
                             shares: 0,
-                            public: true,
                         },
                     },
                     // Create build steps

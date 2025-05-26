@@ -6,6 +6,9 @@ export async function GET() {
     const themes = await prisma.handSpunTheme.findMany({
         include: {
             projects: {
+                where: {
+                    public: true
+                },
                 include: {
                     theme: true,
                     stats: true,

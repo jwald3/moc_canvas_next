@@ -10,6 +10,7 @@ export interface ProjectObject {
     owner: string | null;
     avatar: string | null;
     userId?: string;
+    public?: boolean;
     steps: ProjectBuildStepObject[];
     stats: ProjectStatsObject;
     mainImage?: ProjectMainImageObject;
@@ -65,7 +66,6 @@ export interface ProjectStatsObject {
     likes: number;
     comments: number;
     shares: number;
-    public: boolean;
 }
 
 export interface ProjectNoteObject {

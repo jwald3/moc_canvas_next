@@ -28,7 +28,6 @@ type ProjectWithRelations = HandSpunProject & {
     likes: number;
     comments: number;
     shares: number;
-    public: boolean;
   } | null;
   images: HandSpunProjectImage[];
   notes?: HandSpunProjectNote[];
