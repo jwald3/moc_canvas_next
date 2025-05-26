@@ -50,7 +50,7 @@ interface ExploreThemesProps {
             theme: ProjectThemeObject;
             steps: ProjectBuildStepObject[];
             stats: ProjectStatsObject;
-            notes: ProjectNoteObject[];
+            notes: { content: string }[];
         }[];
     })[];
 }

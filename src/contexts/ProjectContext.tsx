@@ -53,6 +53,7 @@ interface ProjectContextType {
             theme: ProjectThemeObject;
             steps: ProjectBuildStepObject[];
             stats: ProjectStatsObject;
+            notes: { content: string }[];
         }[];
     })[];
     loadThemes: () => Promise<void>;
@@ -96,6 +97,7 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
             theme: ProjectThemeObject;
             steps: ProjectBuildStepObject[];
             stats: ProjectStatsObject;
+            notes: { content: string }[];
         }[];
     })[]>([]);
     const [projects, setProjects] = useState<ProjectObject[]>([]);
@@ -210,8 +212,20 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
 
     const loadThemes = async () => {
         const response = await fetch('/api/themes');
-        const themes = await response.json();
-        setThemes(themes);
+        const data = await response.json();
+        setThemes(data.map((theme: any) => ({
+            ...theme,
+            projects: theme.projects.map((project: any) => ({
+                ...project,
+                notes: (project.notes || []).map((note: string) => ({
+                    id: crypto.randomUUID(),
+                    content: note,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                    projectId: project.id
+                }))
+            }))
+        })));
     };
 
     const value = {

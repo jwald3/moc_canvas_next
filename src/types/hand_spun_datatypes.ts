@@ -68,9 +68,9 @@ export interface ProjectStatsObject {
 }
 
 export interface ProjectNoteObject {
-    id: string;
+    id?: string;
     content: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    projectId?: string;
 }
