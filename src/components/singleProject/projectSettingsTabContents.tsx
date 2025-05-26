@@ -6,7 +6,7 @@ import { AlertCircle, Trash2, Globe, Lock, Settings2, FileText } from "lucide-re
 
 const ProjectSettingsTabContents = () => {
     const { project, isLoading, updateProject } = useProjectHomeContext();
-    const [isPublic, setIsPublic] = useState(project?.stats?.public ?? false);
+    const [isPublic, setIsPublic] = useState(project?.public ?? false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(project?.title || "");
