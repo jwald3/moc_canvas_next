@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProjectObject, ProjectNoteObject } from '@/types/hand_spun_datatypes';
+import { ProjectObject } from '@/types/hand_spun_datatypes';
 import { HandSpunTheme } from '@prisma/client';
 import { ProjectStatus, ProjectThemeObject, ProjectBuildStepObject, ProjectStatsObject } from '@/types/hand_spun_datatypes';
 

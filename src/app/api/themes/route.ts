@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { ProjectObject, ProjectStatus } from "@/types/hand_spun_datatypes";
+import { ProjectStatus } from "@/types/hand_spun_datatypes";
 
 export async function GET() {
     const themes = await prisma.handSpunTheme.findMany({
