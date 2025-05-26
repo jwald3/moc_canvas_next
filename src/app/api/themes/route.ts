@@ -9,7 +9,7 @@ export async function GET() {
     });
     
     const popularThemes = themes
-        .sort((a: any, b: any) => b.projects.length - a.projects.length)
+        .sort((a, b) => b.projects.length - a.projects.length)
         .slice(0, 3);
         
     return NextResponse.json(popularThemes);
