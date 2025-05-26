@@ -76,19 +76,19 @@ const ProjectNotesTabContents = () => {
                             </p>
                             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <button 
-                                    onClick={() => onDeleteNote(note.id)}
+                                    onClick={() => note.id && onDeleteNote(note.id)}
                                     className={`text-gray-400 hover:text-red-600 ${
                                         deletingNoteId === note.id ? 'opacity-50 cursor-not-allowed' : ''
                                     }`}
-                                    disabled={deletingNoteId === note.id}
+                                    disabled={!note.id || deletingNoteId === note.id}
                                 >
                                     {deletingNoteId === note.id ? 'Deleting...' : 'Delete'}
                                 </button>
                             </div>
                         </div>
                         <div className="text-xs text-gray-500">
-                            {new Date(note.createdAt).toLocaleDateString()} at{" "}
-                            {new Date(note.createdAt).toLocaleTimeString()}
+                            {note.createdAt && new Date(note.createdAt).toLocaleDateString()} at{" "}
+                            {note.createdAt && new Date(note.createdAt).toLocaleTimeString()}
                         </div>
                     </div>
                 ))}
