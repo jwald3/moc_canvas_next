@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Plus } from "lucide-react";
 import { useParams } from "next/navigation";
 import SingleProjectHeader from "@/components/singleProject/singleProjectHeader";
 import SingleProjectHeroBanner from "@/components/singleProject/singleProjectHeroBanner";
@@ -16,7 +15,7 @@ import ProjectDetailsSkeleton from "@/components/singleProject/projectDetailsSke
 import ProjectSettingsTabContents from "@/components/singleProject/projectSettingsTabContents";
 
 const ProjectContent = () => {
-    const { project, activeTab, handleAddStep } = useProjectHomeContext();
+    const { project, activeTab } = useProjectHomeContext();
 
     if (!project) {
         return <ProjectDetailsSkeleton />;
@@ -45,15 +44,6 @@ const ProjectContent = () => {
                 )}
                 {activeTab === "notes" && <ProjectNotesTabContents />}
                 {activeTab === "settings" && <ProjectSettingsTabContents />}
-            </div>
-
-            <div className="fixed bottom-6 right-6">
-                <button 
-                    onClick={handleAddStep}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-4 shadow-lg flex items-center justify-center"
-                >
-                    <Plus size={24} />
-                </button>
             </div>
         </div>
     );
