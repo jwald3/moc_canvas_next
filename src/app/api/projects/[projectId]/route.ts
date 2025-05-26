@@ -4,11 +4,11 @@ import { type NextRequest } from "next/server";
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { projectId: string } }
+    { params }: { params: Promise<{ projectId: string }> }
 ) {
     try {
         const { title, description } = await request.json();
-        const { projectId } = params;
+        const { projectId } = await params;
 
         const updatedProject = await prisma.handSpunProject.update({
             where: { id: projectId },
@@ -42,10 +42,10 @@ export async function PUT(
 
 export async function DELETE(
     _request: NextRequest,
-    { params }: { params: { projectId: string } }
+    { params }: { params: Promise<{ projectId: string }> }
 ) {
     try {
-        const { projectId } = params;
+        const { projectId } = await params;
         await prisma.handSpunProject.delete({
             where: { id: projectId },
         });
