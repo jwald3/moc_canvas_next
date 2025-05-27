@@ -3,7 +3,6 @@
 import React, { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import ExploreHeader from '@/components/explore/exploreHeader';
-import ExploreThemeTray from '@/components/explore/exploreThemeTray';
 import ExploreProjectsResultsTray from '@/components/explore/exploreProjectsResultsTray';
 import ExplorePageControls from '@/components/explore/explorePageControls';
 import { ExploreProjectsProvider, useExploreProjectsContext } from '@/contexts/ExploreProjectsContext';
@@ -33,7 +32,6 @@ const ExplorePageContent = () => {
                 ) : (
                     <>
                         <ExploreHeader />
-                        <ExploreThemeTray />
                         <ExplorePageControls />
                         <ExploreProjectsResultsTray />
                     </>
