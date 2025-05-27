@@ -9,6 +9,7 @@ import SingleProjectTabs from "@/components/singleProject/singleProjectTabs";
 import ProjectNotesTabContents from "@/components/singleProject/projectNotesTabContents";
 import ProjectGalleryTabContents from "@/components/singleProject/projectGalleryTabContents";
 import ProjectProgressTabContents from "@/components/singleProject/projectProgressTabContents";
+import ProjectColorsTabContents from "@/components/singleProject/projectColorsTabContents";
 import { ProjectHomeProvider, useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 import ProjectDetailsSkeleton from "@/components/singleProject/projectDetailsSkeleton";
 import ProjectSettingsTabContents from "@/components/singleProject/projectSettingsTabContents";
@@ -37,6 +38,9 @@ const ProjectContent = () => {
                 )}
                 {activeTab === "gallery" && (
                     <ProjectGalleryTabContents />
+                )}
+                {activeTab === "colors" && (
+                    <ProjectColorsTabContents />
                 )}
                 {activeTab === "notes" && <ProjectNotesTabContents />}
                 {activeTab === "settings" && <ProjectSettingsTabContents />}

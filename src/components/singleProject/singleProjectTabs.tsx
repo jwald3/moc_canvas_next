@@ -29,6 +29,16 @@ const SingleProjectTabs = () => {
                 </button>
                 <button
                     className={`pb-4 px-1 whitespace-nowrap ${
+                        activeTab === "colors"
+                            ? "border-b-2 border-indigo-600 text-indigo-600"
+                            : "text-gray-500 hover:text-gray-700"
+                    } font-medium`}
+                    onClick={() => setActiveTab("colors")}
+                >
+                    Colors
+                </button>
+                <button
+                    className={`pb-4 px-1 whitespace-nowrap ${
                         activeTab === "notes"
                             ? "border-b-2 border-indigo-600 text-indigo-600"
                             : "text-gray-500 hover:text-gray-700"
