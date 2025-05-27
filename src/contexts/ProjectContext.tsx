@@ -59,6 +59,7 @@ interface ProjectContextType {
         }[];
     })[];
     loadThemes: () => Promise<void>;
+    refreshSavedProjects: () => Promise<void>;
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -102,7 +103,7 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
             notes: { content: string }[];
         }[];
     })[]>([]);
-    // Separate state for user's projects and public/saved projects
+    // Separate state for user's projects and saved projects
     const [myProjects, setMyProjects] = useState<ProjectObject[]>([]);
     const [savedProjects, setSavedProjects] = useState<ProjectObject[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -119,6 +120,29 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    const fetchSavedProjects = async () => {
+        try {
+            const savedProjectsResponse = await fetch('/api/projects/saved');
+            if (savedProjectsResponse.ok) {
+                const savedProjectsData = await savedProjectsResponse.json();
+                setSavedProjects(savedProjectsData);
+            } else if (savedProjectsResponse.status === 401) {
+                // User not authenticated, set empty array
+                setSavedProjects([]);
+            } else {
+                console.error('Failed to fetch saved projects');
+                setSavedProjects([]);
+            }
+        } catch (error) {
+            console.error('Error fetching saved projects:', error);
+            setSavedProjects([]);
+        }
+    };
+
+    const refreshSavedProjects = async () => {
+        await fetchSavedProjects();
+    };
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -138,14 +162,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
                     throw new Error('Failed to fetch user projects');
                 }
 
-                // Fetch public projects for saved projects section
-                const publicProjectsResponse = await fetch('/api/projects');
-                if (publicProjectsResponse.ok) {
-                    const publicProjectsData = await publicProjectsResponse.json();
-                    setSavedProjects(publicProjectsData);
-                } else {
-                    throw new Error('Failed to fetch public projects');
-                }
+                // Fetch saved projects
+                await fetchSavedProjects();
                 
                 setIsLoading(false);
             } catch (error) {
@@ -264,6 +282,7 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         loadThemes,
         isLoading,
         error,
+        refreshSavedProjects,
     };
 
     return (

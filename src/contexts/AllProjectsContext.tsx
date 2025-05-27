@@ -83,16 +83,28 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
                 setLoading(true);
                 setError(null);
                 
-                const response = await fetch('/api/projects/my');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch projects');
+                // Fetch user's own projects
+                const myProjectsResponse = await fetch('/api/projects/my');
+                if (myProjectsResponse.ok) {
+                    const myProjectsData = await myProjectsResponse.json();
+                    setProjects(myProjectsData);
+                } else if (myProjectsResponse.status === 401) {
+                    setProjects([]);
+                } else {
+                    throw new Error('Failed to fetch user projects');
                 }
-                
-                const data = await response.json();
-                setProjects(data);
-                
-                // For now, savedProjects is empty - you can implement this later
-                setSavedProjects([]);
+
+                // Fetch saved projects
+                const savedProjectsResponse = await fetch('/api/projects/saved');
+                if (savedProjectsResponse.ok) {
+                    const savedProjectsData = await savedProjectsResponse.json();
+                    setSavedProjects(savedProjectsData);
+                } else if (savedProjectsResponse.status === 401) {
+                    setSavedProjects([]);
+                } else {
+                    console.error('Failed to fetch saved projects');
+                    setSavedProjects([]);
+                }
             } catch (err) {
                 console.error('Error fetching projects:', err);
                 setError(err instanceof Error ? err.message : 'Failed to fetch projects');
