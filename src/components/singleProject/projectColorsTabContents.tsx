@@ -69,6 +69,7 @@ const ProjectColorsTabContents = () => {
                 try {
                     setSelectedColors(JSON.parse(stored));
                 } catch (error) {
+                    console.error('Error parsing stored colors:', error);
                     setSelectedColors([]);
                 }
             } else {
