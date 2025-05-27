@@ -33,9 +33,26 @@ model HandSpunProject {
   mainImageId String? @unique
   images      HandSpunProjectImage[]
   notes       HandSpunProjectNote[]
+  savedBy     HandSpunSavedProject[] // New relation for saved projects
 
   @@index([userId])
   @@index([public]) // Add index for public queries
+}
+
+// New model for saved projects (many-to-many relationship)
+model HandSpunSavedProject {
+  id        String   @id @default(cuid())
+  userId    String   // Clerk user ID
+  projectId String
+  savedAt   DateTime @default(now())
+  
+  // Relations
+  project   HandSpunProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Ensure a user can only save a project once
+  @@unique([userId, projectId])
+  @@index([userId])
+  @@index([projectId])
 }
 
 model HandSpunTheme {

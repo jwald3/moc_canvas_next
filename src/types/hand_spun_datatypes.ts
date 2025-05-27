@@ -17,6 +17,16 @@ export interface ProjectObject {
     mainImage?: ProjectMainImageObject;
     images?: ProjectImageObject[];
     notes: ProjectNoteObject[];
+    savedBy?: SavedProjectObject[];
+    isSavedByCurrentUser?: boolean;
+}
+
+export interface SavedProjectObject {
+    id: string;
+    userId: string;
+    projectId: string;
+    savedAt: Date;
+    project?: ProjectObject;
 }
 
 // Using a union type for better type safety
