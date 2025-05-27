@@ -1,5 +1,4 @@
 import React from "react";
-import { Users } from "lucide-react";
 import { useProjectHomeContext } from "@/contexts/ProjectHomeContext";
 
 const SingleProjectInfo = () => {
@@ -19,19 +18,6 @@ const SingleProjectInfo = () => {
                     <div className="w-full sm:w-64">
                         <div className="flex justify-between text-xs text-gray-500">
                         </div>
-                    </div>
-
-                    {/* Collaborators */}
-                    <div className="flex flex-col">
-                        <div className="flex items-center mb-2">
-                            <Users size={16} className="text-gray-500 mr-2" />
-                            <span className="text-sm text-gray-700 font-medium">
-                                People
-                            </span>
-                        </div>
-                        <button className="text-xs text-indigo-600 font-medium">
-                            + Add People
-                        </button>
                     </div>
                 </div>
             </div>
