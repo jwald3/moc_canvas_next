@@ -1,9 +1,21 @@
 import { Search } from "lucide-react";
 import React from "react";
 import { useProjectContext } from "@/contexts/ProjectContext";
+import { useUser } from "@clerk/nextjs";
+import SignInPromptCard from "../signInPromptCard";
 
 const NoMyProjectsCard = () => {
     const { activeTags, searchQuery } = useProjectContext();
+    const { isSignedIn } = useUser();
+
+    if (!isSignedIn) {
+        return (
+            <SignInPromptCard
+                title="Sign in to see your projects"
+                description="Create an account or sign in to start building and managing your own projects."
+            />
+        );
+    }
 
     return (
         <div className="bg-white rounded-lg p-6 shadow-sm text-center border border-gray-200 mb-6">

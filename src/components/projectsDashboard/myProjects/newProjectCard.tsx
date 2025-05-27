@@ -1,9 +1,17 @@
 import { Plus } from 'lucide-react'
 import React from "react";
 import { useRouter } from 'next/navigation';
+import { useUser } from "@clerk/nextjs";
 
 const NewProjectCard = () => {
     const router = useRouter();
+    const { isSignedIn } = useUser();
+
+    // Don't render if user is not signed in
+    if (!isSignedIn) {
+        return null;
+    }
+
     return (
         <div
             onClick={() => router.push("/projects/new")}

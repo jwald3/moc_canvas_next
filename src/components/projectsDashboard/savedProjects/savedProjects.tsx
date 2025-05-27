@@ -1,4 +1,5 @@
 import { useProjectContext } from "@/contexts/ProjectContext";
+import { useUser } from "@clerk/nextjs";
 import React from "react";
 import SavedProjectsMobileView from "./savedProjectsMobileView";
 import NoSavedProjectsCard from "./noSavedProjectsCard";
@@ -10,23 +11,30 @@ const SavedProjects = () => {
         filteredSavedProjects,
         isMobile,
     } = useProjectContext();
+    const { isSignedIn } = useUser();
+    
     return (
         <div className="mt-12">
             <SavedProjectsHeader />
 
-            {/* Add empty states for both sections */}
-            {filteredSavedProjects.length === 0 && (
+            {/* Show NoSavedProjectsCard if not signed in OR no saved projects */}
+            {(!isSignedIn || filteredSavedProjects.length === 0) && (
                 <NoSavedProjectsCard />
             )}
 
-            {/* Desktop View */}
-            {!isMobile && filteredSavedProjects.length > 0 && (
-                <SavedProjectsDesktopView />
-            )}
+            {/* Only show projects if signed in and has projects */}
+            {isSignedIn && filteredSavedProjects.length > 0 && (
+                <>
+                    {/* Desktop View */}
+                    {!isMobile && (
+                        <SavedProjectsDesktopView />
+                    )}
 
-            {/* Mobile View - My Projects */}
-            {isMobile && filteredSavedProjects.length > 0 && (
-                <SavedProjectsMobileView />
+                    {/* Mobile View */}
+                    {isMobile && (
+                        <SavedProjectsMobileView />
+                    )}
+                </>
             )}
         </div>
     );

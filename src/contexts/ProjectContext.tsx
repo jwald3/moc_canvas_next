@@ -35,6 +35,8 @@ interface ProjectContextType {
     filterProjects: (projectsList: ProjectObject[]) => ProjectObject[];
     filteredMyProjects: ProjectObject[];
     filteredSavedProjects: ProjectObject[];
+    myProjects: ProjectObject[];
+    savedProjects: ProjectObject[];
     isLoading: boolean;
     error: string | null;
     themes: (HandSpunTheme & {
@@ -100,7 +102,8 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
             notes: { content: string }[];
         }[];
     })[]>([]);
-    const [projects, setProjects] = useState<ProjectObject[]>([]);
+    // Separate state for user's projects and public/saved projects
+    const [myProjects, setMyProjects] = useState<ProjectObject[]>([]);
     const [savedProjects, setSavedProjects] = useState<ProjectObject[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -123,10 +126,26 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
                 setIsLoading(true);
                 setError(null);
 
-                const response = await fetch('/api/projects');
-                const data = await response.json();
-                setProjects(data);
-                setSavedProjects(data); // For now, using same data for saved projects
+                // Fetch user's own projects
+                const myProjectsResponse = await fetch('/api/projects/my');
+                if (myProjectsResponse.ok) {
+                    const myProjectsData = await myProjectsResponse.json();
+                    setMyProjects(myProjectsData);
+                } else if (myProjectsResponse.status === 401) {
+                    // User not authenticated, set empty array
+                    setMyProjects([]);
+                } else {
+                    throw new Error('Failed to fetch user projects');
+                }
+
+                // Fetch public projects for saved projects section
+                const publicProjectsResponse = await fetch('/api/projects');
+                if (publicProjectsResponse.ok) {
+                    const publicProjectsData = await publicProjectsResponse.json();
+                    setSavedProjects(publicProjectsData);
+                } else {
+                    throw new Error('Failed to fetch public projects');
+                }
                 
                 setIsLoading(false);
             } catch (error) {
@@ -162,7 +181,7 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
 
     const getAllTags = (): string[] => {
         const allTags = new Set<string>();
-        [...projects, ...savedProjects].forEach((project) => {
+        [...myProjects, ...savedProjects].forEach((project) => {
             project.tags.forEach((tag) => {
                 allTags.add(tag);
             });
@@ -171,7 +190,7 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
     };
 
     const navigateCarousel = (direction: "next" | "prev", carouselType: "my" | "saved"): void => {
-        const projectsList = carouselType === "my" ? projects : savedProjects;
+        const projectsList = carouselType === "my" ? myProjects : savedProjects;
         const maxIndex = Math.max(0, projectsList.length - 3); // Assuming 3 cards per view
 
         if (carouselType === "my") {
@@ -237,8 +256,10 @@ export const ProjectProvider = ({ children, router }: ProjectProviderProps) => {
         onTagClick: handleTagClick,
         isMobile,
         filterProjects,
-        filteredMyProjects: filterProjects(projects),
+        filteredMyProjects: filterProjects(myProjects),
         filteredSavedProjects: filterProjects(savedProjects),
+        myProjects,
+        savedProjects,
         themes,
         loadThemes,
         isLoading,
