@@ -103,11 +103,7 @@ const NewProjectImageUpload = () => {
                                 console.error(error);
                                 alert("Upload failed");
                             }}
-                            className="ut-button:text-white ut-button:rounded-lg ut-button:px-4 ut-button:py-2.5 ut-button:transition-colors ut-button:shadow-sm"
-                            style={{
-                                '--ut-button-bg': '#da5249',
-                                '--ut-button-bg-hover': '#c4483f',
-                            } as React.CSSProperties}
+                            className="ut-button:text-white ut-button:rounded-lg ut-button:px-4 ut-button:py-2.5 ut-button:transition-colors ut-button:shadow-sm ut-button:bg-[#da5249] ut-button:hover:bg-[#c4483f]"
                         />
                     </div>
 
