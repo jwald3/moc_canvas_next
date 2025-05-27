@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { ProjectObject } from '@/types/hand_spun_datatypes';
 import AllProjectsSkeleton from '@/components/projectsAll/allProjectsSkeleton';
+import colors from '@/lib/colors';
 
 type RouterType = ReturnType<typeof useRouter>;
 
@@ -45,7 +46,6 @@ interface AllProjectsContextType {
 
 const AllProjectsContext = createContext<AllProjectsContextType | undefined>(undefined);
 
-
 interface AllProjectsProviderProps {
     children: React.ReactNode;
     router: RouterType;
@@ -80,17 +80,23 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch('/api/projects');
+                setLoading(true);
+                setError(null);
+                
+                const response = await fetch('/api/projects/my');
                 if (!response.ok) {
                     throw new Error('Failed to fetch projects');
                 }
+                
                 const data = await response.json();
                 setProjects(data);
-                // For now, saved projects can be empty or a subset of all projects
+                
+                // For now, savedProjects is empty - you can implement this later
                 setSavedProjects([]);
-                setLoading(false);
             } catch (err) {
-                setError(err instanceof Error ? err.message : 'An error occurred');
+                console.error('Error fetching projects:', err);
+                setError(err instanceof Error ? err.message : 'Failed to fetch projects');
+            } finally {
                 setLoading(false);
             }
         };
@@ -98,9 +104,25 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         fetchProjects();
     }, []);
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [searchQuery, activeTags]);
+    // Helper function to check if search query matches a color
+    const searchMatchesColor = (query: string, projectColorPalette: number[] = []) => {
+        if (!projectColorPalette || projectColorPalette.length === 0) return false;
+        
+        const lowerQuery = query.toLowerCase();
+        
+        // Get color objects for the project's palette
+        const projectColors = colors.filter(color => 
+            projectColorPalette.includes(color.bricklinkColorId)
+        );
+        
+        // Check if query matches any color name or semantic theme
+        return projectColors.some(color => 
+            color.bricklinkColorName.toLowerCase().includes(lowerQuery) ||
+            color.semanticThemes.some(theme => 
+                theme.toLowerCase().includes(lowerQuery)
+            )
+        );
+    };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
@@ -117,14 +139,6 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         });
     };
 
-    const handleCreateProject = () => {
-        router.push('/projects/new');
-    };
-
-    const handleProjectClick = (id: string) => {
-        router.push(`/projects/${id}`);
-    };
-
     const clearSearch = () => {
         setSearchQuery('');
         setActiveTags([]);
@@ -138,43 +152,36 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         return Array.from(tagSet).sort();
     };
 
-    const navigateCarousel = (direction: 'next' | 'prev', type: 'my' | 'saved') => {
-        if (type === 'my') {
-            setMyProjectsStartIndex(prev => direction === 'next' ? prev + 1 : prev - 1);
-        } else {
-            setSavedProjectsStartIndex(prev => direction === 'next' ? prev + 1 : prev - 1);
-        }
+    const handleCreateProject = () => {
+        router.push('/projects/new');
     };
 
-    // Filter projects based on search and tags
+    const handleProjectClick = (id: string) => {
+        router.push(`/projects/${id}`);
+    };
+
     const filterProjects = (projectsList: ProjectObject[]) => {
         return projectsList.filter(project => {
-            const matchesSearch = !searchQuery || 
+            // Search query filter - now includes color search
+            const matchesSearch = searchQuery === "" || 
                 project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                project.tags.some(tag => 
-                    tag.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-            
-            const matchesTags = activeTags.length === 0 ||
-                activeTags.every(activeTag =>
-                    project.tags.some(tag => 
-                        tag.toLowerCase() === activeTag.toLowerCase()
-                    )
-                );
-            
+                (project.description ? project.description.toLowerCase().includes(searchQuery.toLowerCase()) : false) ||
+                searchMatchesColor(searchQuery, project.colorPalette);
+
+            // Tags filter
+            const matchesTags = activeTags.length === 0 || 
+                activeTags.every(tag => project.tags.includes(tag));
+
             return matchesSearch && matchesTags;
         });
     };
 
-    const filteredProjects = filterProjects(currentView === 'saved' ? savedProjects : projects);
-
-    // Add pagination calculation
+    const filteredProjects = filterProjects(currentView === 'my' ? projects : savedProjects);
+    const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
     const paginatedProjects = filteredProjects.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
-
-    const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
 
     const value = {
         activeTags,
@@ -195,9 +202,6 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         setViewMode,
         clearSearch,
         sortOptions,
-        navigateCarousel,
-        handleProjectClick,
-        onTagClick: handleTagClick,
         currentView,
         handleCreateProject,
         allTags: getAllTags(),

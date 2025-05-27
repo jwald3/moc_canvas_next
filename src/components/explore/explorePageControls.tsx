@@ -6,22 +6,18 @@ import { useExploreProjectsContext } from "@/contexts/ExploreProjectsContext";
 
 const ExplorePageControls = () => {
     const {
-        searchQuery,
-        setSearchQuery,
-        clearSearch,
         allTags,
         activeTags,
         handleTagClick,
         viewMode,
         setViewMode,
+        handleSearch,
     } = useExploreProjectsContext();
 
     return (
         <div className="mb-6">
             <ExplorePageSearch
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                clearSearch={clearSearch}
+                onSearch={handleSearch}
             />
 
             {/* Filters and View Toggle */}
