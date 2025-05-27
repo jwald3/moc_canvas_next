@@ -46,7 +46,10 @@ const NewProjectBasicInfo = () => {
                     <input
                         type="text"
                         id="projectName"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-[#da5249]"
+                        style={{
+                            '--tw-ring-color': '#da5249',
+                        } as React.CSSProperties}
                         placeholder="e.g., LEGO Star Wars UCS Millennium Falcon"
                         value={projectName}
                         onChange={(e) => setProjectName(e.target.value)}
@@ -65,7 +68,10 @@ const NewProjectBasicInfo = () => {
                     <textarea
                         id="description"
                         rows={4}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-[#da5249]"
+                        style={{
+                            '--tw-ring-color': '#da5249',
+                        } as React.CSSProperties}
                         placeholder="Describe your LEGO project, goals, and timeline..."
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
@@ -107,7 +113,10 @@ const NewProjectBasicInfo = () => {
                         </div>
                         <input
                             type="text"
-                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-[#da5249]"
+                            style={{
+                                '--tw-ring-color': '#da5249',
+                            } as React.CSSProperties}
                             placeholder="Add tags (e.g., Star Wars, UCS, Spaceship)"
                             value={tagInput}
                             onChange={handleTagInputChange}
@@ -144,12 +153,17 @@ const NewProjectBasicInfo = () => {
                         {tags.map((tag) => (
                             <div
                                 key={tag}
-                                className="flex items-center bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                                className="flex items-center px-3 py-1 rounded-full text-sm"
+                                style={{
+                                    backgroundColor: '#f8d7d5',
+                                    color: '#8f3631'
+                                }}
                             >
                                 <span>{tag}</span>
                                 <button
                                     type="button"
-                                    className="ml-1 text-yellow-700 hover:text-yellow-900"
+                                    className="ml-1 hover:opacity-80"
+                                    style={{ color: '#8f3631' }}
                                     onClick={() => removeTag(tag)}
                                 >
                                     <X size={14} />

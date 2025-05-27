@@ -80,7 +80,7 @@ const NewProjectImageUpload = () => {
                                     onClick={() => setImagePreview(null)}
                                     className="absolute bottom-3 right-3 p-2.5 bg-white/90 rounded-full shadow-lg hover:bg-white transition-colors group/btn"
                                 >
-                                    <Trash2 size={18} className="text-gray-400 group-hover/btn:text-red-500 transition-colors" />
+                                    <Trash2 size={18} className="text-gray-400 group-hover/btn:hover:opacity-80 transition-colors" style={{ color: '#da5249' }} />
                                 </button>
                             </div>
                         </div>
@@ -103,7 +103,11 @@ const NewProjectImageUpload = () => {
                                 console.error(error);
                                 alert("Upload failed");
                             }}
-                            className="ut-button:bg-yellow-500 ut-button:text-white ut-button:rounded-lg ut-button:px-4 ut-button:py-2.5 ut-button:hover:bg-yellow-600 ut-button:transition-colors ut-button:shadow-sm"
+                            className="ut-button:text-white ut-button:rounded-lg ut-button:px-4 ut-button:py-2.5 ut-button:transition-colors ut-button:shadow-sm"
+                            style={{
+                                '--ut-button-bg': '#da5249',
+                                '--ut-button-bg-hover': '#c4483f',
+                            } as React.CSSProperties}
                         />
                     </div>
 
@@ -112,7 +116,16 @@ const NewProjectImageUpload = () => {
                             {images.map((image) => (
                                 <div
                                     key={image.id}
-                                    className="group relative rounded-xl overflow-hidden bg-gray-50 border border-gray-200 aspect-square hover:border-yellow-500 transition-colors"
+                                    className="group relative rounded-xl overflow-hidden bg-gray-50 border border-gray-200 aspect-square hover:transition-colors"
+                                    style={{
+                                        '--hover-border-color': '#da5249'
+                                    } as React.CSSProperties}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.borderColor = '#da5249';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.borderColor = '#e5e7eb';
+                                    }}
                                 >
                                     <Image
                                         src={image.url}
@@ -127,7 +140,7 @@ const NewProjectImageUpload = () => {
                                             onClick={() => removeImage(image.id)}
                                             className="absolute bottom-3 right-3 p-2.5 bg-white/90 rounded-full shadow-lg hover:bg-white transition-colors group/btn"
                                         >
-                                            <Trash2 size={18} className="text-gray-400 group-hover/btn:text-red-500 transition-colors" />
+                                            <Trash2 size={18} className="text-gray-400 group-hover/btn:hover:opacity-80 transition-colors" style={{ color: '#da5249' }} />
                                         </button>
                                     </div>
                                 </div>

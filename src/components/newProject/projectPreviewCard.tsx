@@ -96,8 +96,21 @@ const ProjectPreviewCard = () => {
                     className={`w-full ${
                         isSubmitting 
                             ? 'bg-gray-400 cursor-not-allowed' 
-                            : 'bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600'
-                    } text-white py-2 rounded-lg font-medium transition-colors`}
+                            : 'text-white py-2 rounded-lg font-medium transition-colors'
+                    }`}
+                    style={!isSubmitting ? {
+                        background: 'linear-gradient(to right, #da5249, #c4483f)',
+                    } : {}}
+                    onMouseEnter={(e) => {
+                        if (!isSubmitting) {
+                            e.currentTarget.style.background = 'linear-gradient(to right, #c4483f, #b03d35)';
+                        }
+                    }}
+                    onMouseLeave={(e) => {
+                        if (!isSubmitting) {
+                            e.currentTarget.style.background = 'linear-gradient(to right, #da5249, #c4483f)';
+                        }
+                    }}
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? (

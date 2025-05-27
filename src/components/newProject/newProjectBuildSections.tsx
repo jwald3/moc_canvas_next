@@ -67,7 +67,10 @@ const NewProjectBuildSections = () => {
                                 <input
                                     type="text"
                                     id={getSectionFieldId(section.id, 'title')}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-[#da5249]"
+                                    style={{
+                                        '--tw-ring-color': '#da5249',
+                                    } as React.CSSProperties}
                                     placeholder="e.g., Cockpit Details, Hidden Features"
                                     value={section.title}
                                     onChange={(e) =>
@@ -90,7 +93,10 @@ const NewProjectBuildSections = () => {
                                 <textarea
                                     id={getSectionFieldId(section.id, 'description')}
                                     rows={2}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-[#da5249]"
+                                    style={{
+                                        '--tw-ring-color': '#da5249',
+                                    } as React.CSSProperties}
                                     placeholder="Describe what's special about this part of your build..."
                                     value={section.description}
                                     onChange={(e) =>
@@ -110,7 +116,8 @@ const NewProjectBuildSections = () => {
                                     </label>
                                     <button
                                         type="button"
-                                        className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center"
+                                        className="text-xs font-medium flex items-center hover:opacity-80"
+                                        style={{ color: '#da5249' }}
                                         onClick={() =>
                                             addImageToSection(section.id)
                                         }
@@ -164,7 +171,20 @@ const NewProjectBuildSections = () => {
 
                 <button
                     type="button"
-                    className="w-full border border-dashed border-yellow-300 hover:border-yellow-500 rounded-lg p-3 flex items-center justify-center text-yellow-600 hover:text-yellow-800 hover:bg-yellow-50 transition-colors"
+                    className="w-full border-2 border-dashed rounded-lg p-3 flex items-center justify-center font-medium transition-colors"
+                    style={{
+                        borderColor: '#f8d7d5',
+                        color: '#da5249',
+                        backgroundColor: 'transparent'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#da5249';
+                        e.currentTarget.style.backgroundColor = '#f8d7d5';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#f8d7d5';
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                     onClick={addNewSection}
                 >
                     <Plus size={18} className="mr-2" />

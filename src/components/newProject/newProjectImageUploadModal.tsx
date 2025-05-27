@@ -61,7 +61,10 @@ const NewProjectImageUploadModal = () => {
                             <input
                                 type="text"
                                 id="imageTitle"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-[#da5249]"
+                                style={{
+                                    '--tw-ring-color': '#da5249',
+                                } as React.CSSProperties}
                                 placeholder="e.g., Main View"
                                 value={imageTitle}
                                 onChange={(e) => setImageTitle(e.target.value)}
@@ -73,10 +76,16 @@ const NewProjectImageUploadModal = () => {
                                 Upload Image
                             </label>
                             <div
-                                className="mt-1 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-yellow-500 transition-colors"
+                                className="mt-1 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer transition-colors"
                                 onDrop={onDrop}
                                 onDragOver={onDragOver}
                                 onClick={() => document.getElementById('fileInput')?.click()}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.borderColor = '#da5249';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.borderColor = '#d1d5db';
+                                }}
                             >
                                 <input
                                     type="file"
@@ -117,7 +126,16 @@ const NewProjectImageUploadModal = () => {
                             </button>
                             <button
                                 type="button"
-                                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                                className="px-4 py-2 text-white rounded-md transition-colors"
+                                style={{
+                                    backgroundColor: '#da5249'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = '#c4483f';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = '#da5249';
+                                }}
                                 onClick={handleImageUpload}
                                 disabled={!imageTitle || !selectedFile}
                             >

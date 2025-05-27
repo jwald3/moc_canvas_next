@@ -25,7 +25,20 @@ const NewProjectHeader = () => {
                     </div>
                     <div>
                         <button
-                            className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white px-4 py-2 rounded-full font-medium transition-colors shadow-md flex items-center"
+                            className="text-white px-4 py-2 rounded-full font-medium transition-colors shadow-md flex items-center"
+                            style={{
+                                background: 'linear-gradient(to right, #da5249, #c4483f)',
+                            }}
+                            onMouseEnter={(e) => {
+                                if (!isSubmitting) {
+                                    e.currentTarget.style.background = 'linear-gradient(to right, #c4483f, #b03d35)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (!isSubmitting) {
+                                    e.currentTarget.style.background = 'linear-gradient(to right, #da5249, #c4483f)';
+                                }
+                            }}
                             onClick={handleSubmit}
                             disabled={isSubmitting}
                         >
