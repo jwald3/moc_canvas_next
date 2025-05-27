@@ -1,5 +1,4 @@
 import React from 'react';
-import AllProjectsTagTray from './allProjectsTagTray';
 import AllProjectsSortAndSearch from './allProjectsSortAndSearch';
 
 const AllProjectsControls = () => {
@@ -7,7 +6,6 @@ const AllProjectsControls = () => {
         <div>
             <div className="mb-6">
                 <AllProjectsSortAndSearch />
-                <AllProjectsTagTray />
             </div>
         </div>
     );

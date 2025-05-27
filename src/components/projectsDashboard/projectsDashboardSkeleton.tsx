@@ -23,13 +23,6 @@ const ProjectsDashboardSkeleton = () => {
                 </div>
             </div>
 
-            {/* Tags Skeleton */}
-            <div className="flex flex-wrap gap-2 mb-8">
-                {[...Array(6)].map((_, i) => (
-                    <div key={i} className="h-7 w-20 bg-gray-200 rounded-full shimmer" />
-                ))}
-            </div>
-
             {/* My Projects Section Skeleton */}
             <div className="mb-12">
                 <div className="flex justify-between items-center mb-6">

@@ -29,14 +29,6 @@ const AllProjectsSkeleton = () => {
                     
                     {/* Tags tray skeleton */}
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
-                        <div className="flex flex-wrap gap-2 sm:max-w-[66%]">
-                            {[...Array(6)].map((_, i) => (
-                                <div 
-                                    key={i} 
-                                    className="w-16 h-6 bg-gray-200 rounded-full animate-pulse"
-                                />
-                            ))}
-                        </div>
                         {/* View toggle skeleton */}
                         <div className="w-20 h-8 bg-gray-200 rounded-full animate-pulse mt-4 sm:mt-0" />
                     </div>
