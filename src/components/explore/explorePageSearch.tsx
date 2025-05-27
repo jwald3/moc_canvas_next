@@ -4,8 +4,12 @@ import SearchModeSelector, { SearchMode } from "./searchModeSelector";
 import ColorSearchPicker from "./colorSearchPicker";
 import { useExploreProjectsContext } from "@/contexts/ExploreProjectsContext";
 
+interface SearchFilters {
+    colorIds?: number[];
+}
+
 interface ExplorePageSearchProps {
-    onSearch: (query: string, mode: SearchMode, filters?: any) => void;
+    onSearch: (query: string, mode: SearchMode, filters?: SearchFilters) => void;
 }
 
 const ExplorePageSearch = ({ onSearch }: ExplorePageSearchProps) => {

@@ -6,6 +6,10 @@ import { SearchMode } from '@/components/explore/searchModeSelector';
 
 type RouterType = ReturnType<typeof useRouter>;
 
+interface SearchFilters {
+    colorIds?: number[];
+}
+
 interface ExploreProjectsContextType {
     searchQuery: string;
     setSearchQuery: (query: string) => void;
@@ -19,7 +23,7 @@ interface ExploreProjectsContextType {
     handleTagClick: (tag: string) => void;
     handleThemeChange: (themeId: string) => void;
     handleProjectClick: (id: string) => void;
-    handleSearch: (query: string, mode: SearchMode, filters?: any) => void;
+    handleSearch: (query: string, mode: SearchMode, filters?: SearchFilters) => void;
     handleModeChange: (mode: SearchMode) => void;
     allTags: string[];
     isLoading: boolean;
@@ -111,7 +115,7 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
     }, []);
 
     // Handle search with different modes
-    const handleSearch = async (query: string, mode: SearchMode, filters?: any) => {
+    const handleSearch = async (query: string, mode: SearchMode, filters?: SearchFilters) => {
         try {
             setIsLoading(true);
             setError(null);
@@ -121,7 +125,7 @@ export const ExploreProjectsProvider = ({ children, router }: ExploreProjectsPro
             if (query) searchParams.set('q', query);
             searchParams.set('type', mode);
             
-            if (mode === 'color' && filters?.colorIds?.length > 0) {
+            if (mode === 'color' && filters?.colorIds && filters.colorIds.length > 0) {
                 searchParams.set('colorIds', filters.colorIds.join(','));
             }
             

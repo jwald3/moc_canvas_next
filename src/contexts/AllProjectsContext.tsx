@@ -197,6 +197,7 @@ export const AllProjectsProvider = ({ children, router }: AllProjectsProviderPro
         setSavedProjectsStartIndex,
         handleSearch,
         handleTagClick,
+        handleProjectClick,
         getAllTags,
         viewMode,
         setViewMode,
