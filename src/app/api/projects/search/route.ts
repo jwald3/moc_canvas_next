@@ -11,7 +11,17 @@ export async function GET(request: Request) {
         const themeId = searchParams.get('themeId');
         const colorIds = searchParams.get('colorIds')?.split(',').map(Number) || [];
 
-        const whereClause: any = {
+        const whereClause: {
+            public: boolean;
+            colorPalette?: { hasSome: number[] };
+            themeId?: string;
+            tags?: { has: string };
+            OR?: Array<{
+                title?: { contains: string; mode: 'insensitive' };
+                description?: { contains: string; mode: 'insensitive' };
+                tags?: { has: string };
+            }>;
+        } = {
             public: true
         };
 
