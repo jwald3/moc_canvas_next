@@ -4,25 +4,18 @@ import colors from "@/lib/colors";
 import { Palette, Check, X } from "lucide-react";
 
 const ProjectColorsTabContents = () => {
-    const { project, isLoading, isOwner } = useProjectHomeContext();
+    const { project, isLoading, isOwner, updateProject } = useProjectHomeContext();
     const [selectedColors, setSelectedColors] = useState<number[]>([]);
     const [isEditing, setIsEditing] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Initialize selected colors from localStorage for now
+    // Initialize selected colors from project data
     useEffect(() => {
-        if (project?.id) {
-            const stored = localStorage.getItem(`project-colors-${project.id}`);
-            if (stored) {
-                try {
-                    setSelectedColors(JSON.parse(stored));
-                } catch (error) {
-                    console.error('Error parsing stored colors:', error);
-                }
-            }
+        if (project?.colorPalette) {
+            setSelectedColors(project.colorPalette);
         }
-    }, [project?.id]);
+    }, [project?.colorPalette]);
 
     // Filter colors based on search term
     const filteredColors = colors.filter(color => 
@@ -50,7 +43,22 @@ const ProjectColorsTabContents = () => {
 
         setIsSaving(true);
         try {
-            localStorage.setItem(`project-colors-${project.id}`, JSON.stringify(selectedColors));
+            const response = await fetch(`/api/projects/${project.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    colorPalette: selectedColors
+                }),
+            });
+
+            if (!response.ok) throw new Error('Failed to update color palette');
+            
+            const updatedProject = await response.json();
+            
+            // Update the project in context with the new data
+            updateProject(updatedProject);
             
             setIsEditing(false);
         } catch (error) {
@@ -62,20 +70,8 @@ const ProjectColorsTabContents = () => {
     };
 
     const handleCancel = () => {
-        // Restore from localStorage
-        if (project?.id) {
-            const stored = localStorage.getItem(`project-colors-${project.id}`);
-            if (stored) {
-                try {
-                    setSelectedColors(JSON.parse(stored));
-                } catch (error) {
-                    console.error('Error parsing stored colors:', error);
-                    setSelectedColors([]);
-                }
-            } else {
-                setSelectedColors([]);
-            }
-        }
+        // Restore from project data
+        setSelectedColors(project?.colorPalette || []);
         setIsEditing(false);
     };
 

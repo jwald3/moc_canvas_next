@@ -13,6 +13,7 @@ model HandSpunProject {
   title       String
   description String
   tags        String[]
+  colorPalette Int[]   @default([]) // New field for BrickLink color IDs
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   status      String   

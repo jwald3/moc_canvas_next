@@ -3,6 +3,7 @@ export interface ProjectObject {
     title: string;
     description: string;
     tags: string[];
+    colorPalette?: number[];
     theme: ProjectThemeObject;
     createdAt: Date;
     updatedAt: Date;

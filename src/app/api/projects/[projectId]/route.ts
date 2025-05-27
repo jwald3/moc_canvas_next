@@ -9,7 +9,7 @@ export async function PUT(
 ) {
     try {
         const { userId } = await auth();
-        const { title, description } = await request.json();
+        const body = await request.json();
         const { projectId } = await params;
 
         // Only require authentication for editing
@@ -40,12 +40,24 @@ export async function PUT(
             );
         }
 
+        // Prepare update data - only include fields that are provided
+        const updateData: any = {};
+        
+        if (body.title !== undefined) {
+            updateData.title = body.title;
+        }
+        
+        if (body.description !== undefined) {
+            updateData.description = body.description;
+        }
+        
+        if (body.colorPalette !== undefined) {
+            updateData.colorPalette = body.colorPalette;
+        }
+
         const updatedProject = await prisma.handSpunProject.update({
             where: { id: projectId },
-            data: {
-                title,
-                description,
-            },
+            data: updateData,
             include: {
                 mainImage: true,
                 theme: true,
