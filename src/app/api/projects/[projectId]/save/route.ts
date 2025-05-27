@@ -94,7 +94,7 @@ export async function DELETE(
         }
 
         // Remove the save record
-        const result = await prisma.handSpunSavedProject.deleteMany({
+        await prisma.handSpunSavedProject.deleteMany({
             where: {
                 userId,
                 projectId,

@@ -67,6 +67,7 @@ const SingleProjectHeader = () => {
                 // Fallback to clipboard
                 navigator.clipboard.writeText(window.location.href);
                 alert('Link copied to clipboard!');
+                console.log(error)
             }
         } else {
             // Fallback to clipboard
