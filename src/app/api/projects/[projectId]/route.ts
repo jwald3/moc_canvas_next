@@ -41,7 +41,11 @@ export async function PUT(
         }
 
         // Prepare update data - only include fields that are provided
-        const updateData: any = {};
+        const updateData: {
+            title?: string;
+            description?: string;
+            colorPalette?: number[];
+        } = {};
         
         if (body.title !== undefined) {
             updateData.title = body.title;
@@ -52,7 +56,10 @@ export async function PUT(
         }
         
         if (body.colorPalette !== undefined) {
-            updateData.colorPalette = body.colorPalette;
+            // Parse colorPalette string to number array if it's a string
+            updateData.colorPalette = typeof body.colorPalette === 'string' 
+                ? JSON.parse(body.colorPalette) 
+                : body.colorPalette;
         }
 
         const updatedProject = await prisma.handSpunProject.update({
