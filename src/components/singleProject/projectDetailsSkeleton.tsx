@@ -31,15 +31,6 @@ const ProjectDetailsSkeleton = () => {
                                 <div className="h-4 bg-gray-200 rounded mb-2 w-3/4" />
                                 <div className="h-4 bg-gray-200 rounded mb-2 w-1/2" />
                             </div>
-                            <div className="flex flex-col sm:items-end gap-4">
-                                <div className="w-full sm:w-64">
-                                    <div className="h-8 bg-gray-200 rounded" />
-                                </div>
-                                <div className="flex flex-col">
-                                    <div className="h-6 bg-gray-200 rounded w-24 mb-2" />
-                                    <div className="h-4 bg-gray-200 rounded w-20" />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
